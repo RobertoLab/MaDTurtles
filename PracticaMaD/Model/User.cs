@@ -12,27 +12,28 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Image
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Image()
+        public User()
         {
-            this.Exifs = new HashSet<Exif>();
+            this.Follows = new HashSet<Follows>();
             this.Likes = new HashSet<Like>();
             this.Comments = new HashSet<Comment>();
         }
     
-        public long imgId { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
-        public System.DateTime uploadDate { get; set; }
-        public int categoryId { get; set; }
-        public Nullable<byte> img { get; set; }
-        public string path { get; set; }
+        public long userId { get; set; }
+        public string userName { get; set; }
+        public string password { get; set; }
+        public string firstName { get; set; }
+        public string lastName1 { get; set; }
+        public string lastName2 { get; set; }
+        public string email { get; set; }
+        public string country { get; set; }
+        public string language { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Exif> Exifs { get; set; }
-        public virtual Category Category { get; set; }
+        public virtual ICollection<Follows> Follows { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -28,5 +28,9 @@ namespace Model
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Exif> Exifs { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Follows> Follows { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     }
 }

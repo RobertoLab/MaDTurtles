@@ -12,12 +12,15 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Exif
+    public partial class Comment
     {
-        public string infoType { get; set; }
-        public decimal value { get; set; }
+        public long commentId { get; set; }
+        public long userId { get; set; }
         public long imgId { get; set; }
+        public string comment { get; set; }
+        public System.DateTime uploadDate { get; set; }
     
+        public virtual User User { get; set; }
         public virtual Image Image { get; set; }
     }
 }

@@ -12,12 +12,12 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Exif
+    public partial class Like
     {
-        public string infoType { get; set; }
-        public decimal value { get; set; }
+        public long userId { get; set; }
         public long imgId { get; set; }
     
+        public virtual User User { get; set; }
         public virtual Image Image { get; set; }
     }
 }
