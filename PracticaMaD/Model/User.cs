@@ -20,6 +20,7 @@ namespace Model
             this.Follows = new HashSet<Follows>();
             this.Likes = new HashSet<Like>();
             this.Comments = new HashSet<Comment>();
+            this.Images = new HashSet<Image>();
         }
     
         public long userId { get; set; }
@@ -38,5 +39,7 @@ namespace Model
         public virtual ICollection<Like> Likes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

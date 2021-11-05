@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Model
+namespace Es.Udc.DotNet.PracticaMaD.Model
 {
     using System;
     using System.Collections.Generic;
@@ -29,6 +29,7 @@ namespace Model
         public int categoryId { get; set; }
         public Nullable<byte> img { get; set; }
         public string path { get; set; }
+        public long userId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exif> Exifs { get; set; }
@@ -37,5 +38,6 @@ namespace Model
         public virtual ICollection<Like> Likes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -47,6 +47,10 @@
             <End Role="Image" EntitySet="Images" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
+          <AssociationSet Name="UserImage" Association="PracticaMaDModel.UserImage">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Image" EntitySet="Images" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Image">
           <Key>
@@ -63,6 +67,8 @@
           <NavigationProperty Name="Category" Relationship="PracticaMaDModel.ImageCategory" FromRole="Image" ToRole="Category" />
           <NavigationProperty Name="Likes" Relationship="PracticaMaDModel.ImageLike" FromRole="Image" ToRole="Like" />
           <NavigationProperty Name="Comments" Relationship="PracticaMaDModel.ImageComment" FromRole="Image" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="PracticaMaDModel.UserImage" FromRole="Image" ToRole="User" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Exif">
           <Key>
@@ -116,6 +122,7 @@
           <NavigationProperty Name="Follows" Relationship="PracticaMaDModel.UserFollows" FromRole="User" ToRole="Follows" />
           <NavigationProperty Name="Likes" Relationship="PracticaMaDModel.UserLike" FromRole="User" ToRole="Like" />
           <NavigationProperty Name="Comments" Relationship="PracticaMaDModel.UserComment" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Images" Relationship="PracticaMaDModel.UserImage" FromRole="User" ToRole="Image" />
         </EntityType>
         <EntityType Name="Follows" >
           <Key>
@@ -161,8 +168,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ImageLike">
-          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" />
-          <End Type="PracticaMaDModel.Like" Role="Like" Multiplicity="*" />
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PracticaMaDModel.Like" Role="Like" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="Image">
               <PropertyRef Name="imgId" />
@@ -197,14 +207,29 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ImageComment">
-          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" />
-          <End Type="PracticaMaDModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PracticaMaDModel.Comment" Role="Comment" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="Image">
               <PropertyRef Name="imgId" />
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="imgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserImage">
+          <End Type="PracticaMaDModel.User" Role="User" Multiplicity="1" />
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

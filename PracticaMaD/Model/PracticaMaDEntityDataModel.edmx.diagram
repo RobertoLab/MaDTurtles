@@ -19,6 +19,7 @@
         <EntityTypeShape EntityType="PracticaMaDModel.Comment" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="PracticaMaDModel.UserComment" />
         <AssociationConnector Association="PracticaMaDModel.ImageComment" />
+        <AssociationConnector Association="PracticaMaDModel.UserImage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

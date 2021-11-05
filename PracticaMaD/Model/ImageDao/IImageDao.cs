@@ -11,26 +11,34 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
     public interface IImageDao : IGenericDao<Image, Int64>
     {
         /// <summary>
-        /// Returns an Image from DB by a given identifier. 
-        /// If the identifier does not exist, a null value is returned.
+        /// Check if the image was uploaded by the given user.
         /// </summary>
-        /// <param name="imgId">the image identifier</param>
-        /// <returns>the image retrieved</returns>
-        Image FindByImgId(long imgId);
+        /// <param name="imgId">The image identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>True if the image belongs to the user, false otherwise.</returns>
+        bool BelongsTo(long imgId, long userId);
+
+        /// <summary>
+        /// Returns a list of Images from DB that adecuate to a 
+        /// list of keywords in either title or description of image.
+        /// If none is found returns an empty list.
+        /// </summary>
+        /// <param name="keywords">The keywords to search separated by spaces.</param>
+        /// <returns>The list of images retrieved from DB.</returns>
+        List<Image> FindByKeywords(string keywords);
 
         /// <summary>
         /// Returns a list of Images from DB that adecuate to a
         /// list of keywords in either title or description of image, 
         /// if a category is also given it will only retrieve images
         /// from that category.
-        /// If the category is null or empty it will search indepenently 
-        /// of the category.
         /// If none is found returns an empty list.
         /// </summary>
         /// <param name="keywords">the keywords to search separated by spaces.
         /// Ex:"landscape lake sunny"</param>
         /// <param name="category">the category to search only for</param>
-        /// <returns></returns>
+        /// <returns>The list of images retrieved from DB.</returns>
         List<Image> FindByKeywords(string keywords, string category);
+
     }
 }
