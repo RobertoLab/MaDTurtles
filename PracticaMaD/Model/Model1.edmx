@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PracticaMaDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PracticaMaDModelStoreContainer">
+    <EntitySet Name="Images" EntityType="PracticaMaDModel.Store.Images" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Exifs" EntityType="PracticaMaDModel.Store.Exifs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="PracticaMaDModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="PracticaMaDModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Follows" EntityType="PracticaMaDModel.Store.Follows" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Likes" EntityType="PracticaMaDModel.Store.Likes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="PracticaMaDModel.Store.Comments" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ImageExif" Association="PracticaMaDModel.Store.ImageExif">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Exif" EntitySet="Exifs" />
+    </AssociationSet>
+    <AssociationSet Name="ImageCategory" Association="PracticaMaDModel.Store.ImageCategory">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="UserFollows" Association="PracticaMaDModel.Store.UserFollows">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Follows" EntitySet="Follows" />
+    </AssociationSet>
+    <AssociationSet Name="UserLike" Association="PracticaMaDModel.Store.UserLike">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Like" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="ImageLike" Association="PracticaMaDModel.Store.ImageLike">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Like" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="UserComment" Association="PracticaMaDModel.Store.UserComment">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="ImageComment" Association="PracticaMaDModel.Store.ImageComment">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="UserImage" Association="PracticaMaDModel.Store.UserImage">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="imgId" />
+    </Key>
+    <Property Name="imgId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="uploadDate" Type="datetime" Nullable="false" />
+    <Property Name="categoryId" Type="int" Nullable="false" />
+    <Property Name="img" Type="varbinary(max)" Nullable="true" />
+    <Property Name="path" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="userId" Type="bigint" Nullable="false" />
+    <Property Name="Category_categoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exifs">
+    <Key>
+      <PropertyRef Name="infoType" />
+      <PropertyRef Name="imgId" />
+    </Key>
+    <Property Name="infoType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="value" Type="decimal" Nullable="false" />
+    <Property Name="imgId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="categoryId" Type="int" Nullable="false" />
+    <Property Name="category" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="lastName1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="lastName2" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="language" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Follows">
+    <Key>
+      <PropertyRef Name="followedId" />
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="bigint" Nullable="false" />
+    <Property Name="followedId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Likes">
+    <Key>
+      <PropertyRef Name="userId" />
+      <PropertyRef Name="imgId" />
+    </Key>
+    <Property Name="userId" Type="bigint" Nullable="false" />
+    <Property Name="imgId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="commentId" />
+    </Key>
+    <Property Name="commentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="bigint" Nullable="false" />
+    <Property Name="imgId" Type="bigint" Nullable="false" />
+    <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="uploadDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="ImageExif">
+    <End Role="Image" Type="PracticaMaDModel.Store.Images" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exif" Type="PracticaMaDModel.Store.Exifs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="imgId" />
+      </Principal>
+      <Dependent Role="Exif">
+        <PropertyRef Name="imgId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImageCategory">
+    <End Role="Image" Type="PracticaMaDModel.Store.Images" Multiplicity="*" />
+    <End Role="Category" Type="PracticaMaDModel.Store.Categories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="categoryId" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="Category_categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserFollows">
+    <End Role="User" Type="PracticaMaDModel.Store.Users" Multiplicity="1" />
+    <End Role="Follows" Type="PracticaMaDModel.Store.Follows" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Follows">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserLike">
+    <End Role="User" Type="PracticaMaDModel.Store.Users" Multiplicity="1" />
+    <End Role="Like" Type="PracticaMaDModel.Store.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Like">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImageLike">
+    <End Role="Image" Type="PracticaMaDModel.Store.Images" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Like" Type="PracticaMaDModel.Store.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="imgId" />
+      </Principal>
+      <Dependent Role="Like">
+        <PropertyRef Name="imgId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserComment">
+    <End Role="User" Type="PracticaMaDModel.Store.Users" Multiplicity="1" />
+    <End Role="Comment" Type="PracticaMaDModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImageComment">
+    <End Role="Image" Type="PracticaMaDModel.Store.Images" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comment" Type="PracticaMaDModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="imgId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="imgId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserImage">
+    <End Role="User" Type="PracticaMaDModel.Store.Users" Multiplicity="1" />
+    <End Role="Image" Type="PracticaMaDModel.Store.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PracticaMaDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PracticaMaDEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Images" EntityType="PracticaMaDModel.Image" />
+          <EntitySet Name="Exifs" EntityType="PracticaMaDModel.Exif" />
+          <EntitySet Name="Categories" EntityType="PracticaMaDModel.Category" />
+          <AssociationSet Name="ImageExif" Association="PracticaMaDModel.ImageExif">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="Exif" EntitySet="Exifs" />
+          </AssociationSet>
+          <AssociationSet Name="ImageCategory" Association="PracticaMaDModel.ImageCategory">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="PracticaMaDModel.User" />
+          <EntitySet Name="Follows" EntityType="PracticaMaDModel.Follows" />
+          <AssociationSet Name="UserFollows" Association="PracticaMaDModel.UserFollows">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+          <EntitySet Name="Likes" EntityType="PracticaMaDModel.Like" />
+          <AssociationSet Name="UserLike" Association="PracticaMaDModel.UserLike">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Like" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="ImageLike" Association="PracticaMaDModel.ImageLike">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="Like" EntitySet="Likes" />
+          </AssociationSet>
+          <EntitySet Name="Comments" EntityType="PracticaMaDModel.Comment" />
+          <AssociationSet Name="UserComment" Association="PracticaMaDModel.UserComment">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="ImageComment" Association="PracticaMaDModel.ImageComment">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="UserImage" Association="PracticaMaDModel.UserImage">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Image" EntitySet="Images" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="imgId" />
+          </Key>
+          <Property Name="imgId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="true" />
+          <Property Name="uploadDate" Type="DateTime" Nullable="false" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
+          <Property Name="img" Type="Binary" Nullable="true" />
+          <Property Name="path" Type="String" Nullable="true" />
+          <NavigationProperty Name="Exifs" Relationship="PracticaMaDModel.ImageExif" FromRole="Image" ToRole="Exif" />
+          <NavigationProperty Name="Category" Relationship="PracticaMaDModel.ImageCategory" FromRole="Image" ToRole="Category" />
+          <NavigationProperty Name="Likes" Relationship="PracticaMaDModel.ImageLike" FromRole="Image" ToRole="Like" />
+          <NavigationProperty Name="Comments" Relationship="PracticaMaDModel.ImageComment" FromRole="Image" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="PracticaMaDModel.UserImage" FromRole="Image" ToRole="User" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exif">
+          <Key>
+            <PropertyRef Name="infoType" />
+            <PropertyRef Name="imgId" />
+          </Key>
+          <Property Name="infoType" Type="String" Nullable="false" />
+          <Property Name="value" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="PracticaMaDModel.ImageExif" FromRole="Exif" ToRole="Image" />
+          <Property Name="imgId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <NavigationProperty Name="Images" Relationship="PracticaMaDModel.ImageCategory" FromRole="Category" ToRole="Image" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="ImageExif">
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PracticaMaDModel.Exif" Role="Exif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="imgId" />
+            </Principal>
+            <Dependent Role="Exif">
+              <PropertyRef Name="imgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ImageCategory">
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="*" />
+          <End Type="PracticaMaDModel.Category" Role="Category" Multiplicity="1" />
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" />
+          <Property Name="lastName1" Type="String" Nullable="false" />
+          <Property Name="lastName2" Type="String" Nullable="true" />
+          <Property Name="email" Type="String" Nullable="false" />
+          <Property Name="country" Type="String" Nullable="false" />
+          <Property Name="language" Type="String" Nullable="false" />
+          <NavigationProperty Name="Follows" Relationship="PracticaMaDModel.UserFollows" FromRole="User" ToRole="Follows" />
+          <NavigationProperty Name="Likes" Relationship="PracticaMaDModel.UserLike" FromRole="User" ToRole="Like" />
+          <NavigationProperty Name="Comments" Relationship="PracticaMaDModel.UserComment" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Images" Relationship="PracticaMaDModel.UserImage" FromRole="User" ToRole="Image" />
+        </EntityType>
+        <EntityType Name="Follows" >
+          <Key>
+            <PropertyRef Name="followedId" />
+            <PropertyRef Name="userId" />
+          </Key>
+          <NavigationProperty Name="User" Relationship="PracticaMaDModel.UserFollows" FromRole="Follows" ToRole="User" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+          <Property Name="followedId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <Association Name="UserFollows">
+          <End Type="PracticaMaDModel.User" Role="User" Multiplicity="1" />
+          <End Type="PracticaMaDModel.Follows" Role="Follows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Like" >
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="imgId" />
+          </Key>
+          <NavigationProperty Name="User" Relationship="PracticaMaDModel.UserLike" FromRole="Like" ToRole="User" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="PracticaMaDModel.ImageLike" FromRole="Like" ToRole="Image" />
+          <Property Name="imgId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <Association Name="UserLike">
+          <End Type="PracticaMaDModel.User" Role="User" Multiplicity="1" />
+          <End Type="PracticaMaDModel.Like" Role="Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ImageLike">
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PracticaMaDModel.Like" Role="Like" Multiplicity="*" >
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="imgId" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="imgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Name="commentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="PracticaMaDModel.UserComment" FromRole="Comment" ToRole="User" />
+          <Property Name="userId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="PracticaMaDModel.ImageComment" FromRole="Comment" ToRole="Image" />
+          <Property Name="imgId" Type="Int64" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" />
+          <Property Name="uploadDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="UserComment">
+          <End Type="PracticaMaDModel.User" Role="User" Multiplicity="1" />
+          <End Type="PracticaMaDModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ImageComment">
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PracticaMaDModel.Comment" Role="Comment" Multiplicity="*" >
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="imgId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="imgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserImage">
+          <End Type="PracticaMaDModel.User" Role="User" Multiplicity="1" />
+          <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PracticaMaDModelStoreContainer" CdmEntityContainer="PracticaMaDEntities">
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="IsTypeOf(PracticaMaDModel.Image)">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="uploadDate" ColumnName="uploadDate" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exifs">
+      <EntityTypeMapping TypeName="IsTypeOf(PracticaMaDModel.Exif)">
+        <MappingFragment StoreEntitySet="Exifs">
+          <ScalarProperty Name="infoType" ColumnName="infoType" />
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="value" ColumnName="value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(PracticaMaDModel.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="category" ColumnName="category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(PracticaMaDModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName1" ColumnName="lastName1" />
+          <ScalarProperty Name="lastName2" ColumnName="lastName2" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="language" ColumnName="language" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Follows">
+      <EntityTypeMapping TypeName="IsTypeOf(PracticaMaDModel.Follows)">
+        <MappingFragment StoreEntitySet="Follows">
+          <ScalarProperty Name="followedId" ColumnName="followedId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Likes">
+      <EntityTypeMapping TypeName="IsTypeOf(PracticaMaDModel.Like)">
+        <MappingFragment StoreEntitySet="Likes">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(PracticaMaDModel.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="commentId" ColumnName="commentId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="uploadDate" ColumnName="uploadDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ImageCategory" TypeName="PracticaMaDModel.ImageCategory" StoreEntitySet="Images">
+      <EndProperty Name="Category">
+        <ScalarProperty Name="categoryId" ColumnName="Category_categoryId" />
+      </EndProperty>
+      <EndProperty Name="Image">
+        <ScalarProperty Name="imgId" ColumnName="imgId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

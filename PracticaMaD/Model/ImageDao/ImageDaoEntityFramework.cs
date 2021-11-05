@@ -24,7 +24,8 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
             return result;
         }
 
-        public List<Image> FindByKeywords(string keywordCriteria, string categoryCriteria)
+        public List<Image> FindByKeywords(string keywordCriteria, string categoryCriteria
+            , int startIndex, int count)
         {
             DbSet<Image> images = Context.Set<Image>();
             DbSet<Category> categories = Context.Set<Category>();
@@ -35,7 +36,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
                  (from img in images
                  join cat in categories on img.categoryId equals cat.categoryId
                  where cat.category == categoryCriteria
-                 select img);
+                 select img).Skip(startIndex).Take(count);
 
             foreach (string keyword in keywords)
             {
@@ -46,7 +47,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
             return result.ToList<Image>();
         }
 
-        public List<Image> FindByKeywords(string criteria)
+        public List<Image> FindByKeywords(string criteria, int startIndex, int count)
         {
             DbSet<Image> images = Context.Set<Image>();
 
@@ -54,7 +55,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
 
             var result =
                 (from img in images
-                 select img).ToList<Image>();
+                 select img).Skip(startIndex).Take(count).ToList<Image>();
 
             return result;
         }

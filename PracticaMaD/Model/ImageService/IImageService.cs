@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Es.Udc.DotNet.PracticaMaD.Model.Dtos;
 
 namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
 {
-    interface IImageService
+    public interface IImageService
     {
         /// <summary>
         /// Stores the image.
         /// </summary>
         /// <param name="img">The image.</param>
-        void StoreImage(Image image);
+        void StoreImageAsBlob(ImageDto imageDto);
+
+        /// <summary>
+        /// Stores the image.
+        /// </summary>
+        /// <param name="img">The image.</param>
+        void StoreImageAsFile(ImageDto imageDto);
 
         /// <summary>
         /// Deletes the image.
@@ -27,14 +34,14 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
         /// <param name="imgId">The img identifier.</param>
         /// <exception cref="InstanceNotFoundException">
         /// <returns>The image retrieved from the DB.</returns>
-        Image SearchImage(long imgId);
+        ImageInfo SearchImage(long imgId);
 
         /// <summary>
         /// Searches for images by keywords.
         /// </summary>
         /// <param name="keywords">The keywords.</param>
         /// <returns>The list of Images retrieved from the DB.</returns>
-        List<Image> SearchByKeywords(string keywords);
+        Block<ImageInfo> SearchByKeywords(string keywords, int startIndex, int count);
 
         /// <summary>
         /// Searches for images by keywords and category.
@@ -42,6 +49,6 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
         /// <param name="keywords">The keywords.</param>
         /// <param name="categoryId">The category.</param>
         /// <returns>The list of Images retrieved from the DB.</returns>
-        List<Image> SearchByKeywordsAndCategory(string keywords, string category);
+        Block<ImageInfo> SearchByKeywordsAndCategory(string keywords, string category, int startIndex, int count);
     }
 }
