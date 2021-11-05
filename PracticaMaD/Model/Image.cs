@@ -27,7 +27,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Model
         public string description { get; set; }
         public System.DateTime uploadDate { get; set; }
         public int categoryId { get; set; }
-        public Nullable<byte> img { get; set; }
+        public byte[] img { get; set; }
         public string path { get; set; }
         public long userId { get; set; }
     

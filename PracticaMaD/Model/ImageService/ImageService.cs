@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO;
+using System.Drawing;
 using System.Collections.Generic;
 using Ninject;
 using Es.Udc.DotNet.PracticaMaD.Model.ImageDao;
+using Es.Udc.DotNet.PracticaMaD.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using static Es.Udc.DotNet.PracticaMaD.Model.Dtos.ImageConversor;
 
 namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
 {
@@ -14,11 +18,53 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
         [Inject]
         public IImageDao ImageDao { private get; set; }
 
+        public string ImagesDirectory = Directory.GetCurrentDirectory();
+        
+        private string StoreImageFile(string imgB64, long imgId)
+        {
+            string dirPath = Directory.GetParent(Directory.GetParent(ImagesDirectory).FullName).FullName;
+            if (!Directory.Exists(dirPath + "\\images")) {
+                dirPath = dirPath + "\\images";
+                Directory.CreateDirectory(dirPath);
+            }
+            byte[] imgAsBytes = System.Convert.FromBase64String(imgB64);
+            MemoryStream imgAsStream = new MemoryStream(imgAsBytes);
+            System.Drawing.Image image = System.Drawing.Image.FromStream(imgAsStream);
+            string imageName = imgId.ToString();
+            string imageFile = dirPath + "\\" + imgId.ToString();
+            image.Save(imageFile);
+            return imageName;
+        }
+
         #region IImageService Members
 
         [Transactional]
-        public void StoreImage(Image image)
+        public void StoreImageAsBlob(ImageDto imageDto)
         {
+            Image image = null;
+            image.title = imageDto.title;
+            image.description = imageDto.description;
+            image.categoryId = imageDto.categoryId;
+            image.userId = imageDto.userId;
+            image.uploadDate = System.DateTime.Now;
+            image.path = null;
+            image.img = System.Convert.FromBase64String(imageDto.imgB64);
+            ImageDao.Create(image);
+        }
+
+        [Transactional]
+        public void StoreImageAsFile(ImageDto imageDto)
+        {
+            Image image = null;
+            image.title = imageDto.title;
+            image.description = imageDto.description;
+            image.categoryId = imageDto.categoryId;
+            image.userId = imageDto.userId;
+            image.uploadDate = System.DateTime.Now;
+            image.path = imageDto.imgB64;
+            image.img = null;
+            string imageName = StoreImageFile(imageDto.imgB64, image.imgId);
+            image.path = imageName;
             ImageDao.Create(image);
         }
 
@@ -35,27 +81,31 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public Image SearchImage(long imgId)
+        public ImageInfo SearchImage(long imgId)
         {
             Image image = null;
             image = ImageDao.Find(imgId);
-            return image;
+            return ToImageInfo(image);
         }
 
         [Transactional]
-        public List<Image> SearchByKeywords(string keywords)
+        public Block<ImageInfo> SearchByKeywords(string keywords, int startIndex, int count)
         {
             List<Image> imagesFound = null;
-            imagesFound = ImageDao.FindByKeywords(keywords);
-            return imagesFound;
+            imagesFound = ImageDao.FindByKeywords(keywords, startIndex, count + 1);
+            bool existMoreImages = (imagesFound.Count == count + 1);
+
+            return new Block<ImageInfo>(ToImageInfos(imagesFound), existMoreImages);
         }
 
         [Transactional]
-        public List<Image> SearchByKeywordsAndCategory(string keywords, string category)
+        public Block<ImageInfo> SearchByKeywordsAndCategory(string keywords, string category, int startIndex, int count)
         {
             List<Image> imagesFound = null;
-            imagesFound = ImageDao.FindByKeywords(keywords, category);
-            return imagesFound;
+            imagesFound = ImageDao.FindByKeywords(keywords, category, startIndex, count + 1);
+            bool existMoreImages = (imagesFound.Count == count + 1);
+
+            return new Block<ImageInfo>(ToImageInfos(imagesFound), existMoreImages);
         }
 
         #endregion IImageService Members

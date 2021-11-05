@@ -1,0 +1,17 @@
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\obj\Debug\Model.csprojAssemblyReference.cache
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\Model.dll.config
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\Model.dll
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\Model.pdb
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\EntityFramework.dll
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\EntityFramework.SqlServer.dll
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\ModelUtil.dll
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\Ninject.dll
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\Ninject.Extensions.Interception.dll
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\EntityFramework.xml
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\EntityFramework.SqlServer.xml
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\Ninject.xml
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\bin\Debug\Ninject.Extensions.Interception.xml
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\obj\Debug\Model.csproj.CopyComplete
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\obj\Debug\Model.dll
+E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\obj\Debug\Model.pdb

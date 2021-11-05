@@ -25,7 +25,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
         /// </summary>
         /// <param name="keywords">The keywords to search separated by spaces.</param>
         /// <returns>The list of images retrieved from DB.</returns>
-        List<Image> FindByKeywords(string keywords);
+        List<Image> FindByKeywords(string keywords, int startIndex, int count);
 
         /// <summary>
         /// Returns a list of Images from DB that adecuate to a
@@ -38,7 +38,6 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
         /// Ex:"landscape lake sunny"</param>
         /// <param name="category">the category to search only for</param>
         /// <returns>The list of images retrieved from DB.</returns>
-        List<Image> FindByKeywords(string keywords, string category);
-
+        List<Image> FindByKeywords(string keywords, string category, int startIndex, int count);
     }
 }
