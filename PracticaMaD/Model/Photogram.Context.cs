@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Model
+namespace Es.Udc.DotNet.Photogram.Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PracticaMaDEntities : DbContext
+    public partial class PhotogramEntities : DbContext
     {
-        public PracticaMaDEntities()
-            : base("name=PracticaMaDEntities")
+        public PhotogramEntities()
+            : base("name=PhotogramEntities")
         {
         }
     

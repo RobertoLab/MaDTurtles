@@ -4,7 +4,7 @@ using System.Linq;
 using System.Data.Entity;
 using Es.Udc.DotNet.ModelUtil.Dao;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
+namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 {
     public class ImageDaoEntityFramework :
         GenericDaoEntityFramework<Image, Int64>, IImageDao

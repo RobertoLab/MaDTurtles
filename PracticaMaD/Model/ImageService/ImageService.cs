@@ -3,13 +3,13 @@ using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using Ninject;
-using Es.Udc.DotNet.PracticaMaD.Model.ImageDao;
-using Es.Udc.DotNet.PracticaMaD.Model.Dtos;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
-using static Es.Udc.DotNet.PracticaMaD.Model.Dtos.ImageConversor;
+using static Es.Udc.DotNet.Photogram.Model.Dtos.ImageConversor;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
+namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
     public class ImageService : IImageService
     {

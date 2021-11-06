@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Model
+namespace Es.Udc.DotNet.Photogram.Model
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Like
     {
-        public long userId { get; set; }
         public long imgId { get; set; }
+        public long userId { get; set; }
     
-        public virtual User User { get; set; }
         public virtual Image Image { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
+namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 {
     /// <summary>
     /// This exception is raised if the image category to search for

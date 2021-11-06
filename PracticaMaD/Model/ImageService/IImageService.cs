@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Es.Udc.DotNet.PracticaMaD.Model.Dtos;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
+namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
     public interface IImageService
     {
