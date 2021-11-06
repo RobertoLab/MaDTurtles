@@ -51,12 +51,12 @@
       <PropertyRef Name="imgId" />
     </Key>
     <Property Name="imgId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="title" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="description" Type="nvarchar" Nullable="true" MaxLength="2200" />
     <Property Name="uploadDate" Type="datetime" Nullable="false" />
     <Property Name="categoryId" Type="int" Nullable="false" />
     <Property Name="img" Type="varbinary(max)" Nullable="true" />
-    <Property Name="path" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="path" Type="nvarchar" Nullable="true" MaxLength="20" />
     <Property Name="userId" Type="bigint" Nullable="false" />
     <Property Name="Category_categoryId" Type="int" Nullable="false" />
   </EntityType>
@@ -65,7 +65,7 @@
       <PropertyRef Name="infoType" />
       <PropertyRef Name="imgId" />
     </Key>
-    <Property Name="infoType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="infoType" Type="nvarchar" Nullable="false" MaxLength="5" />
     <Property Name="value" Type="decimal" Nullable="false" />
     <Property Name="imgId" Type="bigint" Nullable="false" />
   </EntityType>
@@ -74,21 +74,21 @@
       <PropertyRef Name="categoryId" />
     </Key>
     <Property Name="categoryId" Type="int" Nullable="false" />
-    <Property Name="category" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="category" Type="nvarchar" Nullable="false" MaxLength="20" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="userId" />
     </Key>
     <Property Name="userId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="firstName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="lastName1" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="lastName2" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="country" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="language" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="firstName" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="lastName1" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="lastName2" Type="nvarchar" Nullable="true" MaxLength="60" />
+    <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="country" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="language" Type="nvarchar" Nullable="false" MaxLength="30" />
   </EntityType>
   <EntityType Name="Follows">
     <Key>
@@ -113,7 +113,7 @@
     <Property Name="commentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userId" Type="bigint" Nullable="false" />
     <Property Name="imgId" Type="bigint" Nullable="false" />
-    <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="comment" Type="nvarchar" Nullable="false" MaxLength="2200" />
     <Property Name="uploadDate" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="ImageExif">
@@ -268,12 +268,12 @@
             <PropertyRef Name="imgId" />
           </Key>
           <Property Name="imgId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" Nullable="false" />
-          <Property Name="description" Type="String" Nullable="true" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="description" Type="String" Nullable="true" MaxLength="2200" />
           <Property Name="uploadDate" Type="DateTime" Nullable="false" />
           <Property Name="categoryId" Type="Int32" Nullable="false" />
           <Property Name="img" Type="Binary" Nullable="true" />
-          <Property Name="path" Type="String" Nullable="true" />
+          <Property Name="path" Type="String" Nullable="true" MaxLength="20" />
           <NavigationProperty Name="Exifs" Relationship="PracticaMaDModel.ImageExif" FromRole="Image" ToRole="Exif" />
           <NavigationProperty Name="Category" Relationship="PracticaMaDModel.ImageCategory" FromRole="Image" ToRole="Category" />
           <NavigationProperty Name="Likes" Relationship="PracticaMaDModel.ImageLike" FromRole="Image" ToRole="Like" />
@@ -286,7 +286,7 @@
             <PropertyRef Name="infoType" />
             <PropertyRef Name="imgId" />
           </Key>
-          <Property Name="infoType" Type="String" Nullable="false" />
+          <Property Name="infoType" Type="String" Nullable="false" MaxLength="5" />
           <Property Name="value" Type="Decimal" Nullable="false" />
           <NavigationProperty Name="Image" Relationship="PracticaMaDModel.ImageExif" FromRole="Exif" ToRole="Image" />
           <Property Name="imgId" Type="Int64" Nullable="false" />
@@ -297,7 +297,7 @@
           </Key>
           <NavigationProperty Name="Images" Relationship="PracticaMaDModel.ImageCategory" FromRole="Category" ToRole="Image" />
           <Property Name="categoryId" Type="Int32" Nullable="false" />
-          <Property Name="category" Type="String" Nullable="false" />
+          <Property Name="category" Type="String" Nullable="false" MaxLength="20" />
         </EntityType>
         <Association Name="ImageExif">
           <End Type="PracticaMaDModel.Image" Role="Image" Multiplicity="1" >
@@ -322,14 +322,14 @@
             <PropertyRef Name="userId" />
           </Key>
           <Property Name="userId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userName" Type="String" Nullable="false" />
-          <Property Name="password" Type="String" Nullable="false" />
-          <Property Name="firstName" Type="String" Nullable="false" />
-          <Property Name="lastName1" Type="String" Nullable="false" />
-          <Property Name="lastName2" Type="String" Nullable="true" />
-          <Property Name="email" Type="String" Nullable="false" />
-          <Property Name="country" Type="String" Nullable="false" />
-          <Property Name="language" Type="String" Nullable="false" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="60" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="60" />
+          <Property Name="lastName1" Type="String" Nullable="false" MaxLength="60" />
+          <Property Name="lastName2" Type="String" Nullable="true" MaxLength="60" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="country" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="language" Type="String" Nullable="false" MaxLength="30" />
           <NavigationProperty Name="Follows" Relationship="PracticaMaDModel.UserFollows" FromRole="User" ToRole="Follows" />
           <NavigationProperty Name="Likes" Relationship="PracticaMaDModel.UserLike" FromRole="User" ToRole="Like" />
           <NavigationProperty Name="Comments" Relationship="PracticaMaDModel.UserComment" FromRole="User" ToRole="Comment" />
@@ -402,7 +402,7 @@
           <Property Name="userId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Image" Relationship="PracticaMaDModel.ImageComment" FromRole="Comment" ToRole="Image" />
           <Property Name="imgId" Type="Int64" Nullable="false" />
-          <Property Name="comment" Type="String" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" MaxLength="2200" />
           <Property Name="uploadDate" Type="DateTime" Nullable="false" />
         </EntityType>
         <Association Name="UserComment">

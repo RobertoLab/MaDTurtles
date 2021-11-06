@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/05/2021 21:32:55
+-- Date Created: 11/06/2021 17:46:17
 -- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -75,12 +75,12 @@ GO
 -- Creating table 'Images'
 CREATE TABLE [dbo].[Images] (
     [imgId] bigint IDENTITY(1,1) NOT NULL,
-    [title] nvarchar(max)  NOT NULL,
-    [description] nvarchar(max)  NULL,
+    [title] nvarchar(100)  NOT NULL,
+    [description] nvarchar(2200)  NULL,
     [uploadDate] datetime  NOT NULL,
     [categoryId] int  NOT NULL,
     [img] varbinary(max)  NULL,
-    [path] nvarchar(max)  NULL,
+    [path] nvarchar(20)  NULL,
     [userId] bigint  NOT NULL,
     [Category_categoryId] int  NOT NULL
 );
@@ -88,7 +88,7 @@ GO
 
 -- Creating table 'Exifs'
 CREATE TABLE [dbo].[Exifs] (
-    [infoType] nvarchar(max)  NOT NULL,
+    [infoType] nvarchar(5)  NOT NULL,
     [value] decimal(18,0)  NOT NULL,
     [imgId] bigint  NOT NULL
 );
@@ -97,21 +97,21 @@ GO
 -- Creating table 'Categories'
 CREATE TABLE [dbo].[Categories] (
     [categoryId] int  NOT NULL,
-    [category] nvarchar(max)  NOT NULL
+    [category] nvarchar(20)  NOT NULL
 );
 GO
 
 -- Creating table 'Users'
 CREATE TABLE [dbo].[Users] (
     [userId] bigint IDENTITY(1,1) NOT NULL,
-    [userName] nvarchar(max)  NOT NULL,
-    [password] nvarchar(max)  NOT NULL,
-    [firstName] nvarchar(max)  NOT NULL,
-    [lastName1] nvarchar(max)  NOT NULL,
-    [lastName2] nvarchar(max)  NULL,
-    [email] nvarchar(max)  NOT NULL,
-    [country] nvarchar(max)  NOT NULL,
-    [language] nvarchar(max)  NOT NULL
+    [userName] nvarchar(20)  NOT NULL,
+    [password] nvarchar(60)  NOT NULL,
+    [firstName] nvarchar(60)  NOT NULL,
+    [lastName1] nvarchar(60)  NOT NULL,
+    [lastName2] nvarchar(60)  NULL,
+    [email] nvarchar(100)  NOT NULL,
+    [country] nvarchar(30)  NOT NULL,
+    [language] nvarchar(30)  NOT NULL
 );
 GO
 
@@ -134,7 +134,7 @@ CREATE TABLE [dbo].[Comments] (
     [commentId] bigint IDENTITY(1,1) NOT NULL,
     [userId] bigint  NOT NULL,
     [imgId] bigint  NOT NULL,
-    [comment] nvarchar(max)  NOT NULL,
+    [comment] nvarchar(2200)  NOT NULL,
     [uploadDate] datetime  NOT NULL
 );
 GO

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data.Entity;
 using Es.Udc.DotNet.PracticaMaD.Model.ImageDao;
+using Es.Udc.DotNet.PracticaMaD.Model.CategoryDao;
 using Es.Udc.DotNet.PracticaMaD.Model.ImageService;
 
 
@@ -21,11 +22,12 @@ namespace Es.Udc.DotNet.PracticaMaD.Test
             
             kernel.Bind<IImageService>().To<ImageService>();
 
-            kernel.Bind<IImageDao>().
-                To<ImageDaoEntityFramework>();
+            kernel.Bind<IImageDao>().To<ImageDaoEntityFramework>();
+
+            kernel.Bind<ICategoryDao>().To<CategoryDaoEntityFramework>();
 
             string connectionString =
-                ConfigurationManager.ConnectionStrings["MiniBankEntities"].ConnectionString;
+                ConfigurationManager.ConnectionStrings["PracticaMaDEntities"].ConnectionString;
 
             kernel.Bind<DbContext>().
                 ToSelf().

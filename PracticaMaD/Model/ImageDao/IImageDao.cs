@@ -11,6 +11,13 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
     public interface IImageDao : IGenericDao<Image, Int64>
     {
         /// <summary>
+        /// Gets the maximum stored in DB identifier.
+        /// For image file naming purposes.
+        /// </summary>
+        /// <returns>The biggest image identifier.</returns>
+        long GetMaxImgId();
+
+        /// <summary>
         /// Check if the image was uploaded by the given user.
         /// </summary>
         /// <param name="imgId">The image identifier.</param>
@@ -39,5 +46,6 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
         /// <param name="category">the category to search only for</param>
         /// <returns>The list of images retrieved from DB.</returns>
         List<Image> FindByKeywords(string keywords, string category, int startIndex, int count);
+
     }
 }

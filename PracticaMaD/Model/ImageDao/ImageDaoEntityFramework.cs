@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
 using Es.Udc.DotNet.ModelUtil.Dao;
 
@@ -11,6 +9,18 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
     public class ImageDaoEntityFramework :
         GenericDaoEntityFramework<Image, Int64>, IImageDao
     {
+
+        public long GetMaxImgId()
+        {
+            DbSet<Image> images = Context.Set<Image>();
+
+            var result =
+                (from img in images
+                 select img.imgId).Max();
+
+            return result;
+        }
+
         public bool BelongsTo(long imgId, long userId)
         {
             DbSet<Image> images = Context.Set<Image>();
