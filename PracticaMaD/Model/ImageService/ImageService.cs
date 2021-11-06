@@ -18,23 +18,41 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
         [Inject]
         public IImageDao ImageDao { private get; set; }
 
-        public string ImagesDirectory = Directory.GetCurrentDirectory();
-        
+        public string Dir = Directory.GetCurrentDirectory();
+
+        #region Private helper functions
+
         private string StoreImageFile(string imgB64, long imgId)
         {
-            string dirPath = Directory.GetParent(Directory.GetParent(ImagesDirectory).FullName).FullName;
-            if (!Directory.Exists(dirPath + "\\images")) {
+            string dirPath = Directory.GetParent(Directory.GetParent(Dir).FullName).FullName;
+            if (!Directory.Exists(dirPath + "\\images"))
+            {
                 dirPath = dirPath + "\\images";
                 Directory.CreateDirectory(dirPath);
             }
             byte[] imgAsBytes = System.Convert.FromBase64String(imgB64);
             MemoryStream imgAsStream = new MemoryStream(imgAsBytes);
+
             System.Drawing.Image image = System.Drawing.Image.FromStream(imgAsStream);
+
             string imageName = imgId.ToString();
             string imageFile = dirPath + "\\" + imgId.ToString();
+
             image.Save(imageFile);
+
             return imageName;
         }
+
+        private void DeleteImageFile(long imgId)
+        {
+            string dirPath = Directory.GetParent(Directory.GetParent(Dir).FullName).FullName;
+            dirPath = dirPath + "\\images";
+            Directory.CreateDirectory(dirPath);
+
+            File.Delete(dirPath);
+        }
+
+        #endregion
 
         #region IImageService Members
 
@@ -63,18 +81,27 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageService
             image.uploadDate = System.DateTime.Now;
             image.path = imageDto.imgB64;
             image.img = null;
-            string imageName = StoreImageFile(imageDto.imgB64, image.imgId);
+
+            long previousImage = ImageDao.GetMaxImgId();
+            string imageName = StoreImageFile(imageDto.imgB64, previousImage+1);
+
             image.path = imageName;
             ImageDao.Create(image);
         }
 
+        /// <exception cref="InstanceNotFoundException"/>
         /// <exception cref="DeleteDeniedException"/>
         [Transactional]
         public void DeleteImage(long imgId, long userId)
         {
-            if (!ImageDao.BelongsTo(imgId, userId))
+            Image image = ImageDao.Find(imgId);
+            if (image.userId != userId)
             {
-                throw new DeleteDeniedException(imgId, userId);
+                throw new DeleteDeniedException(userId, image.imgId);
+            }
+            if (image.path != null)
+            {
+                DeleteImageFile(image.imgId);
             }
             ImageDao.Remove(imgId);
         }

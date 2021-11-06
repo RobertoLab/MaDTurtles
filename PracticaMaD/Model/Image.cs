@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.PracticaMaD.Model
+namespace Model
 {
     using System;
     using System.Collections.Generic;
