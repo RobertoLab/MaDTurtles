@@ -5,12 +5,12 @@ using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
 using System.Drawing;
-using Es.Udc.DotNet.PracticaMaD.Model.CategoryDao;
-using Es.Udc.DotNet.PracticaMaD.Model.ImageDao;
-using Es.Udc.DotNet.PracticaMaD.Model.Dtos;
-using Es.Udc.DotNet.PracticaMaD.Test;
+using Es.Udc.DotNet.Photogram.Model.CategoryDao;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
+using Es.Udc.DotNet.Photogram.Test;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao.Tests
+namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
 {
     [TestClass]
     public class ImageDaoTest
@@ -86,8 +86,12 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao.Tests
 
         #endregion
 
+
+        /// <summary>
+        /// Test create images, find image by id, find images by keywords.
+        /// </summary>
         [TestMethod]
-        public void FindByImgId()
+        public void FindImages()
         {
             TestContext.WriteLine("-----------------------");
             TestContext.WriteLine(imagesTestDir);
@@ -103,24 +107,64 @@ namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao.Tests
 
             // Create a test category
             Category testCat = new Category();
-            testCat.categoryId = testCatId;
             testCat.category = "test";
             categoryDao.Create(testCat);
+
+            // Create a second test category
+            Category testCat2 = new Category();
+            testCat2.category = "test2";
+            categoryDao.Create(testCat2);
+
+            System.DateTime imgUploadDate = System.DateTime.Now;
 
             // Create the image
             Image image = new Image();
             image.title = "bmx";
             image.description = "first test image";
-            image.uploadDate = System.DateTime.Now;
+            image.uploadDate = imgUploadDate;
             image.categoryId = testCatId;
             image.path = null;
             image.userId = testUserId;
+            image.img = imageAsByte;
 
             imageDao.Create(image);
 
+            // Create a second image
+            Image image2 = new Image();
+            image2.title = "bmx";
+            image2.description = "second test image";
+            image2.uploadDate = imgUploadDate;
+            image2.categoryId = testCatId;
+            image2.path = null;
+            image2.userId = testUserId;
+            image.img = imageAsByte;
+
+            imageDao.Create(image2);
+
             Image imgStored = imageDao.Find(image.imgId);
 
-            Assert.AreEqual(image.title, imgStored.title);
+            // Not Equal
+            List<Image> imagesSecond = imageDao.FindByKeywords("second", 0, 10);
+            List<Image> imagesFirst = imageDao.FindByKeywords("first", 0, 10);
+            // Equal
+            List<Image> imagesTest = imageDao.FindByKeywords("test", 0, 10);
+            List<Image> imagesTesT = imageDao.FindByKeywords("tesT", 0, 10);
+            List<Image> imagesTes = imageDao.FindByKeywords("tes", 0, 10);
+            List<Image> imagesBmx = imageDao.FindByKeywords("bmx", 0, 10);
+            List<Image> imagesMx = imageDao.FindByKeywords("mx", 0, 10);
+            List<Image> imagesByNonExistentCat = imageDao.FindByKeywords("bmx", "nonExistent", 0, 10);
+            List<Image> imagesByTestCat = imageDao.FindByKeywords("bmx", "test", 0, 10);
+            List<Image> imagesByTest2Cat = imageDao.FindByKeywords("bmx", "test2", 0, 10);
+
+
+            CollectionAssert.AreNotEqual(imagesFirst, imagesSecond);
+            CollectionAssert.AreEqual(imagesBmx, imagesMx);
+            CollectionAssert.AreEqual(imagesTest, imagesTesT);
+            CollectionAssert.AreEqual(imagesTest, imagesTes);
+            CollectionAssert.AreEqual(imagesBmx, imagesByTestCat);
+            Assert.AreEqual(0, imagesByTest2Cat.Count);
+            Assert.AreEqual(0, imagesByNonExistentCat.Count);
+            Assert.AreEqual(image, imgStored);
         }
     }
 }

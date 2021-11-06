@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/06/2021 18:12:43
+-- Date Created: 11/06/2021 19:42:21
 -- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Photogram.edmx
 -- --------------------------------------------------
 
@@ -20,9 +20,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ImageExif]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Exifs] DROP CONSTRAINT [FK_ImageExif];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ImageCategory]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_ImageCategory];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ImageLike]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_ImageLike];
 GO
@@ -34,6 +31,15 @@ IF OBJECT_ID(N'[dbo].[FK_UserImage]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserFollows]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Follows] DROP CONSTRAINT [FK_UserFollows];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserLike]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_UserLike];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_UserComment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ImageCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_ImageCategory];
 GO
 
 -- --------------------------------------------------
@@ -72,11 +78,10 @@ CREATE TABLE [dbo].[Images] (
     [title] nvarchar(100)  NOT NULL,
     [description] nvarchar(2200)  NULL,
     [uploadDate] datetime  NOT NULL,
-    [categoryId] int  NOT NULL,
     [img] varbinary(max)  NULL,
     [path] nvarchar(20)  NULL,
     [userId] bigint  NOT NULL,
-    [Category_categoryId] int  NOT NULL
+    [categoryId] int  NOT NULL
 );
 GO
 
@@ -90,7 +95,7 @@ GO
 
 -- Creating table 'Categories'
 CREATE TABLE [dbo].[Categories] (
-    [categoryId] int  NOT NULL,
+    [categoryId] int IDENTITY(1,1) NOT NULL,
     [category] nvarchar(20)  NOT NULL
 );
 GO
@@ -198,21 +203,6 @@ ON [dbo].[Exifs]
     ([imgId]);
 GO
 
--- Creating foreign key on [Category_categoryId] in table 'Images'
-ALTER TABLE [dbo].[Images]
-ADD CONSTRAINT [FK_ImageCategory]
-    FOREIGN KEY ([Category_categoryId])
-    REFERENCES [dbo].[Categories]
-        ([categoryId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ImageCategory'
-CREATE INDEX [IX_FK_ImageCategory]
-ON [dbo].[Images]
-    ([Category_categoryId]);
-GO
-
 -- Creating foreign key on [imgId] in table 'Likes'
 ALTER TABLE [dbo].[Likes]
 ADD CONSTRAINT [FK_ImageLike]
@@ -291,6 +281,24 @@ ON [dbo].[Comments]
     ([userId]);
 GO
 
+-- Creating foreign key on [categoryId] in table 'Images'
+ALTER TABLE [dbo].[Images]
+ADD CONSTRAINT [FK_ImageCategory]
+    FOREIGN KEY ([categoryId])
+    REFERENCES [dbo].[Categories]
+        ([categoryId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ImageCategory'
+CREATE INDEX [IX_FK_ImageCategory]
+ON [dbo].[Images]
+    ([categoryId]);
+GO
+
+INSERT INTO [dbo].[Users] VALUES(
+	"testUN", "test", "testFN", "testLN1", "testLN2", "test@test.ts", "testLand", "ES");
+GO
 -- --------------------------------------------------
 -- Script has ended
 -- --------------------------------------------------

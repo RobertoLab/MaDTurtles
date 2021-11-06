@@ -1,12 +1,12 @@
 ﻿using Ninject;
 using System.Configuration;
 using System.Data.Entity;
-using Es.Udc.DotNet.PracticaMaD.Model.ImageDao;
-using Es.Udc.DotNet.PracticaMaD.Model.CategoryDao;
-using Es.Udc.DotNet.PracticaMaD.Model.ImageService;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.CategoryDao;
+using Es.Udc.DotNet.Photogram.Model.ImageService;
 
 
-namespace Es.Udc.DotNet.PracticaMaD.Test
+namespace Es.Udc.DotNet.Photogram.Test
 {
     public class TestManager
     {
@@ -27,7 +27,7 @@ namespace Es.Udc.DotNet.PracticaMaD.Test
             kernel.Bind<ICategoryDao>().To<CategoryDaoEntityFramework>();
 
             string connectionString =
-                ConfigurationManager.ConnectionStrings["PracticaMaDEntities"].ConnectionString;
+                ConfigurationManager.ConnectionStrings["PhotogramEntities"].ConnectionString;
 
             kernel.Bind<DbContext>().
                 ToSelf().

@@ -13,13 +13,13 @@
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Like" Width="1.5" PointX="5.125" PointY="8.25" />
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Comment" Width="1.5" PointX="5.125" PointY="11" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageExif" />
-        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageCategory" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageLike" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageComment" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserImage" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserFollows" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserLike" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserComment" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageCategory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
