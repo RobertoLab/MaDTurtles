@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.Dtos
+namespace Es.Udc.DotNet.Photogram.Model.Dtos
 {
     public class ImageInfo
     {

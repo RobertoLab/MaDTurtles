@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/06/2021 17:46:17
--- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Model1.edmx
+-- Date Created: 11/06/2021 18:12:43
+-- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Photogram.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [PracticaMaD];
+USE [Photogram];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -23,23 +23,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ImageCategory]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_ImageCategory];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserFollows]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Follows] DROP CONSTRAINT [FK_UserFollows];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserLike]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_UserLike];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ImageLike]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_ImageLike];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_UserComment];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ImageComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_ImageComment];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserImage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_UserImage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserFollows]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Follows] DROP CONSTRAINT [FK_UserFollows];
 GO
 
 -- --------------------------------------------------
@@ -124,18 +118,18 @@ GO
 
 -- Creating table 'Likes'
 CREATE TABLE [dbo].[Likes] (
-    [userId] bigint  NOT NULL,
-    [imgId] bigint  NOT NULL
+    [imgId] bigint  NOT NULL,
+    [userId] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'Comments'
 CREATE TABLE [dbo].[Comments] (
     [commentId] bigint IDENTITY(1,1) NOT NULL,
-    [userId] bigint  NOT NULL,
     [imgId] bigint  NOT NULL,
     [comment] nvarchar(2200)  NOT NULL,
-    [uploadDate] datetime  NOT NULL
+    [uploadDate] datetime  NOT NULL,
+    [userId] bigint  NOT NULL
 );
 GO
 
@@ -167,16 +161,16 @@ ADD CONSTRAINT [PK_Users]
     PRIMARY KEY CLUSTERED ([userId] ASC);
 GO
 
--- Creating primary key on [followedId], [userId] in table 'Follows'
+-- Creating primary key on [userId], [followedId] in table 'Follows'
 ALTER TABLE [dbo].[Follows]
 ADD CONSTRAINT [PK_Follows]
-    PRIMARY KEY CLUSTERED ([followedId], [userId] ASC);
+    PRIMARY KEY CLUSTERED ([userId], [followedId] ASC);
 GO
 
--- Creating primary key on [userId], [imgId] in table 'Likes'
+-- Creating primary key on [imgId], [userId] in table 'Likes'
 ALTER TABLE [dbo].[Likes]
 ADD CONSTRAINT [PK_Likes]
-    PRIMARY KEY CLUSTERED ([userId], [imgId] ASC);
+    PRIMARY KEY CLUSTERED ([imgId], [userId] ASC);
 GO
 
 -- Creating primary key on [commentId] in table 'Comments'
@@ -195,7 +189,7 @@ ADD CONSTRAINT [FK_ImageExif]
     FOREIGN KEY ([imgId])
     REFERENCES [dbo].[Images]
         ([imgId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ImageExif'
@@ -219,58 +213,13 @@ ON [dbo].[Images]
     ([Category_categoryId]);
 GO
 
--- Creating foreign key on [userId] in table 'Follows'
-ALTER TABLE [dbo].[Follows]
-ADD CONSTRAINT [FK_UserFollows]
-    FOREIGN KEY ([userId])
-    REFERENCES [dbo].[Users]
-        ([userId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserFollows'
-CREATE INDEX [IX_FK_UserFollows]
-ON [dbo].[Follows]
-    ([userId]);
-GO
-
--- Creating foreign key on [userId] in table 'Likes'
-ALTER TABLE [dbo].[Likes]
-ADD CONSTRAINT [FK_UserLike]
-    FOREIGN KEY ([userId])
-    REFERENCES [dbo].[Users]
-        ([userId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
 -- Creating foreign key on [imgId] in table 'Likes'
 ALTER TABLE [dbo].[Likes]
 ADD CONSTRAINT [FK_ImageLike]
     FOREIGN KEY ([imgId])
     REFERENCES [dbo].[Images]
         ([imgId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ImageLike'
-CREATE INDEX [IX_FK_ImageLike]
-ON [dbo].[Likes]
-    ([imgId]);
-GO
-
--- Creating foreign key on [userId] in table 'Comments'
-ALTER TABLE [dbo].[Comments]
-ADD CONSTRAINT [FK_UserComment]
-    FOREIGN KEY ([userId])
-    REFERENCES [dbo].[Users]
-        ([userId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserComment'
-CREATE INDEX [IX_FK_UserComment]
-ON [dbo].[Comments]
-    ([userId]);
 GO
 
 -- Creating foreign key on [imgId] in table 'Comments'
@@ -279,7 +228,7 @@ ADD CONSTRAINT [FK_ImageComment]
     FOREIGN KEY ([imgId])
     REFERENCES [dbo].[Images]
         ([imgId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ImageComment'
@@ -300,6 +249,45 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserImage'
 CREATE INDEX [IX_FK_UserImage]
 ON [dbo].[Images]
+    ([userId]);
+GO
+
+-- Creating foreign key on [userId] in table 'Follows'
+ALTER TABLE [dbo].[Follows]
+ADD CONSTRAINT [FK_UserFollows]
+    FOREIGN KEY ([userId])
+    REFERENCES [dbo].[Users]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [userId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [FK_UserLike]
+    FOREIGN KEY ([userId])
+    REFERENCES [dbo].[Users]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserLike'
+CREATE INDEX [IX_FK_UserLike]
+ON [dbo].[Likes]
+    ([userId]);
+GO
+
+-- Creating foreign key on [userId] in table 'Comments'
+ALTER TABLE [dbo].[Comments]
+ADD CONSTRAINT [FK_UserComment]
+    FOREIGN KEY ([userId])
+    REFERENCES [dbo].[Users]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserComment'
+CREATE INDEX [IX_FK_UserComment]
+ON [dbo].[Comments]
     ([userId]);
 GO
 

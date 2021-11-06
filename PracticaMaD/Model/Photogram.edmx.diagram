@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="92d7b510ed0d426aa73b4dd5d26cbca1" Name="Diagram1" ZoomLevel="93" >
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Image" Width="1.5" PointX="7" PointY="9.125" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Exif" Width="1.5" PointX="9.5" PointY="8.625" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Category" Width="1.5" PointX="9.5" PointY="11.25" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.User" Width="1.5" PointX="2.75" PointY="8.625" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Follows" Width="1.5" PointX="0.5" PointY="9.75" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Like" Width="1.5" PointX="5.125" PointY="8.25" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Comment" Width="1.5" PointX="5.125" PointY="11" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageExif" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageCategory" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageLike" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageComment" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserImage" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserFollows" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserLike" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserComment" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

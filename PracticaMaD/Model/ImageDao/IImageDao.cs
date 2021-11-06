@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Dao;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao
+namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 {
 
     public interface IImageDao : IGenericDao<Image, Int64>

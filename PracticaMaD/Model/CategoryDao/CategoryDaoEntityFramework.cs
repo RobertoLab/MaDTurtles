@@ -4,7 +4,7 @@ using System.Linq;
 using System.Data.Entity;
 using Es.Udc.DotNet.ModelUtil.Dao;
 
-namespace Es.Udc.DotNet.PracticaMaD.Model.CategoryDao
+namespace Es.Udc.DotNet.Photogram.Model.CategoryDao
 {
     public class CategoryDaoEntityFramework : 
         GenericDaoEntityFramework<Category, Int32>, ICategoryDao
