@@ -111,14 +111,16 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             //categoryDao.Create(testCat2);
 
             // Create the image
-            ImageDto imageDto = new ImageDto("bmx", "first test image"
-                , testCatId, Convert.ToBase64String(imageAsByte), testUserId);
+            ImageDto imageDto = new ImageDto("bmx", "first test image",
+                testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                float.NaN, float.NaN, float.NaN, float.NaN);
             
             Image image1 = imageService.StoreImageAsBlob(imageDto);
 
             // Create a second image
-            ImageDto imageDto2 = new ImageDto("bmx", "second test image"
-                , testCatId, Convert.ToBase64String(imageAsByte), testUserId);
+            ImageDto imageDto2 = new ImageDto("bmx", "second test image",
+                testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                float.NaN, float.NaN, float.NaN, float.NaN);
 
             Image image2 = imageService.StoreImageAsFile(imageDto2);
 
@@ -132,7 +134,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             fileImageStoredAsFileStream.Close();
 
             Assert.IsTrue(imageAsByte.SequenceEqual(fileImageStoredAsMemoryStream));
-            
+
             imageService.DeleteImage(image1.imgId, testUserId);
             imageService.DeleteImage(image2.imgId, testUserId);
 
@@ -156,18 +158,22 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             imageAsFileStream.Close();
 
             ImageDto imageDto = new ImageDto("bmx", "first test image"
-                , testCatId, Convert.ToBase64String(imageAsByte), testUserId);
+                , testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                0, 1, 2, 3);
 
             Image image1 = imageService.StoreImageAsBlob(imageDto);
 
             // Create a second image
             ImageDto imageDto2 = new ImageDto("bmx", "second test image"
-                , testCatId, Convert.ToBase64String(imageAsByte), testUserId);
+                , testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                float.NaN, float.NaN, float.NaN, float.NaN);
 
             Image image2 = imageService.StoreImageAsFile(imageDto2);
 
             ImageInfo image1Info = imageService.SearchImageEager(image1.imgId);
             ImageInfo image2Info = imageService.SearchImageEager(image2.imgId);
+
+            Assert.IsTrue(image1Info.metadata.Count == 4);
 
             List<ImageInfo> listBlockSecond = new List<ImageInfo>();
             listBlockSecond.Add(image2Info);

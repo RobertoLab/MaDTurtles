@@ -39,6 +39,44 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
             image.description = imageDto.description;
             image.categoryId = imageDto.categoryId;
             image.userId = imageDto.userId;
+            List<Exif> exifs = new List<Exif>();
+            if (!float.IsNaN(imageDto.diaphragm))
+            {
+                Exif diaphragm = new Exif
+                {
+                    infoType = "f",
+                    value = (decimal)imageDto.diaphragm
+                };
+                exifs.Add(diaphragm);
+            }
+            if (!float.IsNaN(imageDto.exposureTime))
+            {
+                Exif exposureTime = new Exif
+                {
+                    infoType = "t",
+                    value = (decimal)imageDto.exposureTime
+                };
+                exifs.Add(exposureTime);
+            }
+            if (!float.IsNaN(imageDto.iso))
+            {
+                Exif iso = new Exif
+                {
+                    infoType = "iso",
+                    value = (decimal)imageDto.iso
+                };
+                exifs.Add(iso);
+            }
+            if (!float.IsNaN(imageDto.whiteBalance))
+            {
+                Exif whiteBalance = new Exif
+                {
+                    infoType = "wb",
+                    value = (decimal)imageDto.whiteBalance
+                };
+                exifs.Add(whiteBalance);
+            }
+            if (exifs.Count != 0) { image.Exifs = exifs; }
             return image;
         }
 

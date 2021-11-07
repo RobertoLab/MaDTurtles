@@ -82,11 +82,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Transactional]
         public Image StoreImageAsBlob(ImageDto imageDto)
         {
-            Image image = new Image();
-            image.title = imageDto.title;
-            image.description = imageDto.description;
-            image.categoryId = imageDto.categoryId;
-            image.userId = imageDto.userId;
+            Image image = ToImage(imageDto);
             image.uploadDate = System.DateTime.Now;
             image.path = null;
             image.img = System.Convert.FromBase64String(imageDto.imgB64);
@@ -97,11 +93,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Transactional]
         public Image StoreImageAsFile(ImageDto imageDto)
         {
-            Image image = new Image();
-            image.title = imageDto.title;
-            image.description = imageDto.description;
-            image.categoryId = imageDto.categoryId;
-            image.userId = imageDto.userId;
+            Image image = ToImage(imageDto);
             image.uploadDate = System.DateTime.Now;
             image.img = null;
 
