@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Es.Udc.DotNet.Photogram.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EsUdcDotNetPhotogramModelStoreContainer">
+    <EntitySet Name="Images" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Images" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Exifs" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Exifs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Follows" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Follows" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Likes" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Likes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Comments" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ImageExif" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageExif">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Exif" EntitySet="Exifs" />
+    </AssociationSet>
+    <AssociationSet Name="ImageCategory" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageCategory">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="ImageLike" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageLike">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Like" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="ImageComment" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageComment">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="UserImage" Association="Es.Udc.DotNet.Photogram.Model.Store.UserImage">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="UserFollows" Association="Es.Udc.DotNet.Photogram.Model.Store.UserFollows">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Follows" EntitySet="Follows" />
+    </AssociationSet>
+    <AssociationSet Name="UserLike" Association="Es.Udc.DotNet.Photogram.Model.Store.UserLike">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Like" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="UserComment" Association="Es.Udc.DotNet.Photogram.Model.Store.UserComment">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="imgId" />
+    </Key>
+    <Property Name="imgId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="description" Type="nvarchar" Nullable="true" MaxLength="2200" />
+    <Property Name="uploadDate" Type="datetime" Nullable="false" />
+    <Property Name="categoryId" Type="int" Nullable="false" />
+    <Property Name="img" Type="varbinary(max)" Nullable="true" />
+    <Property Name="path" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="userId" Type="bigint" Nullable="false" />
+    <Property Name="Category_categoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exifs">
+    <Key>
+      <PropertyRef Name="infoType" />
+      <PropertyRef Name="imgId" />
+    </Key>
+    <Property Name="infoType" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="value" Type="decimal" Nullable="false" />
+    <Property Name="imgId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="categoryId" Type="int" Nullable="false" />
+    <Property Name="category" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="firstName" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="lastName1" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="lastName2" Type="nvarchar" Nullable="true" MaxLength="60" />
+    <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="country" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="language" Type="nvarchar" Nullable="false" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Follows">
+    <Key>
+      <PropertyRef Name="userId" />
+      <PropertyRef Name="followedId" />
+    </Key>
+    <Property Name="userId" Type="bigint" Nullable="false" />
+    <Property Name="followedId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Likes">
+    <Key>
+      <PropertyRef Name="imgId" />
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="imgId" Type="bigint" Nullable="false" />
+    <Property Name="userId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="commentId" />
+    </Key>
+    <Property Name="commentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="imgId" Type="bigint" Nullable="false" />
+    <Property Name="comment" Type="nvarchar" Nullable="false" MaxLength="2200" />
+    <Property Name="uploadDate" Type="datetime" Nullable="false" />
+    <Property Name="userId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="ImageExif">
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="Exif" Type="Es.Udc.DotNet.Photogram.Model.Store.Exifs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="imgId" />
+      </Principal>
+      <Dependent Role="Exif">
+        <PropertyRef Name="imgId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImageCategory">
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="*" />
+    <End Role="Category" Type="Es.Udc.DotNet.Photogram.Model.Store.Categories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="categoryId" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="Category_categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImageLike">
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="Like" Type="Es.Udc.DotNet.Photogram.Model.Store.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="imgId" />
+      </Principal>
+      <Dependent Role="Like">
+        <PropertyRef Name="imgId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImageComment">
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="Comment" Type="Es.Udc.DotNet.Photogram.Model.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="imgId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="imgId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserImage">
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserFollows">
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <End Role="Follows" Type="Es.Udc.DotNet.Photogram.Model.Store.Follows" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Follows">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserLike">
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <End Role="Like" Type="Es.Udc.DotNet.Photogram.Model.Store.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Like">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserComment">
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <End Role="Comment" Type="Es.Udc.DotNet.Photogram.Model.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

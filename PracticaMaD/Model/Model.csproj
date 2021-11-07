@@ -68,6 +68,10 @@
     <Compile Include="Comment.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
+    <Compile Include="CommentDao\CommentDaoEntityFramework.cs" />
+    <Compile Include="CommentDao\ICommentDao.cs" />
+    <Compile Include="CommentService\CommentService.cs" />
+    <Compile Include="CommentService\ICommentService.cs" />
     <Compile Include="Dtos\Block.cs" />
     <Compile Include="Dtos\ImageConversor.cs" />
     <Compile Include="Dtos\In\ImageDto.cs" />
@@ -90,6 +94,10 @@
     <Compile Include="Like.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
+    <Compile Include="LikeDao\ILikeDao.cs" />
+    <Compile Include="LikeDao\LikeDaoEntityFramework.cs" />
+    <Compile Include="LikeService\ILikeService.cs" />
+    <Compile Include="LikeService\LikeService.cs" />
     <Compile Include="Photogram.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

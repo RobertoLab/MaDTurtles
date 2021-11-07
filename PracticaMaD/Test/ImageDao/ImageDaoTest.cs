@@ -5,9 +5,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
 using System.Drawing;
-using Es.Udc.DotNet.PracticaMaD.Model.CategoryDao;
-using Es.Udc.DotNet.PracticaMaD.Model.ImageDao;
-using Es.Udc.DotNet.PracticaMaD.Model.Dtos;
+using Es.Udc.DotNet.Photogram.Model.CategoryDao;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.PracticaMaD.Test;
 
 namespace Es.Udc.DotNet.PracticaMaD.Model.ImageDao.Tests

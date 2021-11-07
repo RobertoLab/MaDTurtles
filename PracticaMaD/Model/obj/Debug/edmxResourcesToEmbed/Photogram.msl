@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EsUdcDotNetPhotogramModelStoreContainer" CdmEntityContainer="PhotogramEntities">
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Image)">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="uploadDate" ColumnName="uploadDate" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exifs">
+      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Exif)">
+        <MappingFragment StoreEntitySet="Exifs">
+          <ScalarProperty Name="infoType" ColumnName="infoType" />
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="value" ColumnName="value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="category" ColumnName="category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName1" ColumnName="lastName1" />
+          <ScalarProperty Name="lastName2" ColumnName="lastName2" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="language" ColumnName="language" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Follows">
+      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Follows)">
+        <MappingFragment StoreEntitySet="Follows">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="followedId" ColumnName="followedId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Likes">
+      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Like)">
+        <MappingFragment StoreEntitySet="Likes">
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="commentId" ColumnName="commentId" />
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="uploadDate" ColumnName="uploadDate" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ImageCategory" TypeName="Es.Udc.DotNet.Photogram.Model.ImageCategory" StoreEntitySet="Images">
+      <EndProperty Name="Category">
+        <ScalarProperty Name="categoryId" ColumnName="Category_categoryId" />
+      </EndProperty>
+      <EndProperty Name="Image">
+        <ScalarProperty Name="imgId" ColumnName="imgId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
