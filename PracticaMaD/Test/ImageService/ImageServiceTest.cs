@@ -98,6 +98,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             TestContext.WriteLine(imageAsFileStreamLength.ToString());
             byte[] imageAsByte = new byte[imageAsFileStreamLength];
             imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            imageAsFileStream.Close();
 
             // Create a test category
             //Category testCat = new Category();
@@ -108,7 +109,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             //Category testCat2 = new Category();
             //testCat2.category = "test2";
             //categoryDao.Create(testCat2);
-            
+
             // Create the image
             ImageDto imageDto = new ImageDto("bmx", "first test image"
                 , testCatId, Convert.ToBase64String(imageAsByte), testUserId);
@@ -152,6 +153,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             TestContext.WriteLine(imageAsFileStreamLength.ToString());
             byte[] imageAsByte = new byte[imageAsFileStreamLength];
             imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            imageAsFileStream.Close();
 
             ImageDto imageDto = new ImageDto("bmx", "first test image"
                 , testCatId, Convert.ToBase64String(imageAsByte), testUserId);
