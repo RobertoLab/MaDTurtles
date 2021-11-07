@@ -26,18 +26,18 @@ namespace Es.Udc.DotNet.Photogram.Model
         public string title { get; set; }
         public string description { get; set; }
         public System.DateTime uploadDate { get; set; }
-        public int categoryId { get; set; }
         public byte[] img { get; set; }
         public string path { get; set; }
         public long userId { get; set; }
+        public int categoryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exif> Exifs { get; set; }
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
