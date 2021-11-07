@@ -46,15 +46,19 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
                  (from img in images
                  join cat in categories on img.categoryId equals cat.categoryId
                  where cat.category == categoryCriteria
+                 orderby img.imgId
                  select img).Skip(startIndex).Take(count);
+
+            List<Image> foundImages = new List<Image>();
 
             foreach (string keyword in keywords)
             {
-                result.Where(image => image.title.Contains(keyword)
-                   || image.description.Contains(keyword));
+                string keywordLowerCase = keyword.ToLower();
+                foundImages.AddRange(result.Where(image => image.title.ToLower().Contains(keywordLowerCase)
+                   || image.description.ToLower().Contains(keywordLowerCase)).ToList());
             }
 
-            return result.ToList<Image>();
+            return foundImages;
         }
 
         public List<Image> FindByKeywords(string criteria, int startIndex, int count)
@@ -65,9 +69,19 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 
             var result =
                 (from img in images
+                 orderby img.imgId
                  select img).Skip(startIndex).Take(count).ToList<Image>();
 
-            return result;
+            List<Image> foundImages = new List<Image>();
+
+            foreach (string keyword in keywords)
+            {
+                string keywordLowerCase = keyword.ToLower();
+                foundImages.AddRange(result.Where(image => image.title.ToLower().Contains(keywordLowerCase)
+                   || image.description.ToLower().Contains(keywordLowerCase)).ToList());
+            }
+
+            return foundImages;
         }
     }
 }
