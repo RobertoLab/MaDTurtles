@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/06/2021 20:47:00
+-- Date Created: 11/07/2021 12:54:26
 -- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Photogram.edmx
 -- --------------------------------------------------
 
@@ -194,7 +194,7 @@ ADD CONSTRAINT [FK_ImageExif]
     FOREIGN KEY ([imgId])
     REFERENCES [dbo].[Images]
         ([imgId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ImageExif'
@@ -209,7 +209,7 @@ ADD CONSTRAINT [FK_ImageLike]
     FOREIGN KEY ([imgId])
     REFERENCES [dbo].[Images]
         ([imgId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [imgId] in table 'Comments'
@@ -218,7 +218,7 @@ ADD CONSTRAINT [FK_ImageComment]
     FOREIGN KEY ([imgId])
     REFERENCES [dbo].[Images]
         ([imgId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ImageComment'
@@ -233,7 +233,7 @@ ADD CONSTRAINT [FK_UserImage]
     FOREIGN KEY ([userId])
     REFERENCES [dbo].[Users]
         ([userId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserImage'
@@ -248,7 +248,7 @@ ADD CONSTRAINT [FK_UserFollows]
     FOREIGN KEY ([userId])
     REFERENCES [dbo].[Users]
         ([userId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [userId] in table 'Likes'

@@ -39,8 +39,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             
             //System.Drawing.Image image = System.Drawing.Image.FromStream(imgAsStream);
 
-            string imageName = imgId.ToString();
-            string imageFile = dirPath + "\\" + imgId.ToString() + ".jpeg";
+            string imageName = imgId.ToString() + ".jpeg";
+            string imageFile = dirPath + "\\" + imageName;
 
             File.WriteAllBytes(imageFile, imgAsBytes);
             //image.Save(imageFile);
@@ -55,17 +55,17 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         private void DeleteImageFile(string imageName)
         {
             var appSettings = ConfigurationManager.AppSettings;
-            string dirPath = appSettings[ImagesPathKey];
-            dirPath = dirPath + "\\" + imageName + ".jpeg";
+            string imagePath = appSettings[ImagesPathKey];
+            imagePath = imagePath + "\\" + imageName;
 
-            File.Delete(dirPath);
+            File.Delete(imagePath);
         }
 
         private byte[] GetImageFromFile(string imageName)
         {
             var appSettings = ConfigurationManager.AppSettings;
             string imagePath = appSettings[ImagesPathKey];
-            imagePath = imagePath + "\\" + imageName + ".jpeg";
+            imagePath = imagePath + "\\" + imageName;
 
             FileStream imageAsFileStream = File.Open(imagePath, FileMode.Open);
             int imageAsFileStreamLength = (int) imageAsFileStream.Length;

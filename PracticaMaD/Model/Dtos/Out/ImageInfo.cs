@@ -41,7 +41,7 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
                    category == info.category &&
                    imgBase64 == info.imgBase64 &&
                    userId == info.userId &&
-                   userName == info.userName //&&
+                   userName == info.userName &&
                    EqualityComparer<List<Exif>>.Default.Equals(metadata, info.metadata);
         }
 

@@ -116,7 +116,9 @@
     <Property Name="userId" Type="bigint" Nullable="false" />
   </EntityType>
   <Association Name="ImageExif">
-    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Exif" Type="Es.Udc.DotNet.Photogram.Model.Store.Exifs" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Image">
@@ -128,7 +130,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ImageLike">
-    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Like" Type="Es.Udc.DotNet.Photogram.Model.Store.Likes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Image">
@@ -140,7 +144,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ImageComment">
-    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Comment" Type="Es.Udc.DotNet.Photogram.Model.Store.Comments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Image">
@@ -152,7 +158,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserImage">
-    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
@@ -164,7 +172,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserFollows">
-    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Follows" Type="Es.Udc.DotNet.Photogram.Model.Store.Follows" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
@@ -342,7 +352,9 @@
           <Property Name="userId" Type="Int64" Nullable="false" />
         </EntityType>
         <Association Name="ImageExif">
-          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Es.Udc.DotNet.Photogram.Model.Exif" Role="Exif" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
@@ -354,7 +366,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ImageLike">
-          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Es.Udc.DotNet.Photogram.Model.Like" Role="Like" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
@@ -366,7 +380,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ImageComment">
-          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Es.Udc.DotNet.Photogram.Model.Comment" Role="Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Image">
@@ -378,7 +394,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="UserImage">
-          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -390,7 +408,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="UserFollows">
-          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Es.Udc.DotNet.Photogram.Model.Follows" Role="Follows" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -402,7 +422,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="UserLike">
-          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" >
+          </End>
           <End Type="Es.Udc.DotNet.Photogram.Model.Like" Role="Like" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -414,7 +435,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="UserComment">
-          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" >
+          </End>
           <End Type="Es.Udc.DotNet.Photogram.Model.Comment" Role="Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">

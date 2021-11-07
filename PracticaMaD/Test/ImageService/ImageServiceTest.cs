@@ -190,11 +190,11 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
                 Assert.AreEqual(imageInfoList.categoryId, imageInfoBlockList.categoryId);
                 Assert.AreEqual(imageInfoList.description, imageInfoBlockList.description);
                 Assert.AreEqual(imageInfoList.imgBase64, imageInfoBlockList.imgBase64);
-                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
                 Assert.AreEqual(imageInfoList.title, imageInfoBlockList.title);
                 Assert.AreEqual(imageInfoList.uploadDate, imageInfoBlockList.uploadDate);
                 Assert.AreEqual(imageInfoList.userId, imageInfoBlockList.userId);
                 Assert.AreEqual(imageInfoList.userName, imageInfoBlockList.userName);
+                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
             }
             Assert.IsFalse(blockSearchBySecond.existMoreItems);
             for (int i = 0; i < listBlockFirst.Count; i++)
@@ -228,11 +228,19 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             }
             Assert.IsTrue(blockSearchByFirstAndSecondAndExistMoreItems.existMoreItems);
 
+            string imagePath = appSettings[ImagesPathKey];
+            Assert.IsTrue(File.Exists(imagePath + "\\" + image2.path));
+            TestContext.WriteLine(imagePath + "\\" + image2.path);
 
             // No puedes borrar porque has sacado de base de datos una entidad
             // que guarda relaciones con otras entidades
-            //imageService.DeleteImage(image1.imgId, image1.userId);
-            //imageService.DeleteImage(image2.imgId, image2.userId);
+            /*long im1Id = image1.imgId, im2Id = image2.imgId;
+            long im1UserId = image1.userId, im2UserId = image2.userId;
+            imageService.DeleteImage(im1Id, im1UserId);
+            imageService.DeleteImage(im2Id, im2UserId);
+
+            Assert.IsFalse(File.Exists(imagePath + "\\" + image2.path));
+            */    
         }
     }
 }

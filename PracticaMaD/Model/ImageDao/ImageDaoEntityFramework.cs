@@ -10,6 +10,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
     public class ImageDaoEntityFramework :
         GenericDaoEntityFramework<Image, Int64>, IImageDao
     {
+
         public Image FindWithChilds(long imgId)
         {
             DbSet<Image> images = Context.Set<Image>();
