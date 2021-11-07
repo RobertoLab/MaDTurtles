@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Drawing;
+using System.Configuration;
 using System.Collections.Generic;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
@@ -18,38 +19,60 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Inject]
         public IImageDao ImageDao { private get; set; }
 
-        public string Dir = Directory.GetCurrentDirectory();
+        public string ImagesPathKey = "ImagesPath";
 
         #region Private helper functions
 
+        /// <summary>
+        /// Stores the image in the file system.
+        /// </summary>
+        /// <param name="imgB64">The imgage in base 64.</param>
+        /// <param name="imgId">The img identifier.</param>
+        /// <returns>The filename which it was stored by.</returns>
         private string StoreImageFile(string imgB64, long imgId)
         {
-            string dirPath = Directory.GetParent(Directory.GetParent(Dir).FullName).FullName;
-            if (!Directory.Exists(dirPath + "\\images"))
-            {
-                dirPath = dirPath + "\\images";
-                Directory.CreateDirectory(dirPath);
-            }
+            var appSettings = ConfigurationManager.AppSettings;
+            string dirPath = appSettings[ImagesPathKey];
+            Directory.CreateDirectory(dirPath);
             byte[] imgAsBytes = System.Convert.FromBase64String(imgB64);
-            MemoryStream imgAsStream = new MemoryStream(imgAsBytes);
+            //MemoryStream imgAsStream = new MemoryStream(imgAsBytes);
+            
+            //System.Drawing.Image image = System.Drawing.Image.FromStream(imgAsStream);
 
-            System.Drawing.Image image = System.Drawing.Image.FromStream(imgAsStream);
+            string imageName = imgId.ToString() + ".jpeg";
+            string imageFile = dirPath + "\\" + imageName;
 
-            string imageName = imgId.ToString();
-            string imageFile = dirPath + "\\" + imgId.ToString();
-
-            image.Save(imageFile);
-
+            File.WriteAllBytes(imageFile, imgAsBytes);
+            //image.Save(imageFile);
+            //imgAsStream.Close();
             return imageName;
         }
 
-        private void DeleteImageFile(long imgId)
+        /// <summary>
+        /// Deletes the image stored filename.
+        /// </summary>
+        /// <param name="imgId">The img identifier.</param>
+        private void DeleteImageFile(string imageName)
         {
-            string dirPath = Directory.GetParent(Directory.GetParent(Dir).FullName).FullName;
-            dirPath = dirPath + "\\images";
-            Directory.CreateDirectory(dirPath);
+            var appSettings = ConfigurationManager.AppSettings;
+            string imagePath = appSettings[ImagesPathKey];
+            imagePath = imagePath + "\\" + imageName;
 
-            File.Delete(dirPath);
+            File.Delete(imagePath);
+        }
+
+        private byte[] GetImageFromFile(string imageName)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            string imagePath = appSettings[ImagesPathKey];
+            imagePath = imagePath + "\\" + imageName;
+
+            FileStream imageAsFileStream = File.Open(imagePath, FileMode.Open);
+            int imageAsFileStreamLength = (int) imageAsFileStream.Length;
+            byte[] imageAsByte = new byte[imageAsFileStreamLength];
+            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            imageAsFileStream.Close();
+            return imageAsByte;
         }
 
         #endregion
@@ -57,9 +80,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         #region IImageService Members
 
         [Transactional]
-        public void StoreImageAsBlob(ImageDto imageDto)
+        public Image StoreImageAsBlob(ImageDto imageDto)
         {
-            Image image = null;
+            Image image = new Image();
             image.title = imageDto.title;
             image.description = imageDto.description;
             image.categoryId = imageDto.categoryId;
@@ -68,18 +91,18 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             image.path = null;
             image.img = System.Convert.FromBase64String(imageDto.imgB64);
             ImageDao.Create(image);
+            return image;
         }
 
         [Transactional]
-        public void StoreImageAsFile(ImageDto imageDto)
+        public Image StoreImageAsFile(ImageDto imageDto)
         {
-            Image image = null;
+            Image image = new Image();
             image.title = imageDto.title;
             image.description = imageDto.description;
             image.categoryId = imageDto.categoryId;
             image.userId = imageDto.userId;
             image.uploadDate = System.DateTime.Now;
-            image.path = imageDto.imgB64;
             image.img = null;
 
             long previousImage = ImageDao.GetMaxImgId();
@@ -87,6 +110,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
             image.path = imageName;
             ImageDao.Create(image);
+            return image;
         }
 
         /// <exception cref="InstanceNotFoundException"/>
@@ -101,38 +125,78 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             }
             if (image.path != null)
             {
-                DeleteImageFile(image.imgId);
+                DeleteImageFile(image.path);
             }
             ImageDao.Remove(imgId);
         }
 
         /// <exception cref="InstanceNotFoundException"/>
-        [Transactional]
-        public ImageInfo SearchImage(long imgId)
+        public ImageInfo SearchImageEager(long imgId)
         {
-            Image image = null;
+            Image image = new Image();
+            image = ImageDao.FindWithChilds(imgId);
+            if (image.path == null)
+            {
+                return ToImageInfo(image, System.Convert.ToBase64String(image.img));
+            } else
+            {
+                return ToImageInfo(image, System.Convert.ToBase64String(GetImageFromFile(image.path)));
+            }
+            
+        }
+
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        public Image SearchImage(long imgId)
+        {
+            Image image = new Image();
             image = ImageDao.Find(imgId);
-            return ToImageInfo(image);
+            return image;
         }
 
         [Transactional]
         public Block<ImageInfo> SearchByKeywords(string keywords, int startIndex, int count)
         {
-            List<Image> imagesFound = null;
+            List<Image> imagesFound = new List<Image>();
             imagesFound = ImageDao.FindByKeywords(keywords, startIndex, count + 1);
             bool existMoreImages = (imagesFound.Count == count + 1);
 
-            return new Block<ImageInfo>(ToImageInfos(imagesFound), existMoreImages);
+            List<string> imagesAsB64 = new List<string>();
+            foreach (Image image in imagesFound)
+            {
+                if (image.path == null)
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(image.img));
+                }
+                else
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(GetImageFromFile(image.path)));
+                }
+            }
+
+            return new Block<ImageInfo>(ToImageInfos(imagesFound, imagesAsB64), existMoreImages);
         }
 
         [Transactional]
         public Block<ImageInfo> SearchByKeywordsAndCategory(string keywords, string category, int startIndex, int count)
         {
-            List<Image> imagesFound = null;
+            List<Image> imagesFound = new List<Image>();
             imagesFound = ImageDao.FindByKeywords(keywords, category, startIndex, count + 1);
             bool existMoreImages = (imagesFound.Count == count + 1);
 
-            return new Block<ImageInfo>(ToImageInfos(imagesFound), existMoreImages);
+            List<string> imagesAsB64 = new List<string>();
+            foreach(Image image in imagesFound)
+            {
+                if (image.path == null)
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(image.img));
+                } else
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(GetImageFromFile(image.path)));
+                }
+            }
+
+            return new Block<ImageInfo>(ToImageInfos(imagesFound, imagesAsB64), existMoreImages);
         }
 
         #endregion IImageService Members

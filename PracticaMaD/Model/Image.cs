@@ -39,5 +39,39 @@ namespace Es.Udc.DotNet.Photogram.Model
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
         public virtual Category Category { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var image = obj as Image;
+            return image != null &&
+                   title == image.title &&
+                   description == image.description &&
+                   EqualityComparer<byte[]>.Default.Equals(img, image.img) &&
+                   path == image.path &&
+                   userId == image.userId &&
+                   categoryId == image.categoryId &&
+                   EqualityComparer<ICollection<Exif>>.Default.Equals(Exifs, image.Exifs) &&
+                   EqualityComparer<ICollection<Like>>.Default.Equals(Likes, image.Likes) &&
+                   EqualityComparer<ICollection<Comment>>.Default.Equals(Comments, image.Comments) &&
+                   EqualityComparer<User>.Default.Equals(User, image.User) &&
+                   EqualityComparer<Category>.Default.Equals(Category, image.Category);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 529857628;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(title);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(description);
+            hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(img);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(path);
+            hashCode = hashCode * -1521134295 + userId.GetHashCode();
+            hashCode = hashCode * -1521134295 + categoryId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<Exif>>.Default.GetHashCode(Exifs);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<Like>>.Default.GetHashCode(Likes);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<Comment>>.Default.GetHashCode(Comments);
+            hashCode = hashCode * -1521134295 + EqualityComparer<User>.Default.GetHashCode(User);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Category>.Default.GetHashCode(Category);
+            return hashCode;
+        }
     }
 }
