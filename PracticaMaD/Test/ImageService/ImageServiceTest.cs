@@ -164,34 +164,75 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
 
             Image image2 = imageService.StoreImageAsFile(imageDto2);
 
-            ImageInfo image1Info = imageService.SearchImage(image1.imgId);
-            ImageInfo image2Info = imageService.SearchImage(image2.imgId);
+            ImageInfo image1Info = imageService.SearchImageEager(image1.imgId);
+            ImageInfo image2Info = imageService.SearchImageEager(image2.imgId);
 
             List<ImageInfo> listBlockSecond = new List<ImageInfo>();
             listBlockSecond.Add(image2Info);
-            Block<ImageInfo> blockExpectedSecond =
-                new Block<ImageInfo>(listBlockSecond, false);
             Block<ImageInfo> blockSearchBySecond = 
                 imageService.SearchByKeywords("second", 0, 1);
 
             List<ImageInfo> listBlockFirst = new List<ImageInfo>();
-            listBlockSecond.Add(image1Info);
-            Block<ImageInfo> blockExpectedFirst =
-                new Block<ImageInfo>(listBlockFirst, false);
+            listBlockFirst.Add(image1Info);
             Block<ImageInfo> blockSearchByFirst =
                 imageService.SearchByKeywords("first", 0, 1);
 
             List<ImageInfo> listBlockFirstAndSecond = new List<ImageInfo>();
-            listBlockSecond.Add(image1Info);
-            Block<ImageInfo> blockExpectedFirstAndSecondAndExistMoreItems =
-                new Block<ImageInfo>(listBlockFirst, true);
+            listBlockFirstAndSecond.Add(image1Info);
             Block<ImageInfo> blockSearchByFirstAndSecondAndExistMoreItems =
                 imageService.SearchByKeywords("first sec", 0, 1);
 
-            Assert.AreEqual(blockExpectedSecond, blockSearchBySecond);
-            Assert.AreEqual(blockExpectedFirst, blockSearchByFirst);
-            Assert.AreEqual(blockExpectedFirstAndSecondAndExistMoreItems,
-                blockSearchByFirstAndSecondAndExistMoreItems);
+            for (int i = 0; i < listBlockSecond.Count; i++)
+            {
+                ImageInfo imageInfoList = listBlockSecond.ElementAt(i);
+                ImageInfo imageInfoBlockList = blockSearchBySecond.items.ElementAt(i);
+                Assert.AreEqual(imageInfoList.category, imageInfoBlockList.category);
+                Assert.AreEqual(imageInfoList.categoryId, imageInfoBlockList.categoryId);
+                Assert.AreEqual(imageInfoList.description, imageInfoBlockList.description);
+                Assert.AreEqual(imageInfoList.imgBase64, imageInfoBlockList.imgBase64);
+                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
+                Assert.AreEqual(imageInfoList.title, imageInfoBlockList.title);
+                Assert.AreEqual(imageInfoList.uploadDate, imageInfoBlockList.uploadDate);
+                Assert.AreEqual(imageInfoList.userId, imageInfoBlockList.userId);
+                Assert.AreEqual(imageInfoList.userName, imageInfoBlockList.userName);
+            }
+            Assert.IsFalse(blockSearchBySecond.existMoreItems);
+            for (int i = 0; i < listBlockFirst.Count; i++)
+            {
+                ImageInfo imageInfoList = listBlockFirst.ElementAt(i);
+                ImageInfo imageInfoBlockList = blockSearchByFirst.items.ElementAt(i);
+                Assert.AreEqual(imageInfoList.category, imageInfoBlockList.category);
+                Assert.AreEqual(imageInfoList.categoryId, imageInfoBlockList.categoryId);
+                Assert.AreEqual(imageInfoList.description, imageInfoBlockList.description);
+                Assert.AreEqual(imageInfoList.imgBase64, imageInfoBlockList.imgBase64);
+                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
+                Assert.AreEqual(imageInfoList.title, imageInfoBlockList.title);
+                Assert.AreEqual(imageInfoList.uploadDate, imageInfoBlockList.uploadDate);
+                Assert.AreEqual(imageInfoList.userId, imageInfoBlockList.userId);
+                Assert.AreEqual(imageInfoList.userName, imageInfoBlockList.userName);
+            }
+            Assert.IsFalse(blockSearchBySecond.existMoreItems);
+            for (int i = 0; i < listBlockFirstAndSecond.Count; i++)
+            {
+                ImageInfo imageInfoList = listBlockFirstAndSecond.ElementAt(i);
+                ImageInfo imageInfoBlockList = blockSearchByFirstAndSecondAndExistMoreItems.items.ElementAt(i);
+                Assert.AreEqual(imageInfoList.category, imageInfoBlockList.category);
+                Assert.AreEqual(imageInfoList.categoryId, imageInfoBlockList.categoryId);
+                Assert.AreEqual(imageInfoList.description, imageInfoBlockList.description);
+                Assert.AreEqual(imageInfoList.imgBase64, imageInfoBlockList.imgBase64);
+                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
+                Assert.AreEqual(imageInfoList.title, imageInfoBlockList.title);
+                Assert.AreEqual(imageInfoList.uploadDate, imageInfoBlockList.uploadDate);
+                Assert.AreEqual(imageInfoList.userId, imageInfoBlockList.userId);
+                Assert.AreEqual(imageInfoList.userName, imageInfoBlockList.userName);
+            }
+            Assert.IsTrue(blockSearchByFirstAndSecondAndExistMoreItems.existMoreItems);
+
+
+            // No puedes borrar porque has sacado de base de datos una entidad
+            // que guarda relaciones con otras entidades
+            //imageService.DeleteImage(image1.imgId, image1.userId);
+            //imageService.DeleteImage(image2.imgId, image2.userId);
         }
     }
 }

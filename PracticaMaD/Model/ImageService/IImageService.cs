@@ -29,12 +29,19 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         void DeleteImage(long imgId, long userId);
 
         /// <summary>
-        /// Search for an image.
+        /// Searches the image eager fetch, gets also User, Category and Exif info.
+        /// </summary>
+        /// <param name="imgId">The img identifier.</param>
+        /// <returns>The Image retrieved from the DB</returns>
+        ImageInfo SearchImageEager(long imgId);
+
+        /// <summary>
+        /// Search for an image, lazy fetch.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
         /// <exception cref="InstanceNotFoundException">
         /// <returns>The image retrieved from the DB.</returns>
-        ImageInfo SearchImage(long imgId);
+        Image SearchImage(long imgId);
 
         /// <summary>
         /// Searches for images by keywords.

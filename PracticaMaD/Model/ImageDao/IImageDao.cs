@@ -10,6 +10,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 
     public interface IImageDao : IGenericDao<Image, Int64>
     {
+        Image FindWithChilds(long imgId);
+
         /// <summary>
         /// Gets the maximum stored in DB identifier.
         /// For image file naming purposes.

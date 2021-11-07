@@ -52,13 +52,27 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// Deletes the image stored filename.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
-        private void DeleteImageFile(long imgId)
+        private void DeleteImageFile(string imageName)
         {
             var appSettings = ConfigurationManager.AppSettings;
             string dirPath = appSettings[ImagesPathKey];
-            dirPath = dirPath + "\\" + imgId.ToString() + ".jpeg";
+            dirPath = dirPath + "\\" + imageName + ".jpeg";
 
             File.Delete(dirPath);
+        }
+
+        private byte[] GetImageFromFile(string imageName)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            string imagePath = appSettings[ImagesPathKey];
+            imagePath = imagePath + "\\" + imageName + ".jpeg";
+
+            FileStream imageAsFileStream = File.Open(imagePath, FileMode.Open);
+            int imageAsFileStreamLength = (int) imageAsFileStream.Length;
+            byte[] imageAsByte = new byte[imageAsFileStreamLength];
+            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            imageAsFileStream.Close();
+            return imageAsByte;
         }
 
         #endregion
@@ -111,18 +125,33 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             }
             if (image.path != null)
             {
-                DeleteImageFile(image.imgId);
+                DeleteImageFile(image.path);
             }
             ImageDao.Remove(imgId);
         }
 
         /// <exception cref="InstanceNotFoundException"/>
+        public ImageInfo SearchImageEager(long imgId)
+        {
+            Image image = new Image();
+            image = ImageDao.FindWithChilds(imgId);
+            if (image.path == null)
+            {
+                return ToImageInfo(image, System.Convert.ToBase64String(image.img));
+            } else
+            {
+                return ToImageInfo(image, System.Convert.ToBase64String(GetImageFromFile(image.path)));
+            }
+            
+        }
+
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public ImageInfo SearchImage(long imgId)
+        public Image SearchImage(long imgId)
         {
             Image image = new Image();
             image = ImageDao.Find(imgId);
-            return ToImageInfo(image);
+            return image;
         }
 
         [Transactional]
@@ -132,7 +161,20 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             imagesFound = ImageDao.FindByKeywords(keywords, startIndex, count + 1);
             bool existMoreImages = (imagesFound.Count == count + 1);
 
-            return new Block<ImageInfo>(ToImageInfos(imagesFound), existMoreImages);
+            List<string> imagesAsB64 = new List<string>();
+            foreach (Image image in imagesFound)
+            {
+                if (image.path == null)
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(image.img));
+                }
+                else
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(GetImageFromFile(image.path)));
+                }
+            }
+
+            return new Block<ImageInfo>(ToImageInfos(imagesFound, imagesAsB64), existMoreImages);
         }
 
         [Transactional]
@@ -142,7 +184,19 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             imagesFound = ImageDao.FindByKeywords(keywords, category, startIndex, count + 1);
             bool existMoreImages = (imagesFound.Count == count + 1);
 
-            return new Block<ImageInfo>(ToImageInfos(imagesFound), existMoreImages);
+            List<string> imagesAsB64 = new List<string>();
+            foreach(Image image in imagesFound)
+            {
+                if (image.path == null)
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(image.img));
+                } else
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(GetImageFromFile(image.path)));
+                }
+            }
+
+            return new Block<ImageInfo>(ToImageInfos(imagesFound, imagesAsB64), existMoreImages);
         }
 
         #endregion IImageService Members
