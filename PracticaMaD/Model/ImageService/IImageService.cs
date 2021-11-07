@@ -13,13 +13,13 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// Stores the image.
         /// </summary>
         /// <param name="img">The image.</param>
-        void StoreImageAsBlob(ImageDto imageDto);
+        Image StoreImageAsBlob(ImageDto imageDto);
 
         /// <summary>
         /// Stores the image.
         /// </summary>
         /// <param name="img">The image.</param>
-        void StoreImageAsFile(ImageDto imageDto);
+        Image StoreImageAsFile(ImageDto imageDto);
 
         /// <summary>
         /// Deletes the image.

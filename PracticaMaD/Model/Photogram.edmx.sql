@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/06/2021 19:42:21
+-- Date Created: 11/06/2021 20:47:00
 -- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Photogram.edmx
 -- --------------------------------------------------
 
@@ -298,6 +298,14 @@ GO
 
 INSERT INTO [dbo].[Users] VALUES(
 	"testUN", "test", "testFN", "testLN1", "testLN2", "test@test.ts", "testLand", "ES");
+GO
+
+INSERT INTO [dbo].[Categories] VALUES(
+	"test");
+GO
+
+INSERT INTO [dbo].[Categories] VALUES(
+	"test2");
 GO
 -- --------------------------------------------------
 -- Script has ended

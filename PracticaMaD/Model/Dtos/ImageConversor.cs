@@ -27,7 +27,13 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
 
         public static Image ToImage(ImageDto imageDto)
         {
-            return null;
+            Image image = new Image();
+            image.title = imageDto.title;
+            image.description = imageDto.description;
+            image.categoryId = imageDto.categoryId;
+            image.userId = imageDto.userId;
+            return image;
         }
+
     }
 }

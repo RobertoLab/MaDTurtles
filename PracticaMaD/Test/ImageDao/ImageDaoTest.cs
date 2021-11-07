@@ -1,13 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
-using System.Drawing;
 using Es.Udc.DotNet.Photogram.Model.CategoryDao;
-using Es.Udc.DotNet.Photogram.Model.ImageDao;
-using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Test;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
@@ -93,10 +89,6 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
         [TestMethod]
         public void FindImages()
         {
-            TestContext.WriteLine("-----------------------");
-            TestContext.WriteLine(imagesTestDir);
-            TestContext.WriteLine("-----------------------");
-
             // Get image to store as bytes
             FileStream imageAsFileStream = File.Open(imagesTestDir + "\\bmx.jpg", FileMode.Open);
             TestContext.WriteLine(imageAsFileStream.Length.ToString());
@@ -106,14 +98,14 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
 
             // Create a test category
-            Category testCat = new Category();
-            testCat.category = "test";
-            categoryDao.Create(testCat);
+            //Category testCat = new Category();
+            //testCat.category = "test";
+            //categoryDao.Create(testCat);
 
             // Create a second test category
-            Category testCat2 = new Category();
-            testCat2.category = "test2";
-            categoryDao.Create(testCat2);
+            //Category testCat2 = new Category();
+            //testCat2.category = "test2";
+            //categoryDao.Create(testCat2);
 
             System.DateTime imgUploadDate = System.DateTime.Now;
 
@@ -165,6 +157,11 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             Assert.AreEqual(0, imagesByTest2Cat.Count);
             Assert.AreEqual(0, imagesByNonExistentCat.Count);
             Assert.AreEqual(image, imgStored);
+
+            //categoryDao.Remove(testCat.categoryId);
+            //categoryDao.Remove(testCat2.categoryId);
+            //imageDao.Remove(image.imgId);
+            //imageDao.Remove(image2.imgId);
         }
     }
 }
