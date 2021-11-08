@@ -20,7 +20,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
                  where img.imgId == imgId
                  select img);
             
-            if (result == null)
+            if (result.Count() == 0)
             {
                 throw new InstanceNotFoundException(imgId, typeof(Image).FullName);
             }
@@ -34,9 +34,14 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 
             var result =
                 (from img in images
-                 select img.imgId).Max();
+                 select img.imgId);
 
-            return result;
+            if(result.Count() == 0)
+            {
+                return 1;
+            }
+
+            return result.Max();
         }
 
         public bool BelongsTo(long imgId, long userId)

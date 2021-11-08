@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
 using Es.Udc.DotNet.Photogram.Model.CommentService;
+using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Test;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
@@ -22,8 +23,13 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
     {
         private static IKernel kernel;
         private static ICommentService commentService;
+        private static IImageService imageService;
         private static long testUserId = 1;
         private static long testImgId = 1;
+        private static int testCatId = 1;
+        public string ImagesPathKey = "ImagesPath";
+        public string ImagesTestPathKey = "ImagesTestPath";
+        
 
         private TestContext testContextInstance;
 
@@ -55,6 +61,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
         {
             kernel = TestManager.ConfigureNInjectKernel();
             commentService = kernel.Get<ICommentService>();
+            imageService = kernel.Get<IImageService>();
         }
         //
         // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
@@ -82,21 +89,38 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
         [TestMethod]
         public void CommentServiceMethodsTest()
         {
-            Comment comment = commentService.PostComment("Comentario 1 del Test", testUserId, testImgId);
+            var appSettings = ConfigurationManager.AppSettings;
+            string imageTestPath = appSettings[ImagesTestPathKey];
+            // Get image to store as bytes
+            FileStream imageAsFileStream = File.Open(imageTestPath + "\\bmx.jpg", FileMode.Open);
+            TestContext.WriteLine(imageAsFileStream.Length.ToString());
+            int imageAsFileStreamLength = (int)imageAsFileStream.Length;
+            TestContext.WriteLine(imageAsFileStreamLength.ToString());
+            byte[] imageAsByte = new byte[imageAsFileStreamLength];
+            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            imageAsFileStream.Close();
 
-            Assert.Equals("Comentario 1 del Test", comment.comment);
+            ImageDto imageDto = new ImageDto("bmx", "first test image",
+                testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                "test testing",
+                float.NaN, float.NaN, float.NaN, float.NaN);
+            Image image = imageService.StoreImageAsFile(imageDto);
+
+            Comment comment = commentService.PostComment("Comentario 1 del Test", testUserId, image.imgId);
+            
+            Assert.AreEqual("Comentario 1 del Test", comment.comment);
 
             Comment commentEdited = commentService.EditComment(comment.commentId, "Texto editado");
 
             Assert.AreNotEqual(comment, commentEdited);
 
-            Comment comment2 = commentService.PostComment("Comentario 2 del Test", testUserId, testImgId);
+            Comment comment2 = commentService.PostComment("Comentario 2 del Test", testUserId, image.imgId);
 
             commentService.DeleteComment(comment.commentId);
 
-            List<Comment> comments = commentService.GetImageComments(testImgId);
+            List<Comment> comments = commentService.GetImageComments(image.imgId);
 
-            Assert.Equals(1, comments.Count);
+            Assert.AreEqual(1, comments.Count);
                
         }
 
