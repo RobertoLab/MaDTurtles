@@ -5,12 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.TagDao;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
     public interface IImageService
     {
+        [Inject]
+        IImageDao ImageDao { set; }
+
+        [Inject]
+        ITagDao TagDao { set; }
+
         /// <summary>
         /// Stores the image, saves the image in the DB as bytes.
         /// </summary>
