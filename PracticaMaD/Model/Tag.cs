@@ -26,5 +26,6 @@ namespace Es.Udc.DotNet.Photogram.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ImageTag> ImageTags { get; set; }
+        
     }
 }

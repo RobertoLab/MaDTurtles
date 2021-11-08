@@ -19,5 +19,6 @@ namespace Es.Udc.DotNet.Photogram.Model
     
         public virtual Image Image { get; set; }
         public virtual Tag Tag { get; set; }
+        
     }
 }

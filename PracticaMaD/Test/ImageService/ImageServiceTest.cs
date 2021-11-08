@@ -254,13 +254,13 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
 
             // No puedes borrar porque has sacado de base de datos una entidad
             // que guarda relaciones con otras entidades
-            /*long im1Id = image1.imgId, im2Id = image2.imgId;
+            long im1Id = image1.imgId, im2Id = image2.imgId;
             long im1UserId = image1.userId, im2UserId = image2.userId;
             imageService.DeleteImage(im1Id, im1UserId);
             imageService.DeleteImage(im2Id, im2UserId);
 
             Assert.IsFalse(File.Exists(imagePath + "\\" + image2.path));
-            */    
+             
         }
     }
 }
