@@ -12,12 +12,12 @@ namespace Es.Udc.DotNet.Photogram.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Exif
+    public partial class ImageTag
     {
-        public string infoType { get; set; }
-        public decimal value { get; set; }
         public long imgId { get; set; }
+        public int tagId { get; set; }
     
         public virtual Image Image { get; set; }
+        public virtual Tag Tag { get; set; }
     }
 }

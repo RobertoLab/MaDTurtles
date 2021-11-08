@@ -13,13 +13,14 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
         public int categoryId;
         public string imgB64;
         public long userId;
+        public string tags;
         public float diaphragm;
         public float exposureTime;
         public float iso;
         public float whiteBalance;
 
         public ImageDto(string title, string description, int categoryId, 
-            string imgB64, long userId, float diaphragm, float exposureTime,
+            string imgB64, long userId, string tags, float diaphragm, float exposureTime,
             float iso, float whiteBalance)
         {
             this.title = title;
@@ -31,6 +32,7 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
             this.exposureTime = exposureTime;
             this.iso = iso;
             this.whiteBalance = whiteBalance;
+            this.tags = tags;
         }
 
         public override bool Equals(object obj)

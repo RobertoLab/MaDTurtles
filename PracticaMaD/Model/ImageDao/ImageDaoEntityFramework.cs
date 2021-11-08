@@ -16,13 +16,13 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             DbSet<Image> images = Context.Set<Image>();
 
             var result =
-                (from img in images.Include("User").Include("Category").Include("Exifs")
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("ImageTags").Include("Likes")
                  where img.imgId == imgId
                  select img);
             
             if (result == null)
             {
-                throw new InstanceNotFoundException("class", "Es.Udc.DotNet.Photogram.Model.Image");
+                throw new InstanceNotFoundException(imgId, typeof(Image).FullName);
             }
 
             return result.Single();
@@ -61,7 +61,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             List<string> keywords = keywordCriteria.Split(' ').ToList();
             
             var result =
-                 (from img in images.Include("User").Include("Category").Include("Exifs")
+                 (from img in images.Include("User").Include("Category").Include("Exifs").Include("ImageTags").Include("Likes")
                   join cat in categories on img.categoryId equals cat.categoryId
                  where cat.category == categoryCriteria
                  orderby img.imgId
@@ -86,7 +86,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             List<string> keywords = criteria.Split(' ').ToList();
 
             var result =
-                (from img in images.Include("User").Include("Category").Include("Exifs")
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("ImageTags").Include("Likes")
                  orderby img.imgId
                  select img).Skip(startIndex).Take(count).ToList<Image>();
 
@@ -100,6 +100,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             }
 
             return foundImages;
+        }
+
+        public void UpdateTags(long imgId, List<ImageTag> tags)
+        {
+            DbSet<Image> images = Context.Set<Image>();
+
+            Image image = Find(imgId);
+            image.ImageTags = tags;
+            Update(image);
         }
     }
 }

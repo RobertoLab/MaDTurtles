@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ninject;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
+using Es.Udc.DotNet.ModelUtil.Transactions;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
     public interface IImageService
     {
         /// <summary>
-        /// Stores the image.
+        /// Stores the image, saves the image in the DB as bytes.
         /// </summary>
         /// <param name="img">The image.</param>
+        [Transactional]
         Image StoreImageAsBlob(ImageDto imageDto);
 
         /// <summary>
-        /// Stores the image.
+        /// Stores the image, and saves the image in the file system.
         /// </summary>
         /// <param name="img">The image.</param>
+        [Transactional]
         Image StoreImageAsFile(ImageDto imageDto);
 
         /// <summary>
@@ -26,6 +30,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
         /// <exception cref="InstanceNotFoundException">
+        [Transactional]
         void DeleteImage(long imgId, long userId);
 
         /// <summary>
@@ -33,6 +38,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
         /// <returns>The Image retrieved from the DB</returns>
+        [Transactional]
         ImageInfo SearchImageEager(long imgId);
 
         /// <summary>
@@ -41,6 +47,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="imgId">The img identifier.</param>
         /// <exception cref="InstanceNotFoundException">
         /// <returns>The image retrieved from the DB.</returns>
+        [Transactional]
         Image SearchImage(long imgId);
 
         /// <summary>
@@ -48,6 +55,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// </summary>
         /// <param name="keywords">The keywords.</param>
         /// <returns>The list of Images retrieved from the DB.</returns>
+        [Transactional]
         Block<ImageInfo> SearchByKeywords(string keywords, int startIndex, int count);
 
         /// <summary>
@@ -56,6 +64,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="keywords">The keywords.</param>
         /// <param name="categoryId">The category.</param>
         /// <returns>The list of Images retrieved from the DB.</returns>
+        [Transactional]
         Block<ImageInfo> SearchByKeywordsAndCategory(string keywords, string category, int startIndex, int count);
+
+        /// <summary>
+        /// Changes the tagging of an image.
+        /// </summary>
+        /// <param name="imgId">The img identifier.</param>
+        /// <param name="tags">The new tags of the image.</param>
+        [Transactional]
+        void ModifyImageTags(long imgId, string tags);
     }
 }

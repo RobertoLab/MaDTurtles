@@ -14,10 +14,12 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
         public long userId { get; set; }
         public string userName { get; set; }
         public List<Exif> metadata { get; set; }
+        public List<ImageTag> tags { get; set; }
+        public int likes { get; set; }
 
         public ImageInfo(string title, string description, DateTime uploadDate,
             int categoryId, string category, string imgBase64, long userId,
-            string userName, List<Exif> metadata)
+            string userName, List<Exif> metadata, List<ImageTag> tags, int likes)
         {
             this.title = title;
             this.description = description;
@@ -28,6 +30,8 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
             this.userId = userId;
             this.userName = userName;
             this.metadata = metadata;
+            this.tags = tags;
+            this.likes = likes;
         }
 
         public override bool Equals(object obj)

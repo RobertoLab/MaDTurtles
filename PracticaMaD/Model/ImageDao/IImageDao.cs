@@ -55,5 +55,6 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// <returns>The list of images retrieved from DB.</returns>
         List<Image> FindByKeywords(string keywords, string category, int startIndex, int count);
 
+        void UpdateTags(long imgId, List<ImageTag> tags);
     }
 }

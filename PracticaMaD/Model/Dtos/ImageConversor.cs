@@ -12,7 +12,8 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
         { 
             ImageInfo imageInfo = new ImageInfo(image.title, image.description
                 , image.uploadDate , image.categoryId, image.Category.category
-                , imageAsB64, image.userId, image.User.userName, image.Exifs.ToList());
+                , imageAsB64, image.userId, image.User.userName, 
+                image.Exifs.ToList(), image.ImageTags.ToList(), image.Likes.Count());
 
             return imageInfo;
         }
