@@ -19,23 +19,6 @@ namespace Es.Udc.DotNet.Photogram.Model
         public long imgId { get; set; }
     
         public virtual Image Image { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            var exif = obj as Exif;
-            return exif != null &&
-                   infoType == exif.infoType &&
-                   value == exif.value &&
-                   imgId == exif.imgId;
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = -1283829760;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(infoType);
-            hashCode = hashCode * -1521134295 + value.GetHashCode();
-            hashCode = hashCode * -1521134295 + imgId.GetHashCode();
-            return hashCode;
-        }
+        
     }
 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/07/2021 12:54:26
+-- Date Created: 11/08/2021 01:47:22
 -- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Photogram.edmx
 -- --------------------------------------------------
 
@@ -41,6 +41,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ImageCategory]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_ImageCategory];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ImageImageTag]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ImageTags] DROP CONSTRAINT [FK_ImageImageTag];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TagImageTag]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ImageTags] DROP CONSTRAINT [FK_TagImageTag];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -66,6 +72,12 @@ IF OBJECT_ID(N'[dbo].[Likes]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Comments];
+GO
+IF OBJECT_ID(N'[dbo].[Tags]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Tags];
+GO
+IF OBJECT_ID(N'[dbo].[ImageTags]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ImageTags];
 GO
 
 -- --------------------------------------------------
@@ -138,6 +150,21 @@ CREATE TABLE [dbo].[Comments] (
 );
 GO
 
+-- Creating table 'Tags'
+CREATE TABLE [dbo].[Tags] (
+    [tagId] int IDENTITY(1,1) NOT NULL,
+    [tag] nvarchar(max)  NOT NULL,
+    [imgCount] int  NOT NULL
+);
+GO
+
+-- Creating table 'ImageTags'
+CREATE TABLE [dbo].[ImageTags] (
+    [imgId] bigint  NOT NULL,
+    [tagId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -182,6 +209,18 @@ GO
 ALTER TABLE [dbo].[Comments]
 ADD CONSTRAINT [PK_Comments]
     PRIMARY KEY CLUSTERED ([commentId] ASC);
+GO
+
+-- Creating primary key on [tagId] in table 'Tags'
+ALTER TABLE [dbo].[Tags]
+ADD CONSTRAINT [PK_Tags]
+    PRIMARY KEY CLUSTERED ([tagId] ASC);
+GO
+
+-- Creating primary key on [imgId], [tagId] in table 'ImageTags'
+ALTER TABLE [dbo].[ImageTags]
+ADD CONSTRAINT [PK_ImageTags]
+    PRIMARY KEY CLUSTERED ([imgId], [tagId] ASC);
 GO
 
 -- --------------------------------------------------
@@ -294,6 +333,30 @@ GO
 CREATE INDEX [IX_FK_ImageCategory]
 ON [dbo].[Images]
     ([categoryId]);
+GO
+
+-- Creating foreign key on [imgId] in table 'ImageTags'
+ALTER TABLE [dbo].[ImageTags]
+ADD CONSTRAINT [FK_ImageImageTag]
+    FOREIGN KEY ([imgId])
+    REFERENCES [dbo].[Images]
+        ([imgId])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [tagId] in table 'ImageTags'
+ALTER TABLE [dbo].[ImageTags]
+ADD CONSTRAINT [FK_TagImageTag]
+    FOREIGN KEY ([tagId])
+    REFERENCES [dbo].[Tags]
+        ([tagId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TagImageTag'
+CREATE INDEX [IX_FK_TagImageTag]
+ON [dbo].[ImageTags]
+    ([tagId]);
 GO
 
 INSERT INTO [dbo].[Users] VALUES(

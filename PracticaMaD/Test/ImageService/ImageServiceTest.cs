@@ -113,6 +113,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             // Create the image
             ImageDto imageDto = new ImageDto("bmx", "first test image",
                 testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                "test testing",
                 float.NaN, float.NaN, float.NaN, float.NaN);
             
             Image image1 = imageService.StoreImageAsBlob(imageDto);
@@ -120,6 +121,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             // Create a second image
             ImageDto imageDto2 = new ImageDto("bmx", "second test image",
                 testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                "test testing",
                 float.NaN, float.NaN, float.NaN, float.NaN);
 
             Image image2 = imageService.StoreImageAsFile(imageDto2);
@@ -134,6 +136,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             fileImageStoredAsFileStream.Close();
 
             Assert.IsTrue(imageAsByte.SequenceEqual(fileImageStoredAsMemoryStream));
+
 
             imageService.DeleteImage(image1.imgId, testUserId);
             imageService.DeleteImage(image2.imgId, testUserId);
@@ -159,6 +162,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
 
             ImageDto imageDto = new ImageDto("bmx", "first test image"
                 , testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                "test testing",
                 0, 1, 2, 3);
 
             Image image1 = imageService.StoreImageAsBlob(imageDto);
@@ -166,12 +170,20 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             // Create a second image
             ImageDto imageDto2 = new ImageDto("bmx", "second test image"
                 , testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                "test testing",
                 float.NaN, float.NaN, float.NaN, float.NaN);
 
             Image image2 = imageService.StoreImageAsFile(imageDto2);
 
             ImageInfo image1Info = imageService.SearchImageEager(image1.imgId);
             ImageInfo image2Info = imageService.SearchImageEager(image2.imgId);
+
+            Assert.IsTrue(image1Info.tags.Count() == 2);
+
+            imageService.ModifyImageTags(image1.imgId, "tested");
+            ImageInfo imageInfoTagsTest = imageService.SearchImageEager(image1.imgId);
+
+            Assert.IsTrue(imageInfoTagsTest.tags.Count() == 1);
 
             Assert.IsTrue(image1Info.metadata.Count == 4);
 
@@ -242,13 +254,13 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
 
             // No puedes borrar porque has sacado de base de datos una entidad
             // que guarda relaciones con otras entidades
-            /*long im1Id = image1.imgId, im2Id = image2.imgId;
+            long im1Id = image1.imgId, im2Id = image2.imgId;
             long im1UserId = image1.userId, im2UserId = image2.userId;
             imageService.DeleteImage(im1Id, im1UserId);
             imageService.DeleteImage(im2Id, im2UserId);
 
             Assert.IsFalse(File.Exists(imagePath + "\\" + image2.path));
-            */    
+             
         }
     }
 }

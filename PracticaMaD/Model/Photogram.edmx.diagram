@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="92d7b510ed0d426aa73b4dd5d26cbca1" Name="Diagram1" ZoomLevel="93" >
+      <Diagram DiagramId="92d7b510ed0d426aa73b4dd5d26cbca1" Name="Diagram1" ZoomLevel="78" >
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Image" Width="1.5" PointX="7" PointY="9.125" />
-        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Exif" Width="1.5" PointX="9.5" PointY="8.625" />
-        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Category" Width="1.5" PointX="9.5" PointY="11.25" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Exif" Width="1.5" PointX="7" PointY="6.875" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Category" Width="1.5" PointX="7" PointY="13.375" />
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.User" Width="1.5" PointX="2.75" PointY="8.625" />
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Follows" Width="1.5" PointX="0.5" PointY="9.75" />
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Like" Width="1.5" PointX="5.125" PointY="8.25" />
@@ -20,6 +20,10 @@
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserLike" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserComment" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageCategory" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Tag" Width="1.5" PointX="8.875" PointY="11.375" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.ImageTag" Width="1.5" PointX="8.875" PointY="9.125" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageImageTag" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.TagImageTag" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

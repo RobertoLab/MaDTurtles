@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Drawing;
+using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.TagDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
@@ -18,6 +19,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
         [Inject]
         public IImageDao ImageDao { private get; set; }
+
+        [Inject]
+        public ITagDao TagDao { private get; set; }
 
         public string ImagesPathKey = "ImagesPath";
 
@@ -75,6 +79,32 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             return imageAsByte;
         }
 
+        private List<ImageTag> ParseImageTags(string tagCriteria)
+        {
+            List<string> tags = tagCriteria.Split(' ').ToList();
+
+            List<ImageTag> ImageTags = new List<ImageTag>();
+            foreach (string tag in tags)
+            {
+                string tagLowerCase = tag.ToLower();
+                Tag tagToAdd = new Tag();
+                ImageTag imageTagToAdd = new ImageTag();
+                if (!TagDao.ExistsByString(tagLowerCase))
+                {
+                    tagToAdd.tag = tagLowerCase;
+                    tagToAdd.imgCount = 0;
+                    TagDao.Create(tagToAdd);
+                } else
+                {
+                    tagToAdd = TagDao.FindByName(tagLowerCase);
+                }
+                imageTagToAdd.tagId = tagToAdd.tagId;
+                ImageTags.Add(imageTagToAdd);
+            }
+
+            return ImageTags;
+        }
+
         #endregion
 
         #region IImageService Members
@@ -86,6 +116,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             image.uploadDate = System.DateTime.Now;
             image.path = null;
             image.img = System.Convert.FromBase64String(imageDto.imgB64);
+            image.ImageTags = ParseImageTags(imageDto.tags);
+
             ImageDao.Create(image);
             return image;
         }
@@ -96,6 +128,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             Image image = ToImage(imageDto);
             image.uploadDate = System.DateTime.Now;
             image.img = null;
+            image.ImageTags = ParseImageTags(imageDto.tags);
 
             long previousImage = ImageDao.GetMaxImgId();
             string imageName = StoreImageFile(imageDto.imgB64, previousImage+1);
@@ -189,6 +222,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             }
 
             return new Block<ImageInfo>(ToImageInfos(imagesFound, imagesAsB64), existMoreImages);
+        }
+
+        public void ModifyImageTags(long imgId ,string tagsCriteria)
+        {
+            List<string> tags = tagsCriteria.Split(' ').ToList();
+
+            List<ImageTag> newImageTags = ParseImageTags(tagsCriteria);
+
+            ImageDao.UpdateTags(imgId, newImageTags);
         }
 
         #endregion IImageService Members

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data.Entity;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.CategoryDao;
+using Es.Udc.DotNet.Photogram.Model.TagDao;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
 
 
@@ -25,6 +26,8 @@ namespace Es.Udc.DotNet.Photogram.Test
             kernel.Bind<IImageDao>().To<ImageDaoEntityFramework>();
 
             kernel.Bind<ICategoryDao>().To<CategoryDaoEntityFramework>();
+
+            kernel.Bind<ITagDao>().To<TagDaoEntityFramework>();
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["PhotogramEntities"].ConnectionString;

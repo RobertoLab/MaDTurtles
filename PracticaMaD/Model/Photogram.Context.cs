@@ -32,5 +32,7 @@ namespace Es.Udc.DotNet.Photogram.Model
         public virtual DbSet<Follows> Follows { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<ImageTag> ImageTags { get; set; }
     }
 }

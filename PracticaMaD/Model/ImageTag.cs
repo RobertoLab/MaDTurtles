@@ -12,19 +12,13 @@ namespace Es.Udc.DotNet.Photogram.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class ImageTag
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
-        {
-            this.Images = new HashSet<Image>();
-        }
+        public long imgId { get; set; }
+        public int tagId { get; set; }
     
-        public int categoryId { get; set; }
-        public string category { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual Image Image { get; set; }
+        public virtual Tag Tag { get; set; }
         
     }
 }
