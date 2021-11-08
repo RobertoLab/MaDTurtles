@@ -118,6 +118,8 @@
     <Compile Include="Follows.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
+    <Compile Include="FollowsDao\FollowsDaoEntityFramework.cs" />
+    <Compile Include="FollowsDao\IFollowsDao.cs" />
     <Compile Include="Image.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
@@ -161,6 +163,8 @@
     <Compile Include="User.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserDao\UserDaoEntityFramework.cs" />
+    <Compile Include="UserDao\IUserDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -203,6 +207,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
