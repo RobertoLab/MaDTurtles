@@ -55,9 +55,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Model">
-      <HintPath>..\Model\obj\Debug\Model.dll</HintPath>
-    </Reference>
     <Reference Include="ModelUtil">
       <HintPath>..\Lib\ModelUtil.dll</HintPath>
     </Reference>
@@ -95,7 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="CommentDao\CommentDaoTest.cs" />
+    <Compile Include="CommentService\CommentServiceTest.cs" />
     <Compile Include="ImageService\ImageServiceTest.cs" />
+    <Compile Include="LikeDao\LikeDaoTest.cs" />
+    <Compile Include="LikeService\LikeServiceTest.cs" />
     <Compile Include="TestManager.cs" />
     <Compile Include="ImageDao\ImageDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +104,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{2b997b5a-9935-4f3d-adf9-a6d6b9dc71b5}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

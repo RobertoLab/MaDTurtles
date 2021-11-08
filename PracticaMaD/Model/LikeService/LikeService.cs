@@ -21,7 +21,7 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService
         [Transactional]
         public void LikeImage(long userId, long imgId)
         {
-            Like like = null;
+            Like like = new Like();
             like.imgId = imgId;
             like.userId = userId;
             if (!LikeDao.AlreadyLiked(imgId,userId))

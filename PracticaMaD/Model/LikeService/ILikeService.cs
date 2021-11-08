@@ -10,7 +10,7 @@ using Es.Udc.DotNet.Photogram.Model.LikeDao;
 
 namespace Es.Udc.DotNet.Photogram.Model.LikeService
 {
-    interface ILikeService
+    public interface ILikeService
     {
         [Inject]
         ILikeDao LikeDao { set; }

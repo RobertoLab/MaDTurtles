@@ -19,14 +19,15 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService
 
 
         [Transactional]
-        public void PostComment(string commentText, long userId, long imgId)
+        public Comment PostComment(string commentText, long userId, long imgId)
         {
-            Comment comment = null;
+            Comment comment = new Comment();
             comment.imgId = imgId;
             comment.uploadDate = DateTime.Now;
             comment.userId = userId;
             comment.comment = commentText;
             CommentDao.Create(comment);
+            return comment;
         }
 
         /// <exception cref="InstanceNotFoundException"/>
@@ -39,12 +40,13 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService
         }
 
         [Transactional]
-        public void EditComment(long commentId, string newCommentText)
+        public Comment EditComment(long commentId, string newCommentText)
         {
             Comment comment = CommentDao.Find(commentId);
             comment.comment = newCommentText;
             comment.uploadDate = DateTime.Now;
             CommentDao.Update(comment);
+            return comment;
         }
 
         [Transactional]

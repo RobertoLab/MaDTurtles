@@ -11,7 +11,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao
     /// <summary>
     /// Specific Operations for Comment
     /// </summary>
-    public class CommentaryDaoEntityFramework :
+    public class CommentDaoEntityFramework :
         GenericDaoEntityFramework<Comment, Int64>, ICommentDao
     {
         public List<Comment> GetCommentsFromImage(long ImageId)

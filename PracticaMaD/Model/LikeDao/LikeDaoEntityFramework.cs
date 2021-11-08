@@ -8,7 +8,7 @@ using Es.Udc.DotNet.ModelUtil.Dao;
 
 namespace Es.Udc.DotNet.Photogram.Model.LikeDao
 {
-    class LikeDaoEntityFrameworkEntityFramework :
+    public class LikeDaoEntityFramework :
         GenericDaoEntityFramework<Like, Int64>, ILikeDao
     {
 

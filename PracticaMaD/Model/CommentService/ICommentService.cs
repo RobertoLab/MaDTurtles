@@ -10,7 +10,7 @@ using Es.Udc.DotNet.Photogram.Model.CommentDao;
 
 namespace Es.Udc.DotNet.Photogram.Model.CommentService
 {
-    interface ICommentService
+    public interface ICommentService
     {
         [Inject]
         ICommentDao CommentDao { set; }
@@ -22,7 +22,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService
         /// <param name="imgId">The image to which the comment was posted.</param>
         /// <param name="commentText">The comment.</param>
         [Transactional]
-        void PostComment(string commentText, long userId, long imgId);
+        Comment PostComment(string commentText, long userId, long imgId);
 
         /// <summary>
         /// Deletes a comment .
@@ -38,7 +38,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService
         /// <param name="commentId">Id of the comment you want to edit.</param>
         /// <param name="newCommentText">The new comment.</param>
         [Transactional]
-        void EditComment(long commentId, string newCommentText);
+        Comment EditComment(long commentId, string newCommentText);
 
         /// <summary>
         /// Gets the comments on a specific image.
