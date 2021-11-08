@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
+using System.Runtime.Caching;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.TagDao;
@@ -25,6 +26,13 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
         public string ImagesPathKey = "ImagesPath";
 
+
+        //Creating the cache
+        //private ObjectCache cache = MemoryCache.Default;
+        //CacheItemPolicy policy = new CacheItemPolicy();
+        //private int index = 1;
+        
+        
         #region Private helper functions
 
         /// <summary>
@@ -174,8 +182,12 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Transactional]
         public Image SearchImage(long imgId)
         {
+            //if(cache.Contains(imgId)
+            //return cache.Get(imgID)
+            //else
             Image image = new Image();
             image = ImageDao.Find(imgId);
+            //cache.Add(image.imgId, image, policy)
             return image;
         }
 
