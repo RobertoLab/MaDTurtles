@@ -6,8 +6,10 @@ using System;
 using System.Data.Entity;
 using System.Transactions;
 using Es.Udc.DotNet.ModelUtil.Dao;
-namespace Es.Udc.DotNet.Photogram.Test.UserDao
+using Es.Udc.DotNet.Photogram.Test;
+namespace Es.Udc.DotNet.Photogram.Model.UserDao.Tests
 {
+    [TestClass]
     public class UserDaoTest
     {
 
