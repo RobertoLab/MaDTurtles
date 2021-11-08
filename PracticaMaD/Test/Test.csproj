@@ -100,6 +100,7 @@
     <Compile Include="TestManager.cs" />
     <Compile Include="ImageDao\ImageDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserDao\UserDaoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
