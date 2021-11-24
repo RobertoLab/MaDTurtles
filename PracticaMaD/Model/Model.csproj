@@ -116,11 +116,6 @@
     <Compile Include="Exif.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
-    <Compile Include="Follows.cs">
-      <DependentUpon>Photogram.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FollowsDao\FollowsDaoEntityFramework.cs" />
-    <Compile Include="FollowsDao\IFollowsDao.cs" />
     <Compile Include="Image.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
@@ -130,14 +125,6 @@
     <Compile Include="ImageDao\IImageDao.cs" />
     <Compile Include="ImageService\ImageService.cs" />
     <Compile Include="ImageService\IImageService.cs" />
-    <Compile Include="ImageTag.cs">
-      <DependentUpon>Photogram.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Like.cs">
-      <DependentUpon>Photogram.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LikeDao\ILikeDao.cs" />
-    <Compile Include="LikeDao\LikeDaoEntityFramework.cs" />
     <Compile Include="LikeService\ILikeService.cs" />
     <Compile Include="LikeService\LikeService.cs" />
     <Compile Include="Photogram.Context.cs">

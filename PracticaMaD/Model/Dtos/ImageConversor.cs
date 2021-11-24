@@ -8,12 +8,22 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
 {
     public static class ImageConversor
     {
+        private static List<string> TagsToStrings(ICollection<Tag> tags)
+        {
+            List<string> tagsNames = new List<string>();
+            foreach (Tag tag in tags)
+            {
+                tagsNames.Add(tag.tag);
+            }
+            return tagsNames;
+        }
+
         public static ImageInfo ToImageInfo(Image image, string imageAsB64)
         { 
             ImageInfo imageInfo = new ImageInfo(image.title, image.description
                 , image.uploadDate , image.categoryId, image.Category.category
                 , imageAsB64, image.userId, image.User.userName, 
-                image.Exifs.ToList(), image.ImageTags.ToList(), image.Likes.Count());
+                image.Exifs.ToList(), TagsToStrings(image.Tags), image.UsersLikes.Count());
 
             return imageInfo;
         }

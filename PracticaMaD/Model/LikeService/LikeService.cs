@@ -3,10 +3,11 @@ using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using Ninject;
-using Es.Udc.DotNet.Photogram.Model.LikeDao;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
 
 namespace Es.Udc.DotNet.Photogram.Model.LikeService
 {
@@ -15,35 +16,46 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService
         public LikeService() { }
 
         [Inject]
-        public ILikeDao LikeDao { private get; set; }
-
+        public IUserDao UserDao { private get; set; }
+        [Inject]
+        public IImageDao ImageDao { private get; set; }
 
         [Transactional]
         public void LikeImage(long userId, long imgId)
         {
-            Like like = new Like();
-            like.imgId = imgId;
-            like.userId = userId;
-            if (!LikeDao.AlreadyLiked(imgId,userId))
+            Image imageToLike = ImageDao.Find(imgId);
+            User user = UserDao.Find(userId);
+
+            ICollection<Image> imagesLiked = user.ImagesLiked;
+            if (!imagesLiked.Contains(imageToLike))
             {
-                LikeDao.Create(like);
+                imagesLiked.Add(imageToLike);
+                user.ImagesLiked = imagesLiked;
+                UserDao.UpdateImagesLiked(user);
             }
         }
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public void Unlike(long likeId)
+        public void Unlike(long userId, long imgId)
         {
-            Like like = LikeDao.Find(likeId);
+            Image imageToLike = ImageDao.Find(imgId);
+            User user = UserDao.Find(userId);
 
-            LikeDao.Remove(likeId);
+            ICollection<Image> imagesLiked = user.ImagesLiked;
+            if (imagesLiked.Contains(imageToLike))
+            {
+                imagesLiked.Remove(imageToLike);
+                user.ImagesLiked = imagesLiked;
+                UserDao.UpdateImagesLiked(user);
+            }
         }
 
 
         [Transactional]
         public int GetImageLikes(long imgId)
         {
-            return LikeDao.NumberOfLikes(imgId);
+            return ImageDao.Find(imgId).UsersLikes.Count;
         }
 
     }

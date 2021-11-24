@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             DbSet<Image> images = Context.Set<Image>();
 
             var result =
-                (from img in images.Include("User").Include("Category").Include("Exifs").Include("ImageTags").Include("Likes")
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
                  where img.imgId == imgId
                  select img);
             
@@ -61,7 +61,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             List<string> keywords = keywordCriteria.Split(' ').ToList();
             
             var result =
-                 (from img in images.Include("User").Include("Category").Include("Exifs").Include("ImageTags").Include("Likes")
+                 (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
                   join cat in categories on img.categoryId equals cat.categoryId
                  where cat.category == categoryCriteria
                  orderby img.imgId
@@ -86,7 +86,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             List<string> keywords = criteria.Split(' ').ToList();
 
             var result =
-                (from img in images.Include("User").Include("Category").Include("Exifs").Include("ImageTags").Include("Likes")
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
                  orderby img.imgId
                  select img).Skip(startIndex).Take(count).ToList<Image>();
 
@@ -102,12 +102,12 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             return foundImages;
         }
 
-        public void UpdateTags(long imgId, List<ImageTag> tags)
+        public void UpdateTags(long imgId, List<Tag> tags)
         {
             DbSet<Image> images = Context.Set<Image>();
 
             Image image = Find(imgId);
-            image.ImageTags = tags;
+            image.Tags = tags;
             Update(image);
         }
     }

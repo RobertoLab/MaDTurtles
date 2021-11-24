@@ -60,6 +60,6 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
         /// <param name="tags">The tags.</param>
-        void UpdateTags(long imgId, List<ImageTag> tags);
+        void UpdateTags(long imgId, List<Tag> tags);
     }
 }

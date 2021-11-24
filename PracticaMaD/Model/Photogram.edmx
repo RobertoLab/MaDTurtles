@@ -10,18 +10,14 @@
     <EntitySet Name="Exifs" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Exifs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Categories" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Categories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Follows" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Follows" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Likes" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Likes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comments" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Comments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tags" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Tags" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ImageTags" EntityType="Es.Udc.DotNet.Photogram.Model.Store.ImageTags" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ImageTag" EntityType="Es.Udc.DotNet.Photogram.Model.Store.ImageTag" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Likes" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Likes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Follows" EntityType="Es.Udc.DotNet.Photogram.Model.Store.Follows" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ImageExif" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageExif">
       <End Role="Image" EntitySet="Images" />
       <End Role="Exif" EntitySet="Exifs" />
-    </AssociationSet>
-    <AssociationSet Name="ImageLike" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageLike">
-      <End Role="Image" EntitySet="Images" />
-      <End Role="Like" EntitySet="Likes" />
     </AssociationSet>
     <AssociationSet Name="ImageComment" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageComment">
       <End Role="Image" EntitySet="Images" />
@@ -31,14 +27,6 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Image" EntitySet="Images" />
     </AssociationSet>
-    <AssociationSet Name="UserFollows" Association="Es.Udc.DotNet.Photogram.Model.Store.UserFollows">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Follows" EntitySet="Follows" />
-    </AssociationSet>
-    <AssociationSet Name="UserLike" Association="Es.Udc.DotNet.Photogram.Model.Store.UserLike">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Like" EntitySet="Likes" />
-    </AssociationSet>
     <AssociationSet Name="UserComment" Association="Es.Udc.DotNet.Photogram.Model.Store.UserComment">
       <End Role="User" EntitySet="Users" />
       <End Role="Comment" EntitySet="Comments" />
@@ -47,13 +35,29 @@
       <End Role="Image" EntitySet="Images" />
       <End Role="Category" EntitySet="Categories" />
     </AssociationSet>
-    <AssociationSet Name="ImageImageTag" Association="Es.Udc.DotNet.Photogram.Model.Store.ImageImageTag">
+    <AssociationSet Name="FK_ImageTag_Image" Association="Es.Udc.DotNet.Photogram.Model.Store.FK_ImageTag_Image">
       <End Role="Image" EntitySet="Images" />
-      <End Role="ImageTag" EntitySet="ImageTags" />
+      <End Role="ImageTag" EntitySet="ImageTag" />
     </AssociationSet>
-    <AssociationSet Name="TagImageTag" Association="Es.Udc.DotNet.Photogram.Model.Store.TagImageTag">
+    <AssociationSet Name="FK_ImageTag_Tag" Association="Es.Udc.DotNet.Photogram.Model.Store.FK_ImageTag_Tag">
       <End Role="Tag" EntitySet="Tags" />
-      <End Role="ImageTag" EntitySet="ImageTags" />
+      <End Role="ImageTag" EntitySet="ImageTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Likes_Image" Association="Es.Udc.DotNet.Photogram.Model.Store.FK_Likes_Image">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Likes" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Likes_User" Association="Es.Udc.DotNet.Photogram.Model.Store.FK_Likes_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Likes" EntitySet="Likes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Follows_User" Association="Es.Udc.DotNet.Photogram.Model.Store.FK_Follows_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Follows" EntitySet="Follows" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Follows_User1" Association="Es.Udc.DotNet.Photogram.Model.Store.FK_Follows_User1">
+      <End Role="User1" EntitySet="Users" />
+      <End Role="Follows" EntitySet="Follows" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Images">
@@ -99,22 +103,6 @@
     <Property Name="country" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="language" Type="nvarchar" Nullable="false" MaxLength="30" />
   </EntityType>
-  <EntityType Name="Follows">
-    <Key>
-      <PropertyRef Name="userId" />
-      <PropertyRef Name="followedId" />
-    </Key>
-    <Property Name="userId" Type="bigint" Nullable="false" />
-    <Property Name="followedId" Type="bigint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Likes">
-    <Key>
-      <PropertyRef Name="imgId" />
-      <PropertyRef Name="userId" />
-    </Key>
-    <Property Name="imgId" Type="bigint" Nullable="false" />
-    <Property Name="userId" Type="bigint" Nullable="false" />
-  </EntityType>
   <EntityType Name="Comments">
     <Key>
       <PropertyRef Name="commentId" />
@@ -133,13 +121,29 @@
     <Property Name="tag" Type="nvarchar(max)" Nullable="false" />
     <Property Name="imgCount" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="ImageTags">
+  <EntityType Name="ImageTag">
     <Key>
-      <PropertyRef Name="imgId" />
-      <PropertyRef Name="tagId" />
+      <PropertyRef Name="Images_imgId" />
+      <PropertyRef Name="Tags_tagId" />
     </Key>
-    <Property Name="imgId" Type="bigint" Nullable="false" />
-    <Property Name="tagId" Type="int" Nullable="false" />
+    <Property Name="Images_imgId" Type="bigint" Nullable="false" />
+    <Property Name="Tags_tagId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Likes">
+    <Key>
+      <PropertyRef Name="ImagesLiked_imgId" />
+      <PropertyRef Name="UsersLikes_userId" />
+    </Key>
+    <Property Name="ImagesLiked_imgId" Type="bigint" Nullable="false" />
+    <Property Name="UsersLikes_userId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Follows">
+    <Key>
+      <PropertyRef Name="UserFollow_userId" />
+      <PropertyRef Name="Users_userId" />
+    </Key>
+    <Property Name="UserFollow_userId" Type="bigint" Nullable="false" />
+    <Property Name="Users_userId" Type="bigint" Nullable="false" />
   </EntityType>
   <Association Name="ImageExif">
     <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1">
@@ -151,20 +155,6 @@
         <PropertyRef Name="imgId" />
       </Principal>
       <Dependent Role="Exif">
-        <PropertyRef Name="imgId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ImageLike">
-    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Like" Type="Es.Udc.DotNet.Photogram.Model.Store.Likes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Image">
-        <PropertyRef Name="imgId" />
-      </Principal>
-      <Dependent Role="Like">
         <PropertyRef Name="imgId" />
       </Dependent>
     </ReferentialConstraint>
@@ -197,32 +187,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="UserFollows">
-    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Follows" Type="Es.Udc.DotNet.Photogram.Model.Store.Follows" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="userId" />
-      </Principal>
-      <Dependent Role="Follows">
-        <PropertyRef Name="userId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserLike">
-    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
-    <End Role="Like" Type="Es.Udc.DotNet.Photogram.Model.Store.Likes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="userId" />
-      </Principal>
-      <Dependent Role="Like">
-        <PropertyRef Name="userId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="UserComment">
     <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
     <End Role="Comment" Type="Es.Udc.DotNet.Photogram.Model.Store.Comments" Multiplicity="*" />
@@ -247,29 +211,75 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="ImageImageTag">
-    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ImageTag" Type="Es.Udc.DotNet.Photogram.Model.Store.ImageTags" Multiplicity="*" />
+  <Association Name="FK_ImageTag_Image">
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="ImageTag" Type="Es.Udc.DotNet.Photogram.Model.Store.ImageTag" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Image">
         <PropertyRef Name="imgId" />
       </Principal>
       <Dependent Role="ImageTag">
-        <PropertyRef Name="imgId" />
+        <PropertyRef Name="Images_imgId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="TagImageTag">
+  <Association Name="FK_ImageTag_Tag">
+    <End Role="ImageTag" Type="Es.Udc.DotNet.Photogram.Model.Store.ImageTag" Multiplicity="*" />
     <End Role="Tag" Type="Es.Udc.DotNet.Photogram.Model.Store.Tags" Multiplicity="1" />
-    <End Role="ImageTag" Type="Es.Udc.DotNet.Photogram.Model.Store.ImageTags" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Tag">
         <PropertyRef Name="tagId" />
       </Principal>
       <Dependent Role="ImageTag">
-        <PropertyRef Name="tagId" />
+        <PropertyRef Name="Tags_tagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Likes_Image">
+    <End Role="Image" Type="Es.Udc.DotNet.Photogram.Model.Store.Images" Multiplicity="1" />
+    <End Role="Likes" Type="Es.Udc.DotNet.Photogram.Model.Store.Likes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="imgId" />
+      </Principal>
+      <Dependent Role="Likes">
+        <PropertyRef Name="ImagesLiked_imgId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Likes_User">
+    <End Role="Likes" Type="Es.Udc.DotNet.Photogram.Model.Store.Likes" Multiplicity="*" />
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Likes">
+        <PropertyRef Name="UsersLikes_userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Follows_User">
+    <End Role="User" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <End Role="Follows" Type="Es.Udc.DotNet.Photogram.Model.Store.Follows" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Follows">
+        <PropertyRef Name="UserFollow_userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Follows_User1">
+    <End Role="Follows" Type="Es.Udc.DotNet.Photogram.Model.Store.Follows" Multiplicity="*" />
+    <End Role="User1" Type="Es.Udc.DotNet.Photogram.Model.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User1">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Follows">
+        <PropertyRef Name="Users_userId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -282,16 +292,10 @@
           <EntitySet Name="Exifs" EntityType="Es.Udc.DotNet.Photogram.Model.Exif" />
           <EntitySet Name="Categories" EntityType="Es.Udc.DotNet.Photogram.Model.Category" />
           <EntitySet Name="Users" EntityType="Es.Udc.DotNet.Photogram.Model.User" />
-          <EntitySet Name="Follows" EntityType="Es.Udc.DotNet.Photogram.Model.Follows" />
-          <EntitySet Name="Likes" EntityType="Es.Udc.DotNet.Photogram.Model.Like" />
           <EntitySet Name="Comments" EntityType="Es.Udc.DotNet.Photogram.Model.Comment" />
           <AssociationSet Name="ImageExif" Association="Es.Udc.DotNet.Photogram.Model.ImageExif">
             <End Role="Image" EntitySet="Images" />
             <End Role="Exif" EntitySet="Exifs" />
-          </AssociationSet>
-          <AssociationSet Name="ImageLike" Association="Es.Udc.DotNet.Photogram.Model.ImageLike">
-            <End Role="Image" EntitySet="Images" />
-            <End Role="Like" EntitySet="Likes" />
           </AssociationSet>
           <AssociationSet Name="ImageComment" Association="Es.Udc.DotNet.Photogram.Model.ImageComment">
             <End Role="Image" EntitySet="Images" />
@@ -300,14 +304,6 @@
           <AssociationSet Name="UserImage" Association="Es.Udc.DotNet.Photogram.Model.UserImage">
             <End Role="User" EntitySet="Users" />
             <End Role="Image" EntitySet="Images" />
-          </AssociationSet>
-          <AssociationSet Name="UserFollows" Association="Es.Udc.DotNet.Photogram.Model.UserFollows">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Follows" EntitySet="Follows" />
-          </AssociationSet>
-          <AssociationSet Name="UserLike" Association="Es.Udc.DotNet.Photogram.Model.UserLike">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Like" EntitySet="Likes" />
           </AssociationSet>
           <AssociationSet Name="UserComment" Association="Es.Udc.DotNet.Photogram.Model.UserComment">
             <End Role="User" EntitySet="Users" />
@@ -318,16 +314,19 @@
             <End Role="Category" EntitySet="Categories" />
           </AssociationSet>
           <EntitySet Name="Tags" EntityType="Es.Udc.DotNet.Photogram.Model.Tag" />
-          <EntitySet Name="ImageTags" EntityType="Es.Udc.DotNet.Photogram.Model.ImageTag" />
-          <AssociationSet Name="ImageImageTag" Association="Es.Udc.DotNet.Photogram.Model.ImageImageTag">
+          <AssociationSet Name="ImageTag" Association="Es.Udc.DotNet.Photogram.Model.ImageTag">
             <End Role="Image" EntitySet="Images" />
-            <End Role="ImageTag" EntitySet="ImageTags" />
-          </AssociationSet>
-          <AssociationSet Name="TagImageTag" Association="Es.Udc.DotNet.Photogram.Model.TagImageTag">
             <End Role="Tag" EntitySet="Tags" />
-            <End Role="ImageTag" EntitySet="ImageTags" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="Likes" Association="Es.Udc.DotNet.Photogram.Model.Likes">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Follows" Association="Es.Udc.DotNet.Photogram.Model.Follows">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User1" EntitySet="Users" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Image">
           <Key>
             <PropertyRef Name="imgId" />
@@ -340,12 +339,12 @@
           <Property Name="path" Type="String" Nullable="true" MaxLength="20" />
           <Property Name="userId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Exifs" Relationship="Es.Udc.DotNet.Photogram.Model.ImageExif" FromRole="Image" ToRole="Exif" />
-          <NavigationProperty Name="Likes" Relationship="Es.Udc.DotNet.Photogram.Model.ImageLike" FromRole="Image" ToRole="Like" />
           <NavigationProperty Name="Comments" Relationship="Es.Udc.DotNet.Photogram.Model.ImageComment" FromRole="Image" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="Es.Udc.DotNet.Photogram.Model.UserImage" FromRole="Image" ToRole="User" />
           <NavigationProperty Name="Category" Relationship="Es.Udc.DotNet.Photogram.Model.ImageCategory" FromRole="Image" ToRole="Category" />
           <Property Name="categoryId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ImageTags" Relationship="Es.Udc.DotNet.Photogram.Model.ImageImageTag" FromRole="Image" ToRole="ImageTag" />
+          <NavigationProperty Name="Tags" Relationship="Es.Udc.DotNet.Photogram.Model.ImageTag" FromRole="Image" ToRole="Tag" />
+          <NavigationProperty Name="UsersLikes" Relationship="Es.Udc.DotNet.Photogram.Model.Likes" FromRole="Image" ToRole="User" />
         </EntityType>
         <EntityType Name="Exif">
           <Key>
@@ -379,28 +378,10 @@
           <Property Name="country" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="language" Type="String" Nullable="false" MaxLength="30" />
           <NavigationProperty Name="Images" Relationship="Es.Udc.DotNet.Photogram.Model.UserImage" FromRole="User" ToRole="Image" />
-          <NavigationProperty Name="Follows" Relationship="Es.Udc.DotNet.Photogram.Model.UserFollows" FromRole="User" ToRole="Follows" />
-          <NavigationProperty Name="Likes" Relationship="Es.Udc.DotNet.Photogram.Model.UserLike" FromRole="User" ToRole="Like" />
           <NavigationProperty Name="Comments" Relationship="Es.Udc.DotNet.Photogram.Model.UserComment" FromRole="User" ToRole="Comment" />
-        </EntityType>
-        <EntityType Name="Follows">
-          <Key>
-            <PropertyRef Name="userId" />
-            <PropertyRef Name="followedId" />
-          </Key>
-          <Property Name="userId" Type="Int64" Nullable="false" />
-          <Property Name="followedId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Es.Udc.DotNet.Photogram.Model.UserFollows" FromRole="Follows" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Like">
-          <Key>
-            <PropertyRef Name="imgId" />
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Name="imgId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Image" Relationship="Es.Udc.DotNet.Photogram.Model.ImageLike" FromRole="Like" ToRole="Image" />
-          <NavigationProperty Name="User" Relationship="Es.Udc.DotNet.Photogram.Model.UserLike" FromRole="Like" ToRole="User" />
-          <Property Name="userId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ImagesLiked" Relationship="Es.Udc.DotNet.Photogram.Model.Likes" FromRole="User" ToRole="Image" />
+          <NavigationProperty Name="Users" Relationship="Es.Udc.DotNet.Photogram.Model.Follows" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="UserFollow" Relationship="Es.Udc.DotNet.Photogram.Model.Follows" FromRole="User1" ToRole="User" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -424,20 +405,6 @@
               <PropertyRef Name="imgId" />
             </Principal>
             <Dependent Role="Exif">
-              <PropertyRef Name="imgId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ImageLike">
-          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Es.Udc.DotNet.Photogram.Model.Like" Role="Like" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Image">
-              <PropertyRef Name="imgId" />
-            </Principal>
-            <Dependent Role="Like">
               <PropertyRef Name="imgId" />
             </Dependent>
           </ReferentialConstraint>
@@ -466,33 +433,6 @@
               <PropertyRef Name="userId" />
             </Principal>
             <Dependent Role="Image">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="UserFollows">
-          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Es.Udc.DotNet.Photogram.Model.Follows" Role="Follows" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="Follows">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="UserLike">
-          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="1" >
-          </End>
-          <End Type="Es.Udc.DotNet.Photogram.Model.Like" Role="Like" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="Like">
               <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
@@ -529,45 +469,21 @@
           <Property Name="tagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tag" Type="String" Nullable="false" />
           <Property Name="imgCount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ImageTags" Relationship="Es.Udc.DotNet.Photogram.Model.TagImageTag" FromRole="Tag" ToRole="ImageTag" />
+          <NavigationProperty Name="Images" Relationship="Es.Udc.DotNet.Photogram.Model.ImageTag" FromRole="Tag" ToRole="Image" />
         </EntityType>
-        <EntityType Name="ImageTag">
-          <Key>
-            <PropertyRef Name="imgId" />
-            <PropertyRef Name="tagId" />
-          </Key>
-          <NavigationProperty Name="Image" Relationship="Es.Udc.DotNet.Photogram.Model.ImageImageTag" FromRole="ImageTag" ToRole="Image" />
-          <Property Name="imgId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="Tag" Relationship="Es.Udc.DotNet.Photogram.Model.TagImageTag" FromRole="ImageTag" ToRole="Tag" />
-          <Property Name="tagId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <Association Name="ImageImageTag">
-          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Es.Udc.DotNet.Photogram.Model.ImageTag" Role="ImageTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Image">
-              <PropertyRef Name="imgId" />
-            </Principal>
-            <Dependent Role="ImageTag">
-              <PropertyRef Name="imgId" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="ImageTag">
+          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="*" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.Tag" Role="Tag" Multiplicity="*" />
         </Association>
-        <Association Name="TagImageTag">
-          <End Type="Es.Udc.DotNet.Photogram.Model.Tag" Role="Tag" Multiplicity="1" />
-          <End Type="Es.Udc.DotNet.Photogram.Model.ImageTag" Role="ImageTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="tagId" />
-            </Principal>
-            <Dependent Role="ImageTag">
-              <PropertyRef Name="tagId" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="Likes">
+          <End Type="Es.Udc.DotNet.Photogram.Model.Image" Role="Image" Multiplicity="*" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="*" />
         </Association>
-      </Schema>
+        <Association Name="Follows">
+          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User" Multiplicity="*" />
+          <End Type="Es.Udc.DotNet.Photogram.Model.User" Role="User1" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -619,22 +535,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Follows">
-      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Follows)">
-        <MappingFragment StoreEntitySet="Follows">
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="followedId" ColumnName="followedId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Likes">
-      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Like)">
-        <MappingFragment StoreEntitySet="Likes">
-          <ScalarProperty Name="imgId" ColumnName="imgId" />
-          <ScalarProperty Name="userId" ColumnName="userId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.Comment)">
         <MappingFragment StoreEntitySet="Comments">
@@ -655,14 +555,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ImageTags">
-      <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Photogram.Model.ImageTag)">
-        <MappingFragment StoreEntitySet="ImageTags">
-          <ScalarProperty Name="imgId" ColumnName="imgId" />
-          <ScalarProperty Name="tagId" ColumnName="tagId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <AssociationSetMapping Name="ImageTag" TypeName="Es.Udc.DotNet.Photogram.Model.ImageTag" StoreEntitySet="ImageTag">
+      <EndProperty Name="Image">
+        <ScalarProperty Name="imgId" ColumnName="Images_imgId" />
+      </EndProperty>
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="tagId" ColumnName="Tags_tagId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Likes" TypeName="Es.Udc.DotNet.Photogram.Model.Likes" StoreEntitySet="Likes">
+      <EndProperty Name="Image">
+        <ScalarProperty Name="imgId" ColumnName="ImagesLiked_imgId" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="userId" ColumnName="UsersLikes_userId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Follows" TypeName="Es.Udc.DotNet.Photogram.Model.Follows" StoreEntitySet="Follows">
+      <EndProperty Name="User">
+        <ScalarProperty Name="userId" ColumnName="UserFollow_userId" />
+      </EndProperty>
+      <EndProperty Name="User1">
+        <ScalarProperty Name="userId" ColumnName="Users_userId" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.Photogram.Model
+namespace Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PhotogramEntities : DbContext
+    public partial class PracticaMaDEntities : DbContext
     {
-        public PhotogramEntities()
-            : base("name=PhotogramEntities")
+        public PracticaMaDEntities()
+            : base("name=PracticaMaDEntities")
         {
         }
     
@@ -25,11 +25,5 @@ namespace Es.Udc.DotNet.Photogram.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Image> Images { get; set; }
-        public virtual DbSet<Exif> Exifs { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
     }
 }
