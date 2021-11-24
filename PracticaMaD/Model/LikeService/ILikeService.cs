@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 using Ninject;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
-using Es.Udc.DotNet.Photogram.Model.LikeDao;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
 
 namespace Es.Udc.DotNet.Photogram.Model.LikeService
 {
     public interface ILikeService
     {
         [Inject]
-        ILikeDao LikeDao { set; }
+        IUserDao UserDao{ set; }
+        [Inject]
+        IImageDao ImageDao { set; }
 
         /// <summary>
         /// Likes an image.
@@ -29,7 +32,7 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService
         /// <param name="likeId">Id of the like you want to delete.</param>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void Unlike(long likeId);
+        void Unlike(long userId, long imgId);
 
         /// <summary>
         /// Gets the number of likes on a specific image.

@@ -18,6 +18,8 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
         /// <returns>The User</returns>
         /// <exception cref="InstanceNotFoundException"></exception>
         User FindByUserName(string userName);
+
+        void UpdateImagesLiked(User user);
     }
 }
 

@@ -19,6 +19,5 @@ namespace Es.Udc.DotNet.Photogram.Model
         public long imgId { get; set; }
     
         public virtual Image Image { get; set; }
-        
     }
 }

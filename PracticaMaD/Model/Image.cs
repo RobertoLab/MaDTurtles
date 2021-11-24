@@ -18,9 +18,9 @@ namespace Es.Udc.DotNet.Photogram.Model
         public Image()
         {
             this.Exifs = new HashSet<Exif>();
-            this.Likes = new HashSet<Like>();
             this.Comments = new HashSet<Comment>();
-            this.ImageTags = new HashSet<ImageTag>();
+            this.Tags = new HashSet<Tag>();
+            this.UsersLikes = new HashSet<User>();
         }
     
         public long imgId { get; set; }
@@ -35,13 +35,12 @@ namespace Es.Udc.DotNet.Photogram.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exif> Exifs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Like> Likes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ImageTag> ImageTags { get; set; }
-        
+        public virtual ICollection<Tag> Tags { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> UsersLikes { get; set; }
     }
 }

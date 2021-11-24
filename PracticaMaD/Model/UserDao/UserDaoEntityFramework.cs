@@ -45,7 +45,13 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
             return user;
 
         }
-       
+
+        public void UpdateImagesLiked(User user)
+        {
+            DbSet<User> users = Context.Set<User>();
+
+            Update(user);
+        }
     }
    
 }

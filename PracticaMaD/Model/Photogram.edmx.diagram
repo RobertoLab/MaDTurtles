@@ -9,22 +9,17 @@
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Exif" Width="1.5" PointX="7" PointY="6.875" />
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Category" Width="1.5" PointX="7" PointY="13.375" />
         <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.User" Width="1.5" PointX="2.75" PointY="8.625" />
-        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Follows" Width="1.5" PointX="0.5" PointY="9.75" />
-        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Like" Width="1.5" PointX="5.125" PointY="8.25" />
-        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Comment" Width="1.5" PointX="5.125" PointY="11" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Comment" Width="1.5" PointX="4.875" PointY="10.875" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageExif" />
-        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageLike" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageComment" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserImage" />
-        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserFollows" />
-        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserLike" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.UserComment" />
         <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageCategory" />
-        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Tag" Width="1.5" PointX="8.875" PointY="11.375" />
-        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.ImageTag" Width="1.5" PointX="8.875" PointY="9.125" />
-        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageImageTag" />
-        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.TagImageTag" />
-      </Diagram>
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Photogram.Model.Tag" Width="1.5" PointX="9.375" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.ImageTag" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.Likes" />
+        <AssociationConnector Association="Es.Udc.DotNet.Photogram.Model.Follows" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

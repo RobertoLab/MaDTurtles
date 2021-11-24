@@ -87,16 +87,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             return imageAsByte;
         }
 
-        private List<ImageTag> ParseImageTags(string tagCriteria)
+        private List<Tag> ParseImageTags(string tagCriteria)
         {
             List<string> tags = tagCriteria.Split(' ').ToList();
 
-            List<ImageTag> ImageTags = new List<ImageTag>();
+            List<Tag> ImageTags = new List<Tag>();
             foreach (string tag in tags)
             {
                 string tagLowerCase = tag.ToLower();
                 Tag tagToAdd = new Tag();
-                ImageTag imageTagToAdd = new ImageTag();
                 if (!TagDao.ExistsByString(tagLowerCase))
                 {
                     tagToAdd.tag = tagLowerCase;
@@ -106,8 +105,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
                 {
                     tagToAdd = TagDao.FindByName(tagLowerCase);
                 }
-                imageTagToAdd.tagId = tagToAdd.tagId;
-                ImageTags.Add(imageTagToAdd);
+                ImageTags.Add(tagToAdd);
             }
 
             return ImageTags;
@@ -124,7 +122,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             image.uploadDate = System.DateTime.Now;
             image.path = null;
             image.img = System.Convert.FromBase64String(imageDto.imgB64);
-            image.ImageTags = ParseImageTags(imageDto.tags);
+            image.Tags = ParseImageTags(imageDto.tags);
 
             ImageDao.Create(image);
             return image;
@@ -136,7 +134,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             Image image = ToImage(imageDto);
             image.uploadDate = System.DateTime.Now;
             image.img = null;
-            image.ImageTags = ParseImageTags(imageDto.tags);
+            image.Tags = ParseImageTags(imageDto.tags);
 
             long previousImage = ImageDao.GetMaxImgId();
             string imageName = StoreImageFile(imageDto.imgB64, previousImage+1);
@@ -240,7 +238,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         {
             List<string> tags = tagsCriteria.Split(' ').ToList();
 
-            List<ImageTag> newImageTags = ParseImageTags(tagsCriteria);
+            List<Tag> newImageTags = ParseImageTags(tagsCriteria);
 
             ImageDao.UpdateTags(imgId, newImageTags);
         }

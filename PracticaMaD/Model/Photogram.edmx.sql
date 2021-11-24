@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/08/2021 01:47:22
--- Generated from EDMX file: E:\ALAN\Projects\4curso\mad\MaDTurtles\PracticaMaD\Model\Photogram.edmx
+-- Date Created: 11/24/2021 17:42:26
+-- Generated from EDMX file: D:\src\4curso\mad\MaDTurtles\PracticaMaD\Model\Photogram.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,20 +20,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ImageExif]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Exifs] DROP CONSTRAINT [FK_ImageExif];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ImageLike]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_ImageLike];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ImageComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_ImageComment];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserImage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_UserImage];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserFollows]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Follows] DROP CONSTRAINT [FK_UserFollows];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserLike]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_UserLike];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_UserComment];
@@ -41,11 +32,23 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ImageCategory]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_ImageCategory];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ImageImageTag]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ImageTags] DROP CONSTRAINT [FK_ImageImageTag];
+IF OBJECT_ID(N'[dbo].[FK_ImageTag_Image]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ImageTag] DROP CONSTRAINT [FK_ImageTag_Image];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TagImageTag]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ImageTags] DROP CONSTRAINT [FK_TagImageTag];
+IF OBJECT_ID(N'[dbo].[FK_ImageTag_Tag]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ImageTag] DROP CONSTRAINT [FK_ImageTag_Tag];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Likes_Image]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_Likes_Image];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Likes_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_Likes_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Follows_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Follows] DROP CONSTRAINT [FK_Follows_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Follows_User1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Follows] DROP CONSTRAINT [FK_Follows_User1];
 GO
 
 -- --------------------------------------------------
@@ -64,20 +67,20 @@ GO
 IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users];
 GO
-IF OBJECT_ID(N'[dbo].[Follows]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Follows];
-GO
-IF OBJECT_ID(N'[dbo].[Likes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Likes];
-GO
 IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Comments];
 GO
 IF OBJECT_ID(N'[dbo].[Tags]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Tags];
 GO
-IF OBJECT_ID(N'[dbo].[ImageTags]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ImageTags];
+IF OBJECT_ID(N'[dbo].[ImageTag]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ImageTag];
+GO
+IF OBJECT_ID(N'[dbo].[Likes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Likes];
+GO
+IF OBJECT_ID(N'[dbo].[Follows]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Follows];
 GO
 
 -- --------------------------------------------------
@@ -126,20 +129,6 @@ CREATE TABLE [dbo].[Users] (
 );
 GO
 
--- Creating table 'Follows'
-CREATE TABLE [dbo].[Follows] (
-    [userId] bigint  NOT NULL,
-    [followedId] bigint  NOT NULL
-);
-GO
-
--- Creating table 'Likes'
-CREATE TABLE [dbo].[Likes] (
-    [imgId] bigint  NOT NULL,
-    [userId] bigint  NOT NULL
-);
-GO
-
 -- Creating table 'Comments'
 CREATE TABLE [dbo].[Comments] (
     [commentId] bigint IDENTITY(1,1) NOT NULL,
@@ -158,10 +147,24 @@ CREATE TABLE [dbo].[Tags] (
 );
 GO
 
--- Creating table 'ImageTags'
-CREATE TABLE [dbo].[ImageTags] (
-    [imgId] bigint  NOT NULL,
-    [tagId] int  NOT NULL
+-- Creating table 'ImageTag'
+CREATE TABLE [dbo].[ImageTag] (
+    [Images_imgId] bigint  NOT NULL,
+    [Tags_tagId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Likes'
+CREATE TABLE [dbo].[Likes] (
+    [ImagesLiked_imgId] bigint  NOT NULL,
+    [UsersLikes_userId] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'Follows'
+CREATE TABLE [dbo].[Follows] (
+    [UserFollow_userId] bigint  NOT NULL,
+    [Users_userId] bigint  NOT NULL
 );
 GO
 
@@ -193,18 +196,6 @@ ADD CONSTRAINT [PK_Users]
     PRIMARY KEY CLUSTERED ([userId] ASC);
 GO
 
--- Creating primary key on [userId], [followedId] in table 'Follows'
-ALTER TABLE [dbo].[Follows]
-ADD CONSTRAINT [PK_Follows]
-    PRIMARY KEY CLUSTERED ([userId], [followedId] ASC);
-GO
-
--- Creating primary key on [imgId], [userId] in table 'Likes'
-ALTER TABLE [dbo].[Likes]
-ADD CONSTRAINT [PK_Likes]
-    PRIMARY KEY CLUSTERED ([imgId], [userId] ASC);
-GO
-
 -- Creating primary key on [commentId] in table 'Comments'
 ALTER TABLE [dbo].[Comments]
 ADD CONSTRAINT [PK_Comments]
@@ -217,10 +208,22 @@ ADD CONSTRAINT [PK_Tags]
     PRIMARY KEY CLUSTERED ([tagId] ASC);
 GO
 
--- Creating primary key on [imgId], [tagId] in table 'ImageTags'
-ALTER TABLE [dbo].[ImageTags]
-ADD CONSTRAINT [PK_ImageTags]
-    PRIMARY KEY CLUSTERED ([imgId], [tagId] ASC);
+-- Creating primary key on [Images_imgId], [Tags_tagId] in table 'ImageTag'
+ALTER TABLE [dbo].[ImageTag]
+ADD CONSTRAINT [PK_ImageTag]
+    PRIMARY KEY CLUSTERED ([Images_imgId], [Tags_tagId] ASC);
+GO
+
+-- Creating primary key on [ImagesLiked_imgId], [UsersLikes_userId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [PK_Likes]
+    PRIMARY KEY CLUSTERED ([ImagesLiked_imgId], [UsersLikes_userId] ASC);
+GO
+
+-- Creating primary key on [UserFollow_userId], [Users_userId] in table 'Follows'
+ALTER TABLE [dbo].[Follows]
+ADD CONSTRAINT [PK_Follows]
+    PRIMARY KEY CLUSTERED ([UserFollow_userId], [Users_userId] ASC);
 GO
 
 -- --------------------------------------------------
@@ -240,15 +243,6 @@ GO
 CREATE INDEX [IX_FK_ImageExif]
 ON [dbo].[Exifs]
     ([imgId]);
-GO
-
--- Creating foreign key on [imgId] in table 'Likes'
-ALTER TABLE [dbo].[Likes]
-ADD CONSTRAINT [FK_ImageLike]
-    FOREIGN KEY ([imgId])
-    REFERENCES [dbo].[Images]
-        ([imgId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [imgId] in table 'Comments'
@@ -278,30 +272,6 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserImage'
 CREATE INDEX [IX_FK_UserImage]
 ON [dbo].[Images]
-    ([userId]);
-GO
-
--- Creating foreign key on [userId] in table 'Follows'
-ALTER TABLE [dbo].[Follows]
-ADD CONSTRAINT [FK_UserFollows]
-    FOREIGN KEY ([userId])
-    REFERENCES [dbo].[Users]
-        ([userId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [userId] in table 'Likes'
-ALTER TABLE [dbo].[Likes]
-ADD CONSTRAINT [FK_UserLike]
-    FOREIGN KEY ([userId])
-    REFERENCES [dbo].[Users]
-        ([userId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserLike'
-CREATE INDEX [IX_FK_UserLike]
-ON [dbo].[Likes]
     ([userId]);
 GO
 
@@ -335,28 +305,76 @@ ON [dbo].[Images]
     ([categoryId]);
 GO
 
--- Creating foreign key on [imgId] in table 'ImageTags'
-ALTER TABLE [dbo].[ImageTags]
-ADD CONSTRAINT [FK_ImageImageTag]
-    FOREIGN KEY ([imgId])
+-- Creating foreign key on [Images_imgId] in table 'ImageTag'
+ALTER TABLE [dbo].[ImageTag]
+ADD CONSTRAINT [FK_ImageTag_Image]
+    FOREIGN KEY ([Images_imgId])
     REFERENCES [dbo].[Images]
         ([imgId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [tagId] in table 'ImageTags'
-ALTER TABLE [dbo].[ImageTags]
-ADD CONSTRAINT [FK_TagImageTag]
-    FOREIGN KEY ([tagId])
+-- Creating foreign key on [Tags_tagId] in table 'ImageTag'
+ALTER TABLE [dbo].[ImageTag]
+ADD CONSTRAINT [FK_ImageTag_Tag]
+    FOREIGN KEY ([Tags_tagId])
     REFERENCES [dbo].[Tags]
         ([tagId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_TagImageTag'
-CREATE INDEX [IX_FK_TagImageTag]
-ON [dbo].[ImageTags]
-    ([tagId]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_ImageTag_Tag'
+CREATE INDEX [IX_FK_ImageTag_Tag]
+ON [dbo].[ImageTag]
+    ([Tags_tagId]);
+GO
+
+-- Creating foreign key on [ImagesLiked_imgId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [FK_Likes_Image]
+    FOREIGN KEY ([ImagesLiked_imgId])
+    REFERENCES [dbo].[Images]
+        ([imgId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [UsersLikes_userId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [FK_Likes_User]
+    FOREIGN KEY ([UsersLikes_userId])
+    REFERENCES [dbo].[Users]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Likes_User'
+CREATE INDEX [IX_FK_Likes_User]
+ON [dbo].[Likes]
+    ([UsersLikes_userId]);
+GO
+
+-- Creating foreign key on [UserFollow_userId] in table 'Follows'
+ALTER TABLE [dbo].[Follows]
+ADD CONSTRAINT [FK_Follows_User]
+    FOREIGN KEY ([UserFollow_userId])
+    REFERENCES [dbo].[Users]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Users_userId] in table 'Follows'
+ALTER TABLE [dbo].[Follows]
+ADD CONSTRAINT [FK_Follows_User1]
+    FOREIGN KEY ([Users_userId])
+    REFERENCES [dbo].[Users]
+        ([userId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Follows_User1'
+CREATE INDEX [IX_FK_Follows_User1]
+ON [dbo].[Follows]
+    ([Users_userId]);
 GO
 
 INSERT INTO [dbo].[Users] VALUES(

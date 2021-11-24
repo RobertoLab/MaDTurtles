@@ -92,7 +92,7 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService.Test
             likeService.LikeImage(testUserId2, testImgId);
             Assert.Equals(2, likeService.GetImageLikes(testImgId));
 
-            likeService.Unlike(2);
+            likeService.Unlike(testUserId2, testImgId);
             Assert.Equals(1, likeService.GetImageLikes(testImgId));
 
 
