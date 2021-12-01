@@ -5,6 +5,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
 using Es.Udc.DotNet.Photogram.Model.CommentDao;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Test;
 
 namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
@@ -16,8 +18,9 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
 
         private static IKernel kernel;
         private static ICommentDao commentDao;
-        private static long testUserId = 1;
-        private static long testImgId = 1;
+        private static IImageDao imageDao;
+        private static IUserDao userDao;
+        private static int testCatId = 1;
 
         private TestContext testContextInstance;
 
@@ -49,6 +52,8 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
         {
             kernel = TestManager.ConfigureNInjectKernel();
             commentDao = kernel.Get<ICommentDao>();
+            imageDao = kernel.Get<IImageDao>();
+            userDao = kernel.Get<IUserDao>();
         }
         //
         // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
@@ -81,8 +86,38 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
         [TestMethod]
         public void CommentDaoMethodsTest()
         {
-           
+            long testUserId = 1;
+            long testImgId = 1;
+            // Store image for testing
+            Image image = new Image();
+            image.title = "bmx";
+            image.description = "first test image";
+            image.uploadDate = System.DateTime.Now;
+            image.categoryId = testCatId;
+            image.path = null;
+            image.userId = testUserId;
+            image.img = null;
 
+            imageDao.Create(image);
+
+            User newUser = new User();
+            newUser.userName = "jsmith";
+            newUser.password = "password";
+            newUser.firstName = "John";
+            newUser.lastName1 = "Smith";
+            newUser.lastName2 = "Smith";
+            newUser.email = "jsmith@acme.com";
+            newUser.language = "en";
+            newUser.country = "US";
+
+            userDao.Create(newUser);
+
+            testImgId = image.imgId;
+            testUserId = newUser.userId;
+
+            bool userExists = userDao.Exists(newUser.userId);
+
+            Assert.IsTrue(userExists);
             // Create the comments
             Comment comment = new Comment();
             comment.userId = testUserId;
@@ -92,7 +127,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
             commentDao.Create(comment);
 
             Comment comment2 = new Comment();
-            comment2.userId = 2;
+            comment2.userId = testUserId;
             comment2.imgId = testImgId;
             comment2.uploadDate = DateTime.Now;
             comment2.comment = "Test comment 2";
@@ -100,9 +135,9 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
 
             // Check that the image with id 1 is commented
             bool imgCommented =commentDao.IsCommented(testImgId);
-            bool imgCommented2 = commentDao.IsCommented(2);
+            //bool imgCommented2 = commentDao.IsCommented(2);
             Assert.IsTrue(imgCommented);
-            Assert.IsFalse(imgCommented2);
+            //Assert.IsFalse(imgCommented2);
 
 
             //Check that the comments save well

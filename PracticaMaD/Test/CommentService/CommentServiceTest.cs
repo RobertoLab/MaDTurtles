@@ -107,12 +107,13 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
             Image image = imageService.StoreImageAsFile(imageDto);
 
             Comment comment = commentService.PostComment("Comentario 1 del Test", testUserId, image.imgId);
-            
+            string baseComment = comment.comment;
+
             Assert.AreEqual("Comentario 1 del Test", comment.comment);
 
             Comment commentEdited = commentService.EditComment(comment.commentId, "Texto editado");
 
-            Assert.AreNotEqual(comment, commentEdited);
+            Assert.AreNotEqual(baseComment, commentEdited.comment);
 
             Comment comment2 = commentService.PostComment("Comentario 2 del Test", testUserId, image.imgId);
 
