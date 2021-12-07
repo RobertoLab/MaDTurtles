@@ -55,6 +55,7 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService
         [Transactional]
         public int GetImageLikes(long imgId)
         {
+            // CAMBIAR ESTE LAZY FETCH
             return ImageDao.Find(imgId).UsersLikes.Count;
         }
 

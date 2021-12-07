@@ -36,5 +36,10 @@ namespace Es.Udc.DotNet.Photogram.Model.TagDao
         /// <returns>The list of all tags ordered 
         /// by the number of images they tag.</returns>
         List<Tag> GetAllTagsByUse();
+
+        // ------TODO-------
+        // PAGINACION DE LAS ETIQUETAS
+        // CUANTAS ETIQUETAS HAY PARA DEVOLVER (PARA LA NUBE)
+        // GetNumberOfImagesTagged QUE USE UNA LISTA (POR EFICIENCIA)
     }
 }

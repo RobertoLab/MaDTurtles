@@ -61,5 +61,11 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// <param name="imgId">The img identifier.</param>
         /// <param name="tags">The tags.</param>
         void UpdateTags(long imgId, List<Tag> tags);
+
+
+        // ------TODO-------
+        // METODO PARA COGER TODAS LAS IMAGENES ETIQUETADAS POR AUNA ETIQUETA
+        // METODO PARA SABER SI UNA IMAGEN TIENE COMENTARIOS
+        // METODO PARA SABER SI UNA IMAGEN TIENE COMENTARIOS
     }
 }

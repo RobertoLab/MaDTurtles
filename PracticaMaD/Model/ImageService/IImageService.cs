@@ -19,6 +19,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Inject]
         ITagDao TagDao { set; }
 
+    
+        // 
         /// <summary>
         /// Stores the image, saves the image in the DB as bytes.
         /// </summary>
@@ -82,5 +84,10 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="tags">The new tags of the image.</param>
         [Transactional]
         void ModifyImageTags(long imgId, string tags);
+
+
+        // ------TODO-------
+        // MODIFICAR LOS "STORE AS" PARA QUE SOLAMENTE HAYA 1 ACCESIBLE Y DESPUES
+        // ELEGIR COMO SE GUARDA
     }
 }
