@@ -7,6 +7,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
 using Es.Udc.DotNet.Photogram.Model.LikeService;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Test;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
@@ -22,10 +24,8 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService.Test
     {
         private static IKernel kernel;
         private static ILikeService likeService;
-        private static long testUserId = 1;
-        private static long testUserId2 = 2;
-        private static long testImgId = 1;
-        private static long testImgId2 = 2;
+        private static IUserDao userDao;
+        private static IImageDao imageDao;
 
         private TestContext testContextInstance;
 
@@ -57,6 +57,8 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService.Test
         {
             kernel = TestManager.ConfigureNInjectKernel();
             likeService = kernel.Get<ILikeService>();
+            userDao = kernel.Get<IUserDao>();
+            imageDao = kernel.Get<IImageDao>();
         }
         //
         // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
@@ -80,25 +82,56 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService.Test
             transactionScope.Dispose();
         }
 
+        private User signUpUser(string userName)
+        {
+            User user = new User();
+            user.userName = userName;
+            user.password = "password";
+            user.firstName = "John";
+            user.lastName1 = "Smith";
+            user.lastName2 = "Smith";
+            user.email = "test@acme.com";
+            user.language = "en";
+            user.country = "US";
+
+            userDao.Create(user);
+            return user;
+        }
+
+        private Image uploadImage(long userUploadId)
+        {
+            Image image = new Image();
+            image.title = "bmx";
+            image.description = "first test image";
+            image.uploadDate = System.DateTime.Now;
+            image.categoryId = 1;
+            image.path = null;
+            image.userId = userUploadId;
+            image.img = null;
+
+            imageDao.Create(image);
+            return image;
+        }
+
         #endregion
         [TestMethod]
         public void LikeServiceMethodsTest()
         {
-            Assert.Equals(0,likeService.GetImageLikes(testImgId));
+            User user1 = signUpUser("test1");
+            User user2 = signUpUser("test2");
 
-            likeService.LikeImage( testUserId, testImgId);
-            Assert.Equals(1, likeService.GetImageLikes(testImgId));
+            Image image1 = uploadImage(user1.userId);
 
-            likeService.LikeImage(testUserId2, testImgId);
-            Assert.Equals(2, likeService.GetImageLikes(testImgId));
+            Assert.AreEqual(0,likeService.GetImageLikes(image1.imgId));
 
-            likeService.Unlike(testUserId2, testImgId);
-            Assert.Equals(1, likeService.GetImageLikes(testImgId));
+            likeService.LikeImage( user2.userId, image1.imgId);
+            Assert.AreEqual(1, likeService.GetImageLikes(image1.imgId));
 
+            likeService.LikeImage(user1.userId, image1.imgId);
+            Assert.AreEqual(2, likeService.GetImageLikes(image1.imgId));
 
-
-
-
+            likeService.Unlike(user2.userId, image1.imgId);
+            Assert.AreEqual(1, likeService.GetImageLikes(image1.imgId));
         }
 
     }
