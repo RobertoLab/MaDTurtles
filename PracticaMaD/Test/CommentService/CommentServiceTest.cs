@@ -7,7 +7,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
 using Es.Udc.DotNet.Photogram.Model.CommentService;
-using Es.Udc.DotNet.Photogram.Model.ImageService;
+using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Test;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
@@ -23,9 +24,8 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
     {
         private static IKernel kernel;
         private static ICommentService commentService;
-        private static IImageService imageService;
-        private static long testUserId = 1;
-        private static long testImgId = 1;
+        private static IImageDao imageDao;
+        private static IUserDao userDao;
         private static int testCatId = 1;
         public string ImagesPathKey = "ImagesPath";
         public string ImagesTestPathKey = "ImagesTestPath";
@@ -61,7 +61,8 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
         {
             kernel = TestManager.ConfigureNInjectKernel();
             commentService = kernel.Get<ICommentService>();
-            imageService = kernel.Get<IImageService>();
+            imageDao = kernel.Get<IImageDao>();
+            userDao = kernel.Get<IUserDao>();
         }
         //
         // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
@@ -85,6 +86,37 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
             transactionScope.Dispose();
         }
 
+        private User signUpUser(string userName)
+        {
+            User user = new User();
+            user.userName = userName;
+            user.password = "password";
+            user.firstName = "John";
+            user.lastName1 = "Smith";
+            user.lastName2 = "Smith";
+            user.email = "test@acme.com";
+            user.language = "en";
+            user.country = "US";
+
+            userDao.Create(user);
+            return user;
+        }
+
+        private Image uploadImage(long userUploadId)
+        {
+            Image image = new Image();
+            image.title = "bmx";
+            image.description = "first test image";
+            image.uploadDate = System.DateTime.Now;
+            image.categoryId = 1;
+            image.path = null;
+            image.userId = userUploadId;
+            image.img = null;
+
+            imageDao.Create(image);
+            return image;
+        }
+
         #endregion
         [TestMethod]
         public void CommentServiceMethodsTest()
@@ -92,21 +124,10 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
             var appSettings = ConfigurationManager.AppSettings;
             string imageTestPath = appSettings[ImagesTestPathKey];
             // Get image to store as bytes
-            FileStream imageAsFileStream = File.Open(imageTestPath + "\\bmx.jpg", FileMode.Open);
-            TestContext.WriteLine(imageAsFileStream.Length.ToString());
-            int imageAsFileStreamLength = (int)imageAsFileStream.Length;
-            TestContext.WriteLine(imageAsFileStreamLength.ToString());
-            byte[] imageAsByte = new byte[imageAsFileStreamLength];
-            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
-            imageAsFileStream.Close();
+            User user = signUpUser("test");
+            Image image = uploadImage(user.userId);
 
-            ImageDto imageDto = new ImageDto("bmx", "first test image",
-                testCatId, Convert.ToBase64String(imageAsByte), testUserId,
-                "test testing",
-                float.NaN, float.NaN, float.NaN, float.NaN);
-            Image image = imageService.StoreImageAsFile(imageDto);
-
-            Comment comment = commentService.PostComment("Comentario 1 del Test", testUserId, image.imgId);
+            Comment comment = commentService.PostComment("Comentario 1 del Test", user.userId, image.imgId);
             string baseComment = comment.comment;
 
             Assert.AreEqual("Comentario 1 del Test", comment.comment);
@@ -115,14 +136,13 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
 
             Assert.AreNotEqual(baseComment, commentEdited.comment);
 
-            Comment comment2 = commentService.PostComment("Comentario 2 del Test", testUserId, image.imgId);
+            Comment comment2 = commentService.PostComment("Comentario 2 del Test", user.userId, image.imgId);
 
             commentService.DeleteComment(comment.commentId);
 
             List<Comment> comments = commentService.GetImageComments(image.imgId);
 
             Assert.AreEqual(1, comments.Count);
-               
         }
 
     }

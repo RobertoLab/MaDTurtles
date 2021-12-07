@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Transactions;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.CategoryDao;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Test;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
@@ -25,8 +26,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
         private static IKernel kernel;
         private static IImageService imageService;
         private static ICategoryDao categoryDao;
-        private static string imagesTestDir;
-        private static long testUserId = 1;
+        private static IUserDao userDao;
         private static int testCatId = 1;
         public string ImagesPathKey = "ImagesPath";
         public string ImagesTestPathKey = "ImagesTestPath";
@@ -62,6 +62,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             kernel = TestManager.ConfigureNInjectKernel();
             imageService = kernel.Get<IImageService>();
             categoryDao = kernel.Get<ICategoryDao>();
+            userDao = kernel.Get<IUserDao>();
         }
         //
         // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
@@ -84,8 +85,25 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
         {
             transactionScope.Dispose();
         }
-        
+
         #endregion
+
+        private User signUpUser(string userName)
+        {
+            User user = new User();
+            user.userName = userName;
+            user.password = "password";
+            user.firstName = "John";
+            user.lastName1 = "Smith";
+            user.lastName2 = "Smith";
+            user.email = "test@acme.com";
+            user.language = "en";
+            user.country = "US";
+
+            userDao.Create(user);
+            return user;
+        }
+
         [TestMethod]
         public void StoreImagesTest()
         {
@@ -100,15 +118,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
             imageAsFileStream.Close();
 
-            // Create a test category
-            //Category testCat = new Category();
-            //testCat.category = "test";
-            //categoryDao.Create(testCat);
-
-            // Create a second test category
-            //Category testCat2 = new Category();
-            //testCat2.category = "test2";
-            //categoryDao.Create(testCat2);
+            // Create a user 
+            User user = signUpUser("test");
+            long testUserId = user.userId;
 
             // Create the image
             ImageDto imageDto = new ImageDto("bmx", "first test image",
@@ -159,6 +171,10 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             byte[] imageAsByte = new byte[imageAsFileStreamLength];
             imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
             imageAsFileStream.Close();
+
+            // Create a user 
+            User user = signUpUser("test");
+            long testUserId = user.userId;
 
             ImageDto imageDto = new ImageDto("bmx", "first test image"
                 , testCatId, Convert.ToBase64String(imageAsByte), testUserId,
