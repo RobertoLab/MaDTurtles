@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Dao;
 
 namespace Es.Udc.DotNet.Photogram.Model.TagDao
@@ -26,16 +23,16 @@ namespace Es.Udc.DotNet.Photogram.Model.TagDao
         /// <summary>
         /// Gets the number of images tagged by an specific tag.
         /// </summary>
-        /// <param name="tag">The tag name.</param>
-        /// <returns>The count of images tagged.</returns>
-        int GetNumberOfImagesTagged(string tag);
+        /// <param name="tags">The tag List to retrieve info.</param>
+        /// <returns>The count of images tagged for each tag.</returns>
+        IDictionary<string, int> GetNumberOfImagesTagged(List<string> tags);
 
         /// <summary>
-        /// Gets all tags by the number of images they tag.
+        /// Gets all tags by the number of images they tag, ascending order.
         /// </summary>
         /// <returns>The list of all tags ordered 
         /// by the number of images they tag.</returns>
-        List<Tag> GetAllTagsByUse();
+        List<Tag> GetAllTagsByUse(int startIndex, int count);
 
         // ------TODO-------
         // PAGINACION DE LAS ETIQUETAS

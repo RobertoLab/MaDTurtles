@@ -15,7 +15,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao
         /// </summary>
         /// <param name="ImgId">The image identifier.</param>
         /// <returns>The list of comments that belong to the image.</returns>
-        List<Comment> GetCommentsFromImage(long ImgId);
+        List<Comment> GetCommentsFromImage(long ImgId, int startIndex, int count);
 
         /// <summary>
         /// Check if the image has any comment asociated.

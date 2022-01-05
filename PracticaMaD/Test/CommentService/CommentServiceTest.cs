@@ -1,17 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
+﻿using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
-using System.IO;
-using System.Collections.Generic;
 using System.Transactions;
-using Es.Udc.DotNet.Photogram.Model.CommentService;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Test;
-using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 
 namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
@@ -26,7 +20,6 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
         private static ICommentService commentService;
         private static IImageDao imageDao;
         private static IUserDao userDao;
-        private static int testCatId = 1;
         public string ImagesPathKey = "ImagesPath";
         public string ImagesTestPathKey = "ImagesTestPath";
         
@@ -140,9 +133,10 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService.Test
 
             commentService.DeleteComment(comment.commentId);
 
-            List<Comment> comments = commentService.GetImageComments(image.imgId);
+            Block<CommentInfo> comments = commentService.GetImageComments(image.imgId, 0, 10);
 
-            Assert.AreEqual(1, comments.Count);
+            Assert.AreEqual(false, comments.existMoreItems);
+            Assert.AreEqual(1, comments.items.Count);
         }
 
     }

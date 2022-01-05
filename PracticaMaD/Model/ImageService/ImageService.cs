@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
-using System.Runtime.Caching;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.TagDao;
@@ -11,6 +9,7 @@ using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using static Es.Udc.DotNet.Photogram.Model.Dtos.ImageConversor;
+using static Es.Udc.DotNet.Photogram.Model.Dtos.TagConversor;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
@@ -41,22 +40,18 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="imgB64">The imgage in base 64.</param>
         /// <param name="imgId">The img identifier.</param>
         /// <returns>The filename which it was stored by.</returns>
-        private string StoreImageFile(string imgB64, long imgId)
+        private string StoreImageFile(byte[] content, long imgId)
         {
             var appSettings = ConfigurationManager.AppSettings;
             string dirPath = appSettings[ImagesPathKey];
             Directory.CreateDirectory(dirPath);
-            byte[] imgAsBytes = System.Convert.FromBase64String(imgB64);
-            //MemoryStream imgAsStream = new MemoryStream(imgAsBytes);
-            
-            //System.Drawing.Image image = System.Drawing.Image.FromStream(imgAsStream);
+            byte[] imgAsBytes = content;
 
             string imageName = imgId.ToString() + ".jpeg";
             string imageFile = dirPath + "\\" + imageName;
 
             File.WriteAllBytes(imageFile, imgAsBytes);
-            //image.Save(imageFile);
-            //imgAsStream.Close();
+
             return imageName;
         }
 
@@ -111,37 +106,46 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             return ImageTags;
         }
 
-        #endregion
-
-        #region IImageService Members
-
         [Transactional]
-        public Image StoreImageAsBlob(ImageDto imageDto)
+        private Image StoreImageAsBlob(Image image, byte[] content)
         {
-            Image image = ToImage(imageDto);
-            image.uploadDate = System.DateTime.Now;
-            image.path = null;
-            image.img = System.Convert.FromBase64String(imageDto.imgB64);
-            image.Tags = ParseImageTags(imageDto.tags);
-
+            image.img = content;
             ImageDao.Create(image);
             return image;
         }
 
         [Transactional]
-        public Image StoreImageAsFile(ImageDto imageDto)
+        private Image StoreImageAsFile(Image image, byte[] content)
         {
-            Image image = ToImage(imageDto);
-            image.uploadDate = System.DateTime.Now;
-            image.img = null;
-            image.Tags = ParseImageTags(imageDto.tags);
-
             long previousImage = ImageDao.GetMaxImgId();
-            string imageName = StoreImageFile(imageDto.imgB64, previousImage+1);
+            string imageName = StoreImageFile(content, previousImage + 1);
 
             image.path = imageName;
             ImageDao.Create(image);
             return image;
+        }
+        #endregion
+
+        #region IImageService Members
+
+        public Image StoreImage(ImageDto imageDto)
+        {
+            Image image = ToImage(imageDto);
+            image.uploadDate = System.DateTime.Now;
+            image.Tags = ParseImageTags(imageDto.tags);
+
+            byte[] imageContent = System.Convert.FromBase64String(imageDto.imgB64);
+            // Si pesa mas de 200KB se guarda en sistema de ficheros
+            if (imageContent.Length > 200000)
+            {
+                image.img = null;
+                return StoreImageAsFile(image, imageContent);
+            } else
+            {
+                image.path = null;
+                return StoreImageAsBlob(image, imageContent);
+            }
+
         }
 
         /// <exception cref="InstanceNotFoundException"/>
@@ -165,7 +169,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         public ImageInfo SearchImageEager(long imgId)
         {
             Image image = new Image();
-            image = ImageDao.FindWithChilds(imgId);
+            image = ImageDao.FindWithRelatedInfo(imgId);
             if (image.path == null)
             {
                 return ToImageInfo(image, System.Convert.ToBase64String(image.img));
@@ -196,6 +200,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             imagesFound = ImageDao.FindByKeywords(keywords, startIndex, count + 1);
             bool existMoreImages = (imagesFound.Count == count + 1);
 
+            if (existMoreImages) imagesFound.RemoveAt(count);
+
             List<string> imagesAsB64 = new List<string>();
             foreach (Image image in imagesFound)
             {
@@ -219,6 +225,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             imagesFound = ImageDao.FindByKeywords(keywords, category, startIndex, count + 1);
             bool existMoreImages = (imagesFound.Count == count + 1);
 
+            if (existMoreImages) imagesFound.RemoveAt(count);
+
             List<string> imagesAsB64 = new List<string>();
             foreach(Image image in imagesFound)
             {
@@ -241,6 +249,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             List<Tag> newImageTags = ParseImageTags(tagsCriteria);
 
             ImageDao.UpdateTags(imgId, newImageTags);
+        }
+
+        public Block<TagInfo> SearchAllTags(int startIndex, int count)
+        {
+            List<Tag> tagsFound = TagDao.GetAllTagsByUse(startIndex, count + 1);
+            bool existsMoreTags = (tagsFound.Count == count + 1);
+            if (existsMoreTags) tagsFound.RemoveAt(count);
+
+            return new Block<TagInfo>(ToTagInfos(tagsFound), existsMoreTags);
         }
 
         #endregion IImageService Members

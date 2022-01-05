@@ -34,45 +34,45 @@ namespace Es.Udc.DotNet.Photogram.Model.TagDao
             var result =
                 (from tag in tags
                  where tag.tag == tagName
-                 select tag).ToList();
-
-            if (result.Count == 0)
-            {
-                return false;
-            } else
-            {
-                return true;
-            }
-        }
-
-        public List<Tag> GetAllTagsByUse()
-        {
-            DbSet<Tag> tags = Context.Set<Tag>();
-
-            var result =
-                (from tag in tags
-                 orderby tag.imgCount
-                 select tag).ToList<Tag>();
+                 select tag).Any();
 
             return result;
         }
 
-        public int GetNumberOfImagesTagged(string tagName)
+        public List<Tag> GetAllTagsByUse(int startIndex, int count)
         {
             DbSet<Tag> tags = Context.Set<Tag>();
 
             var result =
                 (from tag in tags
-                 where tag.tag == tagName
-                 select tag);
-            
-            if (result == null)
+                 orderby tag.tagId
+                 select tag).Skip(startIndex).Take(count);
+
+            return result.OrderBy(tag => tag.imgCount).ToList();
+        }
+
+        public IDictionary<string, int> GetNumberOfImagesTagged(List<string> tagsToCheck)
+        {
+            DbSet<Tag> tags = Context.Set<Tag>();
+
+            IDictionary<string, int> valuePairs = new Dictionary<string, int>();
+
+            foreach (string tagToCheck in tagsToCheck)
             {
-                throw new InstanceNotFoundException(tagName, typeof(Tag).FullName);
+                var result =
+                    (from tag in tags
+                     where tag.tag == tagToCheck
+                     select tag);
+
+                if (result != null)
+                {
+                    var tagFound = result.Single();
+                    valuePairs.Add(tagFound.tag, tagFound.imgCount);
+                }
             }
 
-            return result.Single().imgCount;
+            return valuePairs;
         }
-        
+
     }
 }

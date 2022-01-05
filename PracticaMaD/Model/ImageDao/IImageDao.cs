@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Dao;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageDao
@@ -12,11 +9,11 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
     {
 
         /// <summary>
-        /// Finds the image also with info about User, Exif and Category.
+        /// Finds the image also with info about User, Exif, Category, Tags and Likes.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
         /// <returns>The image with extra information.</returns>
-        Image FindWithChilds(long imgId);
+        Image FindWithRelatedInfo(long imgId);
 
         /// <summary>
         /// Gets the maximum stored in DB identifier.
@@ -62,6 +59,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// <param name="tags">The tags.</param>
         void UpdateTags(long imgId, List<Tag> tags);
 
+        List<Image> SearchByTag(string tag, int startIndex, int count);
 
         // ------TODO-------
         // METODO PARA COGER TODAS LAS IMAGENES ETIQUETADAS POR AUNA ETIQUETA

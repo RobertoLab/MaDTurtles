@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
+﻿using Ninject;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.TagDao;
@@ -19,21 +14,14 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Inject]
         ITagDao TagDao { set; }
 
-    
+
         // 
         /// <summary>
-        /// Stores the image, saves the image in the DB as bytes.
+        /// Stores the image.
         /// </summary>
-        /// <param name="img">The image.</param>
+        /// <param name="imageDto">The image.</param>
         [Transactional]
-        Image StoreImageAsBlob(ImageDto imageDto);
-
-        /// <summary>
-        /// Stores the image, and saves the image in the file system.
-        /// </summary>
-        /// <param name="img">The image.</param>
-        [Transactional]
-        Image StoreImageAsFile(ImageDto imageDto);
+        Image StoreImage(ImageDto imageDto);
 
         /// <summary>
         /// Deletes the image.
@@ -64,7 +52,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// Searches for images by keywords.
         /// </summary>
         /// <param name="keywords">The keywords.</param>
-        /// <returns>The list of Images retrieved from the DB.</returns>
+        /// <param name="startIndex">The start index for the search.</param>
+        /// <param name="count">The number of elements to retrieve.</param>
+        /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
         Block<ImageInfo> SearchByKeywords(string keywords, int startIndex, int count);
 
@@ -73,7 +63,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// </summary>
         /// <param name="keywords">The keywords.</param>
         /// <param name="categoryId">The category.</param>
-        /// <returns>The list of Images retrieved from the DB.</returns>
+        /// <param name="startIndex">The start index for the search.</param>
+        /// <param name="count">The number of elements to retrieve.</param>
+        /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
         Block<ImageInfo> SearchByKeywordsAndCategory(string keywords, string category, int startIndex, int count);
 
@@ -84,6 +76,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="tags">The new tags of the image.</param>
         [Transactional]
         void ModifyImageTags(long imgId, string tags);
+
+        /// <summary>
+        /// Searches for all tags, paginated.
+        /// </summary>
+        /// <param name="startIndex">The start index for the search.</param>
+        /// <param name="count">The number of elements to retrieve.</param>
+        /// <returns>Block with list and if there exists more elemnets in DB</returns>
+        [Transactional]
+        Block<TagInfo> SearchAllTags(int startIndex, int count); 
 
 
         // ------TODO-------

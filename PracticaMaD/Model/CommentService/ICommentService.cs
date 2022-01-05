@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
+﻿using Ninject;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.Photogram.Model.CommentDao;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
 
 namespace Es.Udc.DotNet.Photogram.Model.CommentService
 {
@@ -41,12 +37,12 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService
         Comment EditComment(long commentId, string newCommentText);
 
         /// <summary>
-        /// Gets the comments on a specific image.
+        /// Gets the comments on a specific image, paginated.
         /// </summary>
         /// <param name="imgId">Id of the image from which you want to get the comments.</param>
         /// <returns>The list of the comments posted in that image.</returns>
         [Transactional]
-        List<Comment> GetImageComments(long imgId);
+        Block<CommentInfo> GetImageComments(long imgId, int startIndex, int count);
 
     }
 }

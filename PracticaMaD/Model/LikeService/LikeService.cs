@@ -1,10 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Drawing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.UserDao;
-using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
@@ -55,8 +51,7 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService
         [Transactional]
         public int GetImageLikes(long imgId)
         {
-            // CAMBIAR ESTE LAZY FETCH
-            return ImageDao.Find(imgId).UsersLikes.Count;
+            return ImageDao.FindWithRelatedInfo(imgId).UsersLikes.Count;
         }
 
     }

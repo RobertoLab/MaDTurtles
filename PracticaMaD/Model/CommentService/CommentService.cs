@@ -1,12 +1,11 @@
 ﻿using System;
-using System.IO;
-using System.Drawing;
 using System.Collections.Generic;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.CommentDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using static Es.Udc.DotNet.Photogram.Model.Dtos.CommentConversor;
 
 namespace Es.Udc.DotNet.Photogram.Model.CommentService
 {
@@ -50,9 +49,14 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentService
         }
 
         [Transactional]
-        public List<Comment> GetImageComments(long imgId)
+        public Block<CommentInfo> GetImageComments(long imgId, int startIndex, int count)
         {
-            return CommentDao.GetCommentsFromImage(imgId);
+            List<Comment> commentsFound = CommentDao.GetCommentsFromImage(imgId, startIndex, count + 1);
+            bool existsMoreComments = (commentsFound.Count == count + 1);
+
+            if (existsMoreComments) commentsFound.RemoveAt(count);
+
+            return new Block<CommentInfo>(ToCommentInfos(commentsFound), existsMoreComments);
         }
 
     }

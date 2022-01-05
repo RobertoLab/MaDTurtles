@@ -14,14 +14,15 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao
     public class CommentDaoEntityFramework :
         GenericDaoEntityFramework<Comment, Int64>, ICommentDao
     {
-        public List<Comment> GetCommentsFromImage(long ImageId)
+        public List<Comment> GetCommentsFromImage(long ImageId, int startIndex, int count)
         {
             DbSet<Comment> comments = Context.Set<Comment>();
 
            var result =
-                (from comment in comments
+                (from comment in comments.Include("User")
+                 orderby comment.commentId
                  where comment.imgId == ImageId
-                 select comment).ToList<Comment>();
+                 select comment).Skip(startIndex).Take(count).ToList<Comment>();
 
             return result;
         }

@@ -11,7 +11,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         GenericDaoEntityFramework<Image, Int64>, IImageDao
     {
 
-        public Image FindWithChilds(long imgId)
+        public Image FindWithRelatedInfo(long imgId)
         {
             DbSet<Image> images = Context.Set<Image>();
 
@@ -114,6 +114,21 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             Image image = Find(imgId);
             image.Tags = tags;
             Update(image);
+        }
+
+        public List<Image> SearchByTag(string tag, int startIndex, int count)
+        {
+            DbSet<Image> images = Context.Set<Image>();
+            DbSet<Category> categories = Context.Set<Category>();
+            
+            var result =
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
+                join cat in categories on img.categoryId equals cat.categoryId
+                where cat.category == tag
+                orderby img.imgId
+                select img).Skip(startIndex).Take(count).ToList();
+
+            return result;
         }
     }
 }

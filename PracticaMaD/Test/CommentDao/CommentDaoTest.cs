@@ -20,7 +20,6 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
         private static ICommentDao commentDao;
         private static IImageDao imageDao;
         private static IUserDao userDao;
-        private static int testCatId = 1;
 
         private TestContext testContextInstance;
 
@@ -79,7 +78,40 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
 
         #endregion
 
+        #region Private helper functions
 
+        private User signUpUser(string userName)
+        {
+            User user = new User();
+            user.userName = userName;
+            user.password = "password";
+            user.firstName = "John";
+            user.lastName1 = "Smith";
+            user.lastName2 = "Smith";
+            user.email = "test@acme.com";
+            user.language = "en";
+            user.country = "US";
+
+            userDao.Create(user);
+            return user;
+        }
+
+        private Image uploadImage(long userUploadId)
+        {
+            Image image = new Image();
+            image.title = "bmx";
+            image.description = "first test image";
+            image.uploadDate = System.DateTime.Now;
+            image.categoryId = 1;
+            image.path = null;
+            image.userId = userUploadId;
+            image.img = null;
+
+            imageDao.Create(image);
+            return image;
+        }
+
+        #endregion
         /// <summary>
         /// Test create images, find image by id, find images by keywords.
         /// </summary>
@@ -89,28 +121,8 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
             long testUserId = 1;
             long testImgId = 1;
             // Store image for testing
-            Image image = new Image();
-            image.title = "bmx";
-            image.description = "first test image";
-            image.uploadDate = System.DateTime.Now;
-            image.categoryId = testCatId;
-            image.path = null;
-            image.userId = testUserId;
-            image.img = null;
-
-            imageDao.Create(image);
-
-            User newUser = new User();
-            newUser.userName = "jsmith";
-            newUser.password = "password";
-            newUser.firstName = "John";
-            newUser.lastName1 = "Smith";
-            newUser.lastName2 = "Smith";
-            newUser.email = "jsmith@acme.com";
-            newUser.language = "en";
-            newUser.country = "US";
-
-            userDao.Create(newUser);
+            User newUser = signUpUser("Test1");
+            Image image = uploadImage(newUser.userId);
 
             testImgId = image.imgId;
             testUserId = newUser.userId;
@@ -147,7 +159,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CommentDao.Tests
             comments.Add(comment);
             comments.Add(comment2);
 
-            List<Comment> imgComments = commentDao.GetCommentsFromImage(testImgId);
+            List<Comment> imgComments = commentDao.GetCommentsFromImage(testImgId, 0, 10);
 
             CollectionAssert.AreEqual(comments, imgComments);
         }

@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
 using Es.Udc.DotNet.Photogram.Model.CategoryDao;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Test;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
@@ -14,11 +16,13 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
         public ImageDaoTest() { }
 
         private static IKernel kernel;
+        private static IUserDao userDao;
         private static IImageDao imageDao;
         private static ICategoryDao categoryDao;
-        private static string imagesTestDir;
         private static long testUserId = 1;
         private static int testCatId = 1;
+        public string ImagesPathKey = "ImagesPath";
+        public string ImagesTestPathKey = "ImagesTestPath";
 
         private TestContext testContextInstance;
 
@@ -49,14 +53,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
         public static void MyClassInitialize(TestContext testContext)
         {
             kernel = TestManager.ConfigureNInjectKernel();
+            userDao = kernel.Get<IUserDao>();
             imageDao = kernel.Get<IImageDao>(); 
             categoryDao = kernel.Get<ICategoryDao>();
-            string path = Directory.GetCurrentDirectory();
-            path = Directory.GetParent(path).ToString();
-            path = Directory.GetParent(path).ToString();
-            path = Directory.GetParent(path).ToString();
-            path = path + "\\imagesTest";
-            imagesTestDir = path;
         }
         //
         // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
@@ -82,30 +81,41 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
 
         #endregion
 
+        #region Private helper functions
+
+        private User signUpUser(string userName)
+        {
+            User user = new User();
+            user.userName = userName;
+            user.password = "password";
+            user.firstName = "John";
+            user.lastName1 = "Smith";
+            user.lastName2 = "Smith";
+            user.email = "test@acme.com";
+            user.language = "en";
+            user.country = "US";
+
+            userDao.Create(user);
+            return user;
+        }
+
+        #endregion
 
         /// <summary>
         /// Test create images, find image by id, find images by keywords.
         /// </summary>
         [TestMethod]
-        public void FindImages()
+        public void StoreImages()
         {
+            var appSettings = ConfigurationManager.AppSettings;
+            string imageTestPath = appSettings[ImagesTestPathKey];
             // Get image to store as bytes
-            FileStream imageAsFileStream = File.Open(imagesTestDir + "\\bmx.jpg", FileMode.Open);
+            FileStream imageAsFileStream = File.Open(imageTestPath + "\\bmx.jpg", FileMode.Open);
             TestContext.WriteLine(imageAsFileStream.Length.ToString());
             int imageAsFileStreamLength = (int) imageAsFileStream.Length;
             TestContext.WriteLine(imageAsFileStreamLength.ToString());
             byte[] imageAsByte =  new byte[imageAsFileStreamLength];
             imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
-
-            // Create a test category
-            //Category testCat = new Category();
-            //testCat.category = "test";
-            //categoryDao.Create(testCat);
-
-            // Create a second test category
-            //Category testCat2 = new Category();
-            //testCat2.category = "test2";
-            //categoryDao.Create(testCat2);
 
             System.DateTime imgUploadDate = System.DateTime.Now;
 
@@ -158,10 +168,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             Assert.AreEqual(0, imagesByNonExistentCat.Count);
             Assert.AreEqual(image, imgStored);
 
-            //categoryDao.Remove(testCat.categoryId);
-            //categoryDao.Remove(testCat2.categoryId);
-            //imageDao.Remove(image.imgId);
-            //imageDao.Remove(image2.imgId);
+            imageDao.Remove(image.imgId);
+            imageDao.Remove(image2.imgId);
         }
     }
 }

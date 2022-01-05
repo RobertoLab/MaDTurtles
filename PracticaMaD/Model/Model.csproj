@@ -108,8 +108,10 @@
     <Compile Include="CommentService\CommentService.cs" />
     <Compile Include="CommentService\ICommentService.cs" />
     <Compile Include="Dtos\Block.cs" />
+    <Compile Include="Dtos\CommentConversor.cs" />
     <Compile Include="Dtos\ImageConversor.cs" />
     <Compile Include="Dtos\In\ImageDto.cs" />
+    <Compile Include="Dtos\Out\CommentInfo.cs" />
     <Compile Include="Dtos\Out\ImageInfo.cs" />
     <Compile Include="Dtos\Out\TagInfo.cs" />
     <Compile Include="Dtos\TagConversor.cs" />

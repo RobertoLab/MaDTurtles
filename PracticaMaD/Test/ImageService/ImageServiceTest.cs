@@ -88,6 +88,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
 
         #endregion
 
+        #region Private helper functions
+
         private User signUpUser(string userName)
         {
             User user = new User();
@@ -103,20 +105,31 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             userDao.Create(user);
             return user;
         }
+        
+
+        private byte[] readStoredImage(string imageName)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            string imageTestPath = appSettings[ImagesTestPathKey];
+            FileStream imageAsFileStream = File.Open(imageTestPath + "\\" + imageName + ".jpg", FileMode.Open);
+            int imageAsFileStreamLength = (int)imageAsFileStream.Length;
+            byte[] imageAsByte = new byte[imageAsFileStreamLength];
+            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            imageAsFileStream.Close();
+
+            return imageAsByte;
+        }
+        #endregion
 
         [TestMethod]
         public void StoreImagesTest()
         {
             var appSettings = ConfigurationManager.AppSettings;
-            string imageTestPath = appSettings[ImagesTestPathKey];
-            // Get image to store as bytes
-            FileStream imageAsFileStream = File.Open(imageTestPath + "\\bmx.jpg", FileMode.Open);
-            TestContext.WriteLine(imageAsFileStream.Length.ToString());
-            int imageAsFileStreamLength = (int)imageAsFileStream.Length;
-            TestContext.WriteLine(imageAsFileStreamLength.ToString());
-            byte[] imageAsByte = new byte[imageAsFileStreamLength];
-            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
-            imageAsFileStream.Close();
+            // Get image to store as bytes, size < 200KB, name "bmx"
+            byte[] imageAsByteToBlob = readStoredImage("bmx");
+
+            // Get image to store as bytes, size > 200KB, name "turtle"
+            byte[] imageAsByteToFile = readStoredImage("turtle");
 
             // Create a user 
             User user = signUpUser("test");
@@ -124,19 +137,19 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
 
             // Create the image
             ImageDto imageDto = new ImageDto("bmx", "first test image",
-                testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                testCatId, Convert.ToBase64String(imageAsByteToBlob), testUserId,
                 "test testing",
                 float.NaN, float.NaN, float.NaN, float.NaN);
             
-            Image image1 = imageService.StoreImageAsBlob(imageDto);
+            Image image1 = imageService.StoreImage(imageDto);
 
             // Create a second image
             ImageDto imageDto2 = new ImageDto("bmx", "second test image",
-                testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                testCatId, Convert.ToBase64String(imageAsByteToFile), testUserId,
                 "test testing",
                 float.NaN, float.NaN, float.NaN, float.NaN);
 
-            Image image2 = imageService.StoreImageAsFile(imageDto2);
+            Image image2 = imageService.StoreImage(imageDto2);
 
             // Get the image stored in file system as byte array to compare.
             string imagesPath = appSettings[ImagesPathKey];
@@ -147,9 +160,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
             fileImageStoredAsFileStream.Read(fileImageStoredAsMemoryStream, 0, (int) fileImageStoredAsFileStream.Length);
             fileImageStoredAsFileStream.Close();
 
-            Assert.IsTrue(imageAsByte.SequenceEqual(fileImageStoredAsMemoryStream));
-
-
+            Assert.IsTrue(imageAsByteToFile.SequenceEqual(fileImageStoredAsMemoryStream));
+            
             imageService.DeleteImage(image1.imgId, testUserId);
             imageService.DeleteImage(image2.imgId, testUserId);
 
@@ -162,34 +174,30 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
         public void SearchImagesByKeywordsTest()
         {
             var appSettings = ConfigurationManager.AppSettings;
-            string imageTestPath = appSettings[ImagesTestPathKey];
-            // Get image to store as bytes
-            FileStream imageAsFileStream = File.Open(imageTestPath + "\\bmx.jpg", FileMode.Open);
-            TestContext.WriteLine(imageAsFileStream.Length.ToString());
-            int imageAsFileStreamLength = (int)imageAsFileStream.Length;
-            TestContext.WriteLine(imageAsFileStreamLength.ToString());
-            byte[] imageAsByte = new byte[imageAsFileStreamLength];
-            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
-            imageAsFileStream.Close();
+            // Get image to store as bytes, size < 200KB, name "bmx"
+            byte[] imageAsByteToBlob = readStoredImage("bmx");
+
+            // Get image to store as bytes, size > 200KB, name "turtle"
+            byte[] imageAsByteToFile = readStoredImage("turtle");
 
             // Create a user 
             User user = signUpUser("test");
             long testUserId = user.userId;
 
             ImageDto imageDto = new ImageDto("bmx", "first test image"
-                , testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                , testCatId, Convert.ToBase64String(imageAsByteToBlob), testUserId,
                 "test testing",
                 0, 1, 2, 3);
 
-            Image image1 = imageService.StoreImageAsBlob(imageDto);
+            Image image1 = imageService.StoreImage(imageDto);
 
             // Create a second image
             ImageDto imageDto2 = new ImageDto("bmx", "second test image"
-                , testCatId, Convert.ToBase64String(imageAsByte), testUserId,
+                , testCatId, Convert.ToBase64String(imageAsByteToFile), testUserId,
                 "test testing",
                 float.NaN, float.NaN, float.NaN, float.NaN);
 
-            Image image2 = imageService.StoreImageAsFile(imageDto2);
+            Image image2 = imageService.StoreImage(imageDto2);
 
             ImageInfo image1Info = imageService.SearchImageEager(image1.imgId);
             ImageInfo image2Info = imageService.SearchImageEager(image2.imgId);
