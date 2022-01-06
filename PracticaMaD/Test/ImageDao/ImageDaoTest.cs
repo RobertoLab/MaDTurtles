@@ -99,6 +99,19 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             return user;
         }
 
+        private byte[] readStoredImage(string imageName)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            string imageTestPath = appSettings[ImagesTestPathKey];
+            FileStream imageAsFileStream = File.Open(imageTestPath + "\\" + imageName + ".jpg", FileMode.Open);
+            int imageAsFileStreamLength = (int)imageAsFileStream.Length;
+            byte[] imageAsByte = new byte[imageAsFileStreamLength];
+            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            imageAsFileStream.Close();
+
+            return imageAsByte;
+        }
+
         #endregion
 
         /// <summary>
@@ -110,12 +123,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             var appSettings = ConfigurationManager.AppSettings;
             string imageTestPath = appSettings[ImagesTestPathKey];
             // Get image to store as bytes
-            FileStream imageAsFileStream = File.Open(imageTestPath + "\\bmx.jpg", FileMode.Open);
-            TestContext.WriteLine(imageAsFileStream.Length.ToString());
-            int imageAsFileStreamLength = (int) imageAsFileStream.Length;
-            TestContext.WriteLine(imageAsFileStreamLength.ToString());
-            byte[] imageAsByte =  new byte[imageAsFileStreamLength];
-            imageAsFileStream.Read(imageAsByte, 0, imageAsFileStreamLength);
+            byte[] imageAsByte = readStoredImage("bmx");
 
             System.DateTime imgUploadDate = System.DateTime.Now;
 

@@ -93,10 +93,9 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="CommentDao\CommentDaoTest.cs" />
-    <Compile Include="CommentService\CommentServiceTest.cs" />
     <Compile Include="ImageService\ImageServiceTest.cs" />
+    <Compile Include="InteractionService\InteractionServiceTest.cs" />
     <Compile Include="LikeDao\LikeDaoTest.cs" />
-    <Compile Include="LikeService\LikeServiceTest.cs" />
     <Compile Include="TestManager.cs" />
     <Compile Include="ImageDao\ImageDaoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,8 +8,7 @@ using Es.Udc.DotNet.Photogram.Model.UserService;
 using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Model.TagDao;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
-using Es.Udc.DotNet.Photogram.Model.CommentService;
-using Es.Udc.DotNet.Photogram.Model.LikeService;
+using Es.Udc.DotNet.Photogram.Model.InteractionService;
 
 
 namespace Es.Udc.DotNet.Photogram.Test
@@ -28,21 +27,17 @@ namespace Es.Udc.DotNet.Photogram.Test
             
             kernel.Bind<IImageService>().To<ImageService>();
 
-            kernel.Bind<IImageDao>().To<ImageDaoEntityFramework>();
-
             kernel.Bind<IUserService>().To<UserService>();
+
+            kernel.Bind<IInteractionService>().To<InteractionService>();
+
+            kernel.Bind<IImageDao>().To<ImageDaoEntityFramework>();
 
             kernel.Bind<IUserDao>().To<UserDaoEntityFramework>();
 
             kernel.Bind<ICategoryDao>().To<CategoryDaoEntityFramework>();
 
-            kernel.Bind<ICommentService>().To<CommentService>();
-
             kernel.Bind<ICommentDao>().To<CommentDaoEntityFramework>();
-
-            kernel.Bind<ILikeService>().To<LikeService>();
-
-            // kernel.Bind<ILikeDao>().To<LikeDaoEntityFramework>();
 
             kernel.Bind<ITagDao>().To<TagDaoEntityFramework>();
 

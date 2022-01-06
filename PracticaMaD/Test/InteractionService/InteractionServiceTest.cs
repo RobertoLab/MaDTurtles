@@ -1,36 +1,27 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
+﻿using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
-using System.IO;
-using System.Collections.Generic;
 using System.Transactions;
-using Es.Udc.DotNet.Photogram.Model.LikeService;
-using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Test;
-using Es.Udc.DotNet.ModelUtil.Exceptions;
 
-
-namespace Es.Udc.DotNet.Photogram.Model.LikeService.Test
+namespace Es.Udc.DotNet.Photogram.Model.InteractionService.Test
 {
-    /// <summary>
-    /// Tests for proper functionality on ImageService.
-    /// </summary>
     [TestClass]
-    public class LikeServiceTest
+    public class InteractionServiceTest
     {
         private static IKernel kernel;
-        private static ILikeService likeService;
+        private static IInteractionService interactionService;
         private static IUserDao userDao;
         private static IImageDao imageDao;
+        public string ImagesPathKey = "ImagesPath";
+        public string ImagesTestPathKey = "ImagesTestPath";
 
         private TestContext testContextInstance;
 
         private TransactionScope transactionScope;
-
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -56,7 +47,7 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService.Test
         public static void MyClassInitialize(TestContext testContext)
         {
             kernel = TestManager.ConfigureNInjectKernel();
-            likeService = kernel.Get<ILikeService>();
+            interactionService = kernel.Get<IInteractionService>();
             userDao = kernel.Get<IUserDao>();
             imageDao = kernel.Get<IImageDao>();
         }
@@ -114,25 +105,53 @@ namespace Es.Udc.DotNet.Photogram.Model.LikeService.Test
         }
 
         #endregion
+
         [TestMethod]
-        public void LikeServiceMethodsTest()
+        public void CommentMethodsTest()
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            string imageTestPath = appSettings[ImagesTestPathKey];
+            // Get image to store as bytes
+            User user = signUpUser("test");
+            Image image = uploadImage(user.userId);
+
+            Comment comment = interactionService.PostComment("Comentario 1 del Test", user.userId, image.imgId);
+            string baseComment = comment.comment;
+
+            Assert.AreEqual("Comentario 1 del Test", comment.comment);
+
+            Comment commentEdited = interactionService.EditComment(comment.commentId, "Texto editado");
+
+            Assert.AreNotEqual(baseComment, commentEdited.comment);
+
+            Comment comment2 = interactionService.PostComment("Comentario 2 del Test", user.userId, image.imgId);
+
+            interactionService.DeleteComment(comment.commentId);
+
+            Block<CommentInfo> comments = interactionService.GetImageComments(image.imgId, 0, 10);
+
+            Assert.AreEqual(false, comments.existMoreItems);
+            Assert.AreEqual(1, comments.items.Count);
+        }
+
+        [TestMethod]
+        public void LikeMethodsTest()
         {
             User user1 = signUpUser("test1");
             User user2 = signUpUser("test2");
 
             Image image1 = uploadImage(user1.userId);
 
-            Assert.AreEqual(0,likeService.GetImageLikes(image1.imgId));
+            Assert.AreEqual(0, interactionService.GetImageLikes(image1.imgId));
 
-            likeService.LikeImage( user2.userId, image1.imgId);
-            Assert.AreEqual(1, likeService.GetImageLikes(image1.imgId));
+            interactionService.LikeImage(user2.userId, image1.imgId);
+            Assert.AreEqual(1, interactionService.GetImageLikes(image1.imgId));
 
-            likeService.LikeImage(user1.userId, image1.imgId);
-            Assert.AreEqual(2, likeService.GetImageLikes(image1.imgId));
+            interactionService.LikeImage(user1.userId, image1.imgId);
+            Assert.AreEqual(2, interactionService.GetImageLikes(image1.imgId));
 
-            likeService.Unlike(user2.userId, image1.imgId);
-            Assert.AreEqual(1, likeService.GetImageLikes(image1.imgId));
+            interactionService.Unlike(user2.userId, image1.imgId);
+            Assert.AreEqual(1, interactionService.GetImageLikes(image1.imgId));
         }
-
     }
 }

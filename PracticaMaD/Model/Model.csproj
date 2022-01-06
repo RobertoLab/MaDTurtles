@@ -98,15 +98,13 @@
     <Compile Include="Category.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
-    <Compile Include="CategoryDao\CategoryDaoEntityFramework.cs" />
-    <Compile Include="CategoryDao\ICategoryDao.cs" />
+    <Compile Include="Daos\CategoryDao\CategoryDaoEntityFramework.cs" />
+    <Compile Include="Daos\CategoryDao\ICategoryDao.cs" />
     <Compile Include="Comment.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
-    <Compile Include="CommentDao\CommentDaoEntityFramework.cs" />
-    <Compile Include="CommentDao\ICommentDao.cs" />
-    <Compile Include="CommentService\CommentService.cs" />
-    <Compile Include="CommentService\ICommentService.cs" />
+    <Compile Include="Daos\CommentDao\CommentDaoEntityFramework.cs" />
+    <Compile Include="Daos\CommentDao\ICommentDao.cs" />
     <Compile Include="Dtos\Block.cs" />
     <Compile Include="Dtos\CommentConversor.cs" />
     <Compile Include="Dtos\ImageConversor.cs" />
@@ -121,14 +119,14 @@
     <Compile Include="Image.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
-    <Compile Include="ImageDao\CategoryNotFoundException.cs" />
-    <Compile Include="ImageService\DeleteDeniedException.cs" />
-    <Compile Include="ImageDao\ImageDaoEntityFramework.cs" />
-    <Compile Include="ImageDao\IImageDao.cs" />
-    <Compile Include="ImageService\ImageService.cs" />
-    <Compile Include="ImageService\IImageService.cs" />
-    <Compile Include="LikeService\ILikeService.cs" />
-    <Compile Include="LikeService\LikeService.cs" />
+    <Compile Include="Daos\ImageDao\CategoryNotFoundException.cs" />
+    <Compile Include="Services\ImageService\DeleteDeniedException.cs" />
+    <Compile Include="Daos\ImageDao\ImageDaoEntityFramework.cs" />
+    <Compile Include="Daos\ImageDao\IImageDao.cs" />
+    <Compile Include="Services\ImageService\ImageService.cs" />
+    <Compile Include="Services\ImageService\IImageService.cs" />
+    <Compile Include="Services\InteractionService\IInteractionService.cs" />
+    <Compile Include="Services\InteractionService\InteractionService.cs" />
     <Compile Include="Photogram.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -148,17 +146,17 @@
     <Compile Include="Tag.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
-    <Compile Include="TagDao\ITagDao.cs" />
-    <Compile Include="TagDao\TagDaoEntityFramework.cs" />
+    <Compile Include="Daos\TagDao\ITagDao.cs" />
+    <Compile Include="Daos\TagDao\TagDaoEntityFramework.cs" />
     <Compile Include="User.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserDao\UserDaoEntityFramework.cs" />
-    <Compile Include="UserDao\IUserDao.cs" />
-    <Compile Include="UserService\Exceptions\IncorrectPasswordException.cs" />
-    <Compile Include="UserService\LoginResult.cs" />
-    <Compile Include="UserService\UserService.cs" />
-    <Compile Include="UserService\IUserService.cs" />
+    <Compile Include="Daos\UserDao\UserDaoEntityFramework.cs" />
+    <Compile Include="Daos\UserDao\IUserDao.cs" />
+    <Compile Include="Services\UserService\Exceptions\IncorrectPasswordException.cs" />
+    <Compile Include="Services\UserService\LoginResult.cs" />
+    <Compile Include="Services\UserService\UserService.cs" />
+    <Compile Include="Services\UserService\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
