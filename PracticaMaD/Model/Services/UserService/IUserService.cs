@@ -33,7 +33,7 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         /// <param name="newUserDetails">The new user details.</param>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void UpdateUserDetails(long userId, UserProfileDetails newUserDetails);
+        void UpdateUserProfileDetails(long userId, UserProfileDetails newUserDetails);
 
         /// <summary>
         /// Changes the password.

@@ -231,42 +231,42 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Session
         ///// </summary>
         ///// <param name="context">The context.</param>
         ///// <param name="userProfileDetails">The user profile details.</param>
-        //public static void UpdateUserProfileDetails(HttpContext context,
-        //    UserProfileDetails userProfileDetails)
-        //{
-        //    /* Update user's profile details. */
+        public static void UpdateUserProfileDetails(HttpContext context,
+            UserProfileDetails userProfileDetails)
+        {
+            /* Update user's profile details. */
 
-        //    UserSession userSession =
-        //        (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+            UserSession userSession =
+                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
 
-        //    userService.UpdateUserProfileDetails(userSession.UserProfileId,
-        //        userProfileDetails);
+            userService.UpdateUserProfileDetails(userSession.UserProfileId,
+                userProfileDetails);
 
-        //    /* Update user's session objects. */
+            /* Update user's session objects. */
 
-        //    Locale locale = new Locale(userProfileDetails.Language,
-        //        userProfileDetails.Country);
+            Locale locale = new Locale(userProfileDetails.language,
+                userProfileDetails.country);
 
-        //    userSession.FirstName = userProfileDetails.FirstName;
+            userSession.FirstName = userProfileDetails.firstName;
 
-        //    UpdateSessionForAuthenticatedUser(context, userSession, locale);
-        //}
+            UpdateSessionForAuthenticatedUser(context, userSession, locale);
+        }
 
         ///// <summary>
         ///// Finds the user profile with the id stored in the session.
         ///// </summary>
         ///// <param name="context">The context.</param>
         ///// <returns></returns>
-        //public static UserProfileDetails FindUserProfileDetails(HttpContext context)
-        //{
-        //    UserSession userSession =
-        //        (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+        public static UserProfileDetails FindUserProfileDetails(HttpContext context)
+        {
+            UserSession userSession =
+                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
 
-        //    UserProfileDetails userProfileDetails =
-        //        userService.FindUserProfileDetails(userSession.UserProfileId);
+            UserProfileDetails userProfileDetails =
+                userService.FindUserProfileDetails(userSession.UserProfileId);
 
-        //    return userProfileDetails;
-        //}
+            return userProfileDetails;
+        }
 
         /// <summary>
         /// Gets the user info stored in the session.
@@ -288,18 +288,18 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Session
         ///// <param name="oldClearPassword">The old password in clear text</param>
         ///// <param name="newClearPassword">The new password in clear text</param>
         ///// <exception cref="IncorrectPasswordException"/>
-        //public static void ChangePassword(HttpContext context,
-        //       String oldClearPassword, String newClearPassword)
-        //{
-        //    UserSession userSession =
-        //        (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+        public static void ChangePassword(HttpContext context,
+               String oldClearPassword, String newClearPassword)
+        {
+            UserSession userSession =
+                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
 
-        //    userService.ChangePassword(userSession.UserProfileId,
-        //        oldClearPassword, newClearPassword);
+            userService.ChangePassword(userSession.UserProfileId,
+                oldClearPassword, newClearPassword);
 
-        //    /* Remove cookies. */
-        //    CookiesManager.RemoveCookies(context);
-        //}
+            /* Remove cookies. */
+            CookiesManager.RemoveCookies(context);
+        }
 
         /// <summary>
         /// Destroys the session, and removes the cookies if the user had

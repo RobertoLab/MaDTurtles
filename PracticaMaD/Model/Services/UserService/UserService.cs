@@ -64,7 +64,7 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
             }
         }
 
-        public void UpdateUserDetails(long userId, UserProfileDetails newUserDetails)
+        public void UpdateUserProfileDetails(long userId, UserProfileDetails newUserDetails)
         {
             User user = UserDao.Find(userId);
 
