@@ -1,7 +1,7 @@
 ﻿using System;
 using Es.Udc.DotNet.ModelUtil.Log;
 
-namespace Es.Udc.DotNet.MiniPortal.Model.UserService.Exceptions
+namespace Es.Udc.DotNet.Photogram.Model.UserService.Exceptions
 {
 
     /// <summary>

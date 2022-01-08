@@ -143,6 +143,8 @@
       <DependentUpon>Photogram.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UserService\UserProfileDetails.cs" />
+    <Compile Include="Services\UserService\Util\PasswordEncrypter.cs" />
     <Compile Include="Tag.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>

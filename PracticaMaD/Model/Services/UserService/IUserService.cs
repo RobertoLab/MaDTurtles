@@ -23,8 +23,7 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
 
         [Transactional]
         /// <exception cref="DuplicateInstanceException"/>
-        long RegisterUser(string userName, string password, string firstName, 
-            string lastName, string lastName2, string email, string country, string language);
+        long RegisterUser(string userName, string password, UserProfileDetails userDetails);
 
         [Transactional]
         void BorrarCuenta(long userId);
