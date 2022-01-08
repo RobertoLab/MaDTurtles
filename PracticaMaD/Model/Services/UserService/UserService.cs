@@ -64,6 +64,44 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
             }
         }
 
+        public void UpdateUserDetails(long userId, UserProfileDetails newUserDetails)
+        {
+            User user = UserDao.Find(userId);
+
+            user.firstName = newUserDetails.firstName;
+            user.lastName1 = newUserDetails.lastName;
+            user.email = newUserDetails.email;
+            user.country = newUserDetails.country;
+            user.language = newUserDetails.language;
+
+            UserDao.Update(user);
+        }
+
+        public void ChangePassword(long userId, string oldPassword, string newPassword)
+        {
+            User user = UserDao.Find(userId);
+
+            string storedPassword = user.password;
+            if (!PasswordEncrypter.IsClearPasswordCorrect(oldPassword, storedPassword))
+            {
+                throw new IncorrectPasswordException(user.userName);
+            }
+
+            user.password = PasswordEncrypter.Crypt(newPassword);
+            UserDao.Update(user);
+        }
+
+        public UserProfileDetails FindUserProfileDetails(long userId)
+        {
+            User user = UserDao.Find(userId);
+
+            UserProfileDetails userDetails = new UserProfileDetails(
+                user.firstName, user.lastName1, user.email, user.language,
+                user.country);
+
+            return userDetails;
+        }
+
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public void BorrarCuenta(long userId)
