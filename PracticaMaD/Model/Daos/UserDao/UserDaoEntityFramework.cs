@@ -52,6 +52,18 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
 
             Update(user);
         }
+
+        public bool Exists(string userName)
+        {
+            DbSet<User> users = Context.Set<User>();
+
+            var result =
+                (from u in users
+                 where u.userName == userName
+                 select u);
+
+            return result.Any();
+        }
     }
    
 }

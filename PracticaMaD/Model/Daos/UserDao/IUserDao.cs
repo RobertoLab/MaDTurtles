@@ -19,7 +19,18 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
         /// <exception cref="InstanceNotFoundException"></exception>
         User FindByUserName(string userName);
 
+        /// <summary>
+        /// Updates the images liked by the user.
+        /// </summary>
+        /// <param name="user">The user.</param>
         void UpdateImagesLiked(User user);
+
+        /// <summary>
+        /// User exists by given username.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>True if it exists, false otherwise.</returns>
+        bool Exists(string userName);
     }
 }
 
