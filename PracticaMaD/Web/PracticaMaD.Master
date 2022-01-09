@@ -1,0 +1,55 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PracticaMaD.master.cs" Inherits="Es.Udc.DotNet.Photogram.Web.PracticaMaD" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Photogram</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link href="~/Css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div id="window">
+
+        <!-- Body Header. -->
+
+        <div id="header">
+            <asp:Localize ID="lclHeader" runat="server" meta:resourcekey="lclHeader" />
+        </div>
+
+        <!-- Main Content. -->
+        <div id="pageBody">
+
+            <div id="sidebar">
+
+                <ul>
+
+                    <li>
+                        <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lnkHomeResource1" >[lnkHome]</asp:HyperLink>
+                    </li>
+
+                    <li>
+                        <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/SearchImg.aspx" meta:resourcekey="lnkSearch" >[lnkSearch]</asp:HyperLink>
+                    </li>
+
+                    <li>
+                        <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/UploadImg.aspx" meta:resourcekey="lnkUploadImg" >[lnkUploadImg]</asp:HyperLink>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div id="content">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+
+        <!-- Footer. -->
+        <div id="footer">
+            <asp:Localize ID="lclFooter" runat="server" meta:resourcekey="lclFooter" />
+        </div>
+    </div>
+</body>
+</html>
