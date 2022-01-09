@@ -62,5 +62,19 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         void BorrarCuenta(long userId);
+
+        /// <summary>
+        /// Checks if an user exists by a given identifier.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>True if the user exists, false otherwise.</returns>
+        bool UserExists(long userId);
+
+        /// <summary>
+        /// Checks if an user exists by a given user name.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>True if the user exists, false otherwise.</returns>
+        bool UserExists(string userName);
     }
 }

@@ -110,5 +110,17 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
 
             UserDao.Remove(userId);
         }
+
+        [Transactional]
+        public bool UserExists(long userId)
+        {
+            return UserDao.Exists(userId);
+        }
+
+        [Transactional]
+        public bool UserExists(string userName)
+        {
+            return UserDao.Exists(userName);
+        }
     }
 }
