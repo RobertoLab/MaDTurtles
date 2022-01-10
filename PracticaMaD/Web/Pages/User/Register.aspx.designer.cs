@@ -31,15 +31,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User {
         protected global::System.Web.UI.HtmlControls.HtmlForm RegisterForm;
         
         /// <summary>
-        /// lnkUserExists control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUserExists;
-        
-        /// <summary>
         /// lclUserName control.
         /// </summary>
         /// <remarks>

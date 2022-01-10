@@ -117,70 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnUpload" xml:space="preserve">
+  <data name="btnUpload.Text" xml:space="preserve">
     <value>Subir</value>
   </data>
-  <data name="lblTitleError" xml:space="preserve">
+  <data name="lblTitleError.Text" xml:space="preserve">
     <value>Título no válido, campo obligatorio.</value>
   </data>
-  <data name="lclDescription" xml:space="preserve">
+  <data name="lclDescription.Text" xml:space="preserve">
     <value>Descripción :</value>
   </data>
-  <data name="lclDiaph" xml:space="preserve">
+  <data name="lclDiaph.Text" xml:space="preserve">
     <value>Abertura de diafragma de cámara :</value>
   </data>
-  <data name="lclExposition" xml:space="preserve">
+  <data name="lclExposition.Text" xml:space="preserve">
     <value>Exposición de la cámara :</value>
   </data>
-  <data name="lclImageCategory" xml:space="preserve">
+  <data name="lclImageCategory.Text" xml:space="preserve">
     <value>Categoría :</value>
   </data>
-  <data name="lclImageTags" xml:space="preserve">
+  <data name="lclImageTags.Text" xml:space="preserve">
     <value>Etiquetas :</value>
   </data>
-  <data name="lclImageTagsExplanation" xml:space="preserve">
+  <data name="lclImageTagsExplanation.Text" xml:space="preserve">
     <value>Por favor, use el espacio ' ' como separador de etiquetas. Ej: "paisaje bosque naturaleza".</value>
   </data>
-  <data name="lclImagetitle" xml:space="preserve">
+  <data name="lclImagetitle.Text" xml:space="preserve">
     <value>Título :</value>
   </data>
-  <data name="lclIso" xml:space="preserve">
+  <data name="lclIso.Text" xml:space="preserve">
     <value>ISO de la cámara :</value>
   </data>
-  <data name="lclMenuExplanation" xml:space="preserve">
+  <data name="lclMenuExplanation.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="lclWhiteBalance" xml:space="preserve">
+  <data name="lclWhiteBalance.Text" xml:space="preserve">
     <value>Balance de blancos de la cámara :</value>
   </data>
-  <data name="lnkUserExists" xml:space="preserve">
+  <data name="lnkUserExists.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="Page.Title1" xml:space="preserve">
-    <value>Photogram - Subida de imágenes</value>
-  </data>
-  <data name="revDiaphError1" xml:space="preserve">
+  <data name="revDiaphError1.ErrorMessage" xml:space="preserve">
     <value>Número inválido, por favor use la coma ',' como separador de decimales.</value>
   </data>
-  <data name="revExpositionError1" xml:space="preserve">
+  <data name="revExpositionError1.ErrorMessage" xml:space="preserve">
     <value>Número inválido, por favor use la coma ',' como separador de decimales.</value>
   </data>
-  <data name="revIsoError1" xml:space="preserve">
+  <data name="revIsoError1.ErrorMessage" xml:space="preserve">
     <value>Número inválido, por favor use la coma ',' como separador de decimales.</value>
   </data>
-  <data name="revTagsError1" xml:space="preserve">
+  <data name="revTagsError1.ErrorMessage" xml:space="preserve">
     <value>Las etiquetas no están separadas por espacios ' '.</value>
   </data>
-  <data name="revWhiteBalanceError1" xml:space="preserve">
+  <data name="revWhiteBalanceError1.ErrorMessage" xml:space="preserve">
     <value>Número inválido, por favor use la coma ',' como separador de decimales.</value>
   </data>
-  <data name="rfvDescriptionError1" xml:space="preserve">
+  <data name="rfvDescriptionError1.ErrorMessage" xml:space="preserve">
     <value>Descripción no válida, campo obligatorio.</value>
   </data>
-  <data name="lblUploadFailed" xml:space="preserve">
+  <data name="lblUploadFailed.Text" xml:space="preserve">
     <value>Ha habido un problema subiendo la imagen, disculpe las molestias.</value>
   </data>
-  <data name="lblUploadOk" xml:space="preserve">
+  <data name="lblUploadOk.Text" xml:space="preserve">
     <value>La imagen se ha subido correctamente.</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Photogram - Subida de imágenes</value>
   </data>
 </root>

@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Logout.aspx.cs" Inherits="Web.Pages.User.Logout" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Logout.aspx.cs" 
+    Inherits="Es.Udc.DotNet.Photogram.Web.Pages.User.Logout" 
+    meta:resourcekey="Page"%>
 
 <!DOCTYPE html>
 

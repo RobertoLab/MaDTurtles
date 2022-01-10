@@ -9,22 +9,14 @@ using System.Web.UI.WebControls;
 
 namespace Es.Udc.DotNet.Photogram.Web
 {
-    public partial class Photogram : SpecificCulturePage
+    public partial class Photogram : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                List<Tuple<string, int>> tagSizes = ActionsManager.TagSizes(0, 50);
+                string innerHtml = BuildTagCloudHtml(50);
 
-                string innerHtml = "<ul>";
-                foreach (Tuple<string, int> tagSize in tagSizes)
-                {
-                    innerHtml += "<li style=\"font-size:"+ tagSize.Item2.ToString() +
-                        "px\">" + tagSize.Item1 + "</li>";
-                }
-                innerHtml += "</ul>";
-                
                 ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
             }
         }
@@ -44,34 +36,34 @@ namespace Es.Udc.DotNet.Photogram.Web
             return innerHtml;
         }
 
-        protected void BtnTagCloud1OnClick()
-        {
-            string innerHtml = BuildTagCloudHtml(10);
+        //protected void BtnTagCloud1OnClick(object sender, EventArgs e)
+        //{
+        //    string innerHtml = BuildTagCloudHtml(10);
 
-            rbTagCloud1.Checked = true;
-            rbTagCloud2.Checked = false;
-            rbTagCloud3.Checked = false;
-            ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
-        }
+        //    btTagCloud1.Enabled = false;
+        //    btTagCloud2.Enabled = true;
+        //    btTagCloud3.Enabled = true;
+        //    ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
+        //}
 
-        protected void BtnTagCloud2OnClick()
-        {
-            string innerHtml = BuildTagCloudHtml(25);
+        //protected void BtnTagCloud2OnClick(object sender, EventArgs e)
+        //{
+        //    string innerHtml = BuildTagCloudHtml(25);
 
-            rbTagCloud1.Checked = false;
-            rbTagCloud2.Checked = true;
-            rbTagCloud3.Checked = false;
-            ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
-        }
+        //    btTagCloud1.Enabled = true;
+        //    btTagCloud2.Enabled = false;
+        //    btTagCloud3.Enabled = true;
+        //    ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
+        //}
 
-        protected void BtnTagCloud3OnClick()
-        {
-            string innerHtml = BuildTagCloudHtml(25);
+        //protected void BtnTagCloud3OnClick(object sender, EventArgs e)
+        //{
+        //    string innerHtml = BuildTagCloudHtml(25);
 
-            rbTagCloud1.Checked = false;
-            rbTagCloud2.Checked = false;
-            rbTagCloud3.Checked = true;
-            ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
-        }
+        //    btTagCloud1.Enabled = true;
+        //    btTagCloud2.Enabled = true;
+        //    btTagCloud3.Enabled = false;
+        //    ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
+        //}
     }
 }

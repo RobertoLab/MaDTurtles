@@ -120,7 +120,7 @@
   <data name="lclContent.Text" xml:space="preserve">
     <value>Contido da Páxina Principal de Photogram.</value>
   </data>
-  <data name="Page.Title1" xml:space="preserve">
+  <data name="Page" xml:space="preserve">
     <value>Photogram - Páxina Principal</value>
   </data>
 </root>

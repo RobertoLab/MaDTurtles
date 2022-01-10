@@ -58,15 +58,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         protected global::System.Web.UI.HtmlControls.HtmlForm UploadForm;
         
         /// <summary>
-        /// lnkUserExists control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUserExists;
-        
-        /// <summary>
         /// lclTitle control.
         /// </summary>
         /// <remarks>
@@ -256,6 +247,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revDiaph;
         
         /// <summary>
+        /// rvDiaph control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvDiaph;
+        
+        /// <summary>
         /// lclExposition control.
         /// </summary>
         /// <remarks>
@@ -281,6 +281,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revExposition;
+        
+        /// <summary>
+        /// rvExposition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvExposition;
         
         /// <summary>
         /// lclIso control.
@@ -310,6 +319,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revIso;
         
         /// <summary>
+        /// rvIso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvIso;
+        
+        /// <summary>
         /// lclWhiteBalance control.
         /// </summary>
         /// <remarks>
@@ -335,6 +353,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revWhiteBalance;
+        
+        /// <summary>
+        /// rvWhiteBalance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvWhiteBalance;
         
         /// <summary>
         /// btnUpload control.

@@ -23,7 +23,7 @@ namespace Web.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            //bootstrapper.Initialize(CreateKernel);
         }
 
         /// <summary>

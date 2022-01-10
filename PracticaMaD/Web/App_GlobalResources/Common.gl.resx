@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblExplanation_txt" xml:space="preserve">
-    <value>Búsqueda de usuarios:</value>
+  <data name="mandatoryField" xml:space="preserve">
+    <value>Campo obrigatorio</value>
   </data>
-  <data name="lblUserExistsResource1.Text" xml:space="preserve">
-    <value>Usuario existente en la Base de Datos.</value>
-  </data>
-  <data name="lblUserNameResource1.Text" xml:space="preserve">
-    <value>Nombre de Usuario:</value>
-  </data>
-  <data name="lblUserNotExistsResource1.Text" xml:space="preserve">
-    <value>Usuario no existente en la Base de Datos.</value>
+  <data name="searchButton" xml:space="preserve">
+    <value>Procurar</value>
   </data>
 </root>
