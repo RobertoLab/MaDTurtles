@@ -1,9 +1,10 @@
-﻿using Es.Udc.DotNet.Photogram.Model.UserDao;
-using Es.Udc.DotNet.Photogram.Model.UserService;
-using Es.Udc.DotNet.ModelUtil.IoC;
-using Ninject;
+﻿using Ninject;
 using System.Configuration;
 using System.Data.Entity;
+using Es.Udc.DotNet.Photogram.Model.UserDao;
+using Es.Udc.DotNet.Photogram.Model.UserService;
+using Es.Udc.DotNet.Photogram.Model.ImageService;
+using Es.Udc.DotNet.ModelUtil.IoC;
 
 namespace Es.Udc.DotNet.Photogram.HTTP.Util.IoC
 {
@@ -24,6 +25,10 @@ namespace Es.Udc.DotNet.Photogram.HTTP.Util.IoC
             /* UserService */
             kernel.Bind<IUserService>().
                 To<UserService>();
+
+            /* ImageService */
+            kernel.Bind<IImageService>().
+                To<ImageService>();
 
             /* DbContext */
             string connectionString =
