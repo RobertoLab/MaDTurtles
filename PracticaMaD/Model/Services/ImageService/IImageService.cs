@@ -1,8 +1,10 @@
 ﻿using Ninject;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
+using Es.Udc.DotNet.Photogram.Model.CategoryDao;
 using Es.Udc.DotNet.Photogram.Model.TagDao;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
@@ -13,6 +15,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
         [Inject]
         ITagDao TagDao { set; }
+
+        [Inject]
+        ICategoryDao CategoryDao { set; }
 
 
         // 
@@ -84,8 +89,14 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="count">The number of elements to retrieve.</param>
         /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
-        Block<TagInfo> SearchAllTags(int startIndex, int count); 
+        Block<TagInfo> SearchAllTags(int startIndex, int count);
 
+        /// <summary>
+        /// Searches all categories.
+        /// </summary>
+        /// <returns>The list of strings with all categories.</returns>
+        [Transactional]
+        List<CategoryInfo> SearchAllCategories();
 
         // ------TODO-------
         // MODIFICAR LOS "STORE AS" PARA QUE SOLAMENTE HAYA 1 ACCESIBLE Y DESPUES

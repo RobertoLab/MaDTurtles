@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.TagDao;
+using Es.Udc.DotNet.Photogram.Model.CategoryDao;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using static Es.Udc.DotNet.Photogram.Model.Dtos.ImageConversor;
 using static Es.Udc.DotNet.Photogram.Model.Dtos.TagConversor;
+using static Es.Udc.DotNet.Photogram.Model.Dtos.CategoryConversor;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
@@ -22,6 +24,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
         [Inject]
         public ITagDao TagDao { private get; set; }
+
+        [Inject]
+        public ICategoryDao CategoryDao { private get; set; }
 
         public string ImagesPathKey = "ImagesPath";
 
@@ -260,6 +265,16 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             return new Block<TagInfo>(ToTagInfos(tagsFound), existsMoreTags);
         }
 
+        public List<CategoryInfo> SearchAllCategories()
+        {
+            List<CategoryInfo> categories = new List<CategoryInfo>();
+
+            List<Category> storedCategories = CategoryDao.GetAllCategoriesByName();
+
+            categories = ToCategoryInfos(storedCategories);
+
+            return categories;
+        }
         #endregion IImageService Members
     }
 }

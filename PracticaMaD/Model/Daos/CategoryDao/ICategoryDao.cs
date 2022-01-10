@@ -16,5 +16,11 @@ namespace Es.Udc.DotNet.Photogram.Model.CategoryDao
         /// <param name="categoryId">The category identifier.</param>
         /// <returns>The category stored as a string.</returns>
         string GetCategoryValue(long categoryId);
+
+        /// <summary>
+        /// Gets all categories by name, descending order.
+        /// </summary>
+        /// <returns>The list with all categories.</returns>
+        List<Category> GetAllCategoriesByName();
     }
 }

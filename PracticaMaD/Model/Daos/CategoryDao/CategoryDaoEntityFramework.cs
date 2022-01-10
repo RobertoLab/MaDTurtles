@@ -20,5 +20,16 @@ namespace Es.Udc.DotNet.Photogram.Model.CategoryDao
 
             return result;
         }
+
+        public List<Category> GetAllCategoriesByName()
+        {
+            DbSet<Category> categories = Context.Set<Category>();
+
+            var result =
+                (from cat in categories
+                 select cat).OrderByDescending(cat => cat.category);
+
+            return result.ToList();
+        }
     }
 }
