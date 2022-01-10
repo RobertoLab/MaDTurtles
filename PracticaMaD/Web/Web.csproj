@@ -104,8 +104,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Pages\Errors\InternalError.aspx" />
+    <Content Include="Pages\Image\Upload.aspx" />
     <Content Include="Pages\MainPage.aspx" />
-    <Content Include="Pages\UserExists.aspx" />
     <Content Include="Pages\User\Authentication.aspx" />
     <Content Include="Pages\User\ChangePassword.aspx" />
     <Content Include="Pages\User\Logout.aspx" />
@@ -118,6 +118,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HTTP\Actions\ActionsManager.cs" />
     <Compile Include="HTTP\Session\SessionManager.cs" />
     <Compile Include="HTTP\Session\SpecificCulturePage.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -135,19 +136,19 @@
     <Compile Include="Pages\Errors\InternalError.aspx.designer.cs">
       <DependentUpon>InternalError.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Image\Upload.aspx.cs">
+      <DependentUpon>Upload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Image\Upload.aspx.designer.cs">
+      <DependentUpon>Upload.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MainPage.aspx.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\UserExists.aspx.cs">
-      <DependentUpon>UserExists.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\UserExists.aspx.designer.cs">
-      <DependentUpon>UserExists.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\Authentication.aspx.cs">
       <DependentUpon>Authentication.aspx</DependentUpon>
@@ -204,7 +205,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\User\App_LocalResources\ChangePassword.aspx.en.resx" />
+    <Content Include="Pages\User\App_LocalResources\ChangePassword.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\Authentication.aspx.es.resx" />
@@ -213,7 +214,7 @@
     <Content Include="Pages\User\App_LocalResources\Authentication.aspx.gl.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\User\App_LocalResources\Authentication.aspx.en.resx" />
+    <Content Include="Pages\User\App_LocalResources\Authentication.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\ChangePassword.aspx.es.resx" />
@@ -225,7 +226,7 @@
     <Content Include="Pages\User\App_LocalResources\Register.aspx.es.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\User\App_LocalResources\Register.aspx.en.resx" />
+    <Content Include="Pages\User\App_LocalResources\Register.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\Register.aspx.gl.resx" />
@@ -234,7 +235,7 @@
     <Content Include="Pages\User\App_LocalResources\UpdateUserProfile.aspx.es.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\User\App_LocalResources\UpdateUserProfile.aspx.en.resx" />
+    <Content Include="Pages\User\App_LocalResources\UpdateUserProfile.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\UpdateUserProfile.aspx.gl.resx" />
@@ -243,7 +244,7 @@
     <Content Include="Pages\App_LocalResources\MainPage.aspx.es.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\App_LocalResources\MainPage.aspx.en.resx" />
+    <Content Include="Pages\App_LocalResources\MainPage.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\App_LocalResources\MainPage.aspx.gl.resx" />
@@ -252,12 +253,14 @@
     <Content Include="Pages\App_LocalResources\UserExists.aspx.es.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\App_LocalResources\UserExists.aspx.en.resx" />
+    <Content Include="Pages\App_LocalResources\UserExists.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\App_LocalResources\UserExists.aspx.gl.resx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Pages\Image\App_LocalResources\Upload.aspx.resx" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Errors\App_LocalResources\InternalError.aspx.en.resx" />
   </ItemGroup>
@@ -266,6 +269,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Errors\App_LocalResources\InternalError.aspx.gl.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Image\App_LocalResources\Upload.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Image\App_LocalResources\Upload.aspx.gl.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
