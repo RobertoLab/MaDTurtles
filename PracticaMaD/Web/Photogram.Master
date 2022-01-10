@@ -22,26 +22,35 @@
         <div id="pageBody">
 
             <div id="sidebar">
+                <span id="menuExplanation">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuExplanation" runat="server">
+                    </asp:ContentPlaceHolder>
+                </span>
 
-                <ul>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuLinks" runat="server">
+                    <ul id="menuLinks">
 
-                    <li>
-                        <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lnkHomeResource1" >[lnkHome]</asp:HyperLink>
-                    </li>
+                        <li>
+                            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lnkHomeResource1" >[lnkHome]</asp:HyperLink>
+                        </li>
 
-                    <li>
-                        <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/SearchImg.aspx" meta:resourcekey="lnkSearch" >[lnkSearch]</asp:HyperLink>
-                    </li>
+                        <li>
+                            <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/SearchImg.aspx" meta:resourcekey="lnkSearch" >[lnkSearch]</asp:HyperLink>
+                        </li>
 
-                    <li>
-                        <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/UploadImg.aspx" meta:resourcekey="lnkUploadImg" >[lnkUploadImg]</asp:HyperLink>
-                    </li>
+                        <li>
+                            <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/UploadImg.aspx" meta:resourcekey="lnkUploadImg" >[lnkUploadImg]</asp:HyperLink>
+                        </li>
 
-                </ul>
+                    </ul>
+                </asp:ContentPlaceHolder>
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_TagCloud" runat="server">
+                </asp:ContentPlaceHolder>
             </div>
 
             <div id="content">
-                <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_BodyContent" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
         </div>

@@ -22,6 +22,24 @@ namespace Es.Udc.DotNet.Photogram.Web {
         protected global::System.Web.UI.WebControls.Localize lclHeader;
         
         /// <summary>
+        /// ContentPlaceHolder_MenuExplanation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuExplanation;
+        
+        /// <summary>
+        /// ContentPlaceHolder_MenuLinks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuLinks;
+        
+        /// <summary>
         /// lnkHome control.
         /// </summary>
         /// <remarks>
@@ -49,13 +67,22 @@ namespace Es.Udc.DotNet.Photogram.Web {
         protected global::System.Web.UI.WebControls.HyperLink lnkUploadImg;
         
         /// <summary>
-        /// ContentPlaceHolderMain control.
+        /// ContentPlaceHolder_TagCloud control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolderMain;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_TagCloud;
+        
+        /// <summary>
+        /// ContentPlaceHolder_BodyContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_BodyContent;
         
         /// <summary>
         /// lclFooter control.
