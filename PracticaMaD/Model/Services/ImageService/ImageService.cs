@@ -256,15 +256,16 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             ImageDao.UpdateTags(imgId, newImageTags);
         }
 
-        public Block<TagInfo> SearchAllTags(int startIndex, int count)
+        public List<TagInfo> SearchAllTags(int startIndex, int count)
         {
             List<Tag> tagsFound = TagDao.GetAllTagsByUse(startIndex, count + 1);
             bool existsMoreTags = (tagsFound.Count == count + 1);
             if (existsMoreTags) tagsFound.RemoveAt(count);
 
-            return new Block<TagInfo>(ToTagInfos(tagsFound), existsMoreTags);
+            //return new Block<TagInfo>(ToTagInfos(tagsFound), existsMoreTags);
+            return ToTagInfos(tagsFound);
         }
-
+        
         public List<CategoryInfo> SearchAllCategories()
         {
             List<CategoryInfo> categories = new List<CategoryInfo>();

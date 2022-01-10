@@ -48,7 +48,7 @@ namespace Es.Udc.DotNet.Photogram.Model.TagDao
                  orderby tag.tagId
                  select tag).Skip(startIndex).Take(count);
 
-            return result.OrderBy(tag => tag.imgCount).ToList();
+            return result.OrderByDescending(tag => tag.imgCount).ToList();
         }
 
         public IDictionary<string, int> GetNumberOfImagesTagged(List<string> tagsToCheck)

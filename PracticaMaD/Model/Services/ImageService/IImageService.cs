@@ -89,7 +89,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="count">The number of elements to retrieve.</param>
         /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
-        Block<TagInfo> SearchAllTags(int startIndex, int count);
+        List<TagInfo> SearchAllTags(int startIndex, int count);
 
         /// <summary>
         /// Searches all categories.

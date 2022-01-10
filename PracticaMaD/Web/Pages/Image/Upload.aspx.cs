@@ -34,7 +34,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
             }
         }
 
-        private Dictionary<string,float> ParseImageExif()
+        private Dictionary<string, float> ParseImageExif()
         {
             Dictionary<string, float> exifs = new Dictionary<string, float>();
 
@@ -92,7 +92,8 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                         exifs["iso"], exifs["whiteBalance"]);
 
                     ActionsManager.UploadImage(imageDto);
-                } catch (Exception)
+                }
+                catch (Exception)
                 {
                     lblUploadFailed.Visible = true;
                 }
@@ -101,3 +102,4 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
             }
         }
     }
+}

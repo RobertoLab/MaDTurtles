@@ -1,4 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Photogram.Master.cs" Inherits="Es.Udc.DotNet.Photogram.Web.PracticaMaD" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Photogram.Master.cs" Inherits="Es.Udc.DotNet.Photogram.Web.Photogram" %>
 
 <!DOCTYPE html>
 
@@ -47,6 +47,11 @@
 
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder_TagCloud" runat="server">
                 </asp:ContentPlaceHolder>
+                <div id="tagCloudSelectors">
+                    <asp:RadioButton id="rbTagCloud1" Text="10" Checked="True" OnCheckedChange="BtnTagCloud1OnClick" GroupName="tagCloudSelectors" runat="server" />
+                    <asp:RadioButton id="rbTagCloud2" Text="25" Checked="False" OnCheckedChange="BtnTagCloud2OnClick" GroupName="tagCloudSelectors" runat="server" />
+                    <asp:RadioButton id="rbTagCloud3" Text="50" Checked="False" OnCheckedChange="BtnTagCloud3OnClick" GroupName="tagCloudSelectors" runat="server" />
+                </div>
             </div>
 
             <div id="content">

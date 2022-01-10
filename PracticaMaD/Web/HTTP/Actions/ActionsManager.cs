@@ -9,11 +9,11 @@ using Es.Udc.DotNet.Photogram.Model.Dtos;
 
 namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
 {
-    public class ActionsManager
+    public static class ActionsManager
     {
         private static IImageService imageService;
 
-        public IImageService ImageService
+        public static IImageService ImageService
         {
             set { imageService = value; }
         }
@@ -31,7 +31,6 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
             List<CategoryInfo> categoriesInfo = imageService.SearchAllCategories();
 
             List<ListItem> ddlCategories = new List<ListItem>();
-            int itemIndex = 0;
 
             foreach(CategoryInfo categoryInfo in categoriesInfo)
             {
@@ -52,6 +51,69 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
         public static void UploadImage(ImageDto imageDto)
         {
             imageService.StoreImage(imageDto);
+        }
+
+        private static List<Tuple<string, int>> CalculateTagSizes(List<TagInfo> tagsInfo, 
+            int maxFontSize, int baseFontReduction, int? stepsBeforeReduction)
+        {
+            List<Tuple<string, int>> tagSizes = new List<Tuple<string, int>>();
+            int fontSize = maxFontSize;
+            int fontReduce = baseFontReduction;
+            int numTags = tagsInfo.Count();
+            int tagsInfoIndex = 0;
+            int stepsLeft = stepsBeforeReduction ?? 1;
+            foreach (TagInfo tagInfo in tagsInfo)
+            {
+                if (tagsInfoIndex > 3)
+                {
+                    tagSizes.Add(new Tuple<string, int>(tagInfo.tag, fontSize));
+                    fontSize -= fontReduce;
+                }
+                else
+                {
+                    tagSizes.Add(new Tuple<string, int>(tagInfo.tag, fontSize));
+                    if (stepsLeft == 0) fontSize -= 1;
+                }
+                tagsInfoIndex++;
+            }
+            return tagSizes;
+        }
+
+        private static List<T> Shuffle<T>(this List<T> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+
+            return list;
+        }
+
+        public static List<Tuple<string,int>> TagSizes(int startIndex, int tagsToTake)
+        {
+            List<Tuple<string, int>> tagSizes = new List<Tuple<string, int>>();
+
+            List<TagInfo> tagsInfo = imageService.SearchAllTags(startIndex, tagsToTake);
+            int numTags = tagsInfo.Count();
+
+            if (numTags == 10)
+            {
+                tagSizes = CalculateTagSizes(tagsInfo, 30, 2, 1);
+            } else if (numTags == 25)
+            {
+                tagSizes = CalculateTagSizes(tagsInfo, 30, 2, 2);
+            } else
+            {
+                tagSizes = CalculateTagSizes(tagsInfo, 30, 2, 4);
+            }
+            
+            return Shuffle(tagSizes);
         }
     }
 }

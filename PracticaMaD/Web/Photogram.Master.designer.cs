@@ -10,7 +10,7 @@
 namespace Es.Udc.DotNet.Photogram.Web {
     
     
-    public partial class PracticaMaD {
+    public partial class Photogram {
         
         /// <summary>
         /// lclHeader control.
@@ -74,6 +74,33 @@ namespace Es.Udc.DotNet.Photogram.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_TagCloud;
+        
+        /// <summary>
+        /// rbTagCloud1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbTagCloud1;
+        
+        /// <summary>
+        /// rbTagCloud2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbTagCloud2;
+        
+        /// <summary>
+        /// rbTagCloud3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbTagCloud3;
         
         /// <summary>
         /// ContentPlaceHolder_BodyContent control.

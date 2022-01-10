@@ -12,7 +12,7 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
 
         public string category;
 
-        public CategoryInfo(long categoryId, string cateogry)
+        public CategoryInfo(long categoryId, string category)
         {
             this.categoryId = categoryId;
             this.category = category;
