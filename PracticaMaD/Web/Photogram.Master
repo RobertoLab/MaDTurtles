@@ -1,4 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PracticaMaD.master.cs" Inherits="Es.Udc.DotNet.Photogram.Web.PracticaMaD" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Photogram.Master.cs" Inherits="Es.Udc.DotNet.Photogram.Web.PracticaMaD" %>
 
 <!DOCTYPE html>
 

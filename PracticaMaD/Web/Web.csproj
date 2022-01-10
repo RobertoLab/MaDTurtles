@@ -184,10 +184,18 @@
     <Compile Include="Pages\User\UpdateUserProfile.aspx.designer.cs">
       <DependentUpon>UpdateUserProfile.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Photogram.Master.cs">
+      <DependentUpon>Photogram.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Photogram.Master.designer.cs">
+      <DependentUpon>Photogram.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Photogram.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
