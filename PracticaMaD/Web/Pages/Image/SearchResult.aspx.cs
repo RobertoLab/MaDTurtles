@@ -32,7 +32,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 string category = Request.QueryString["category"];
                 string tags = tagsSeparated.Replace('-', ' ');
 
-                Block<ImageDetails> block = 
+                Block<ImageBasicInfo> block = 
                     ActionsManager.SearchImageDetails(tags, category, startIndex, count);
 
                 if (block.items.Count == 1)
