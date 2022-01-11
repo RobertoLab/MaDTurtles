@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CategoryDao
             var result =
                 (from cat in categories
                  where cat.categoryId == categoryId
-                 select cat.category).Single();
+                 select cat.category).FirstOrDefault();
 
             return result;
         }
@@ -28,7 +28,7 @@ namespace Es.Udc.DotNet.Photogram.Model.CategoryDao
             var result =
                 (from cat in categories
                  where cat.category == category
-                 select cat.categoryId).Single();
+                 select cat.categoryId).FirstOrDefault();
 
             return result;
         }

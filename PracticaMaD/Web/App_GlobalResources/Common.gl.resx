@@ -120,6 +120,12 @@
   <data name="mandatoryField" xml:space="preserve">
     <value>Campo obrigatorio</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Seguinte</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
   <data name="searchButton" xml:space="preserve">
     <value>Procurar</value>
   </data>

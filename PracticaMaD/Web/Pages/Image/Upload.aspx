@@ -146,14 +146,12 @@
                 <asp:Button ID="btnUpload" runat="server" OnClick="BtnUploadClick" meta:resourcekey="btnUpload" />
             </div>
             <div class="frmResult">
-                <asp:Panel ID="frmConfirmation" Visible="False" Runat="server">
-                    <asp:Label id="lblUploadOk" Runat="server" 
-                        ForeColor="Green" Style="position: relative"
-                        Visible="False" meta:resourcekey="lblUploadOk"></asp:Label>
-                    <asp:Label id="lblUploadFailed" Runat="server" 
-                        ForeColor="Red" Style="position: relative"
-                        Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
-                </asp:Panel>
+                <asp:Label ID="lblUploadOk" runat="server"
+                    ForeColor="Green" Style="position: relative"
+                    Visible="False" meta:resourcekey="lblUploadOk"></asp:Label>
+                <asp:Label ID="lblUploadFailed" runat="server"
+                    ForeColor="Red" Style="position: relative"
+                    Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
             </div>
         </form>
     </div>

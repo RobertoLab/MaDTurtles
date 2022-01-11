@@ -37,9 +37,10 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
 
                 if (block.items.Count == 1)
                 {
+                    lblFirstImageOk.Visible = true;
                     byte[] imageAsBytes1 = ActionsManager.GetThumbnail(block.items[0].imageId);
-                    imgImage1.Visible = true;
                     imgImage1.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes1);
+                    imgImage1.Visible = true;
 
                     lnkDetails1.Visible = true;
                     lnkDetails1.Text = block.items[0].title;
@@ -62,9 +63,10 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 }
                 if (block.items.Count == 2)
                 {
+                    lblSecondImageOk.Visible = true;
                     byte[] imageAsBytes2 = ActionsManager.GetThumbnail(block.items[1].imageId);
-                    imgImage2.Visible = true;
                     imgImage2.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes2);
+                    imgImage2.Visible = true;
 
                     lnkDetails2.Visible = true;
                     lnkDetails2.Text = block.items[0].title;
@@ -87,13 +89,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 }
                 if (block.items.Count == 3)
                 {
+                    lblThirdImageOk.Visible = true;
                     byte[] imageAsBytes3 = ActionsManager.GetThumbnail(block.items[2].imageId);
-                    imgImage3.Visible = true;
-                    imgImage3.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes3);
 
-                    lnkDetails3.Visible = true;
+                    imgImage3.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes3);
+                    imgImage3.Visible = true;
+
                     lnkDetails3.Text = block.items[0].title;
                     lnkDetails3.NavigateUrl = String.Format("~/Pages/Image/ImageDetails.aspx?imgId=" + block.items[2].imageId);
+                    lnkDetails3.Visible = true;
 
                     lnkAuthor3.Visible = true;
                     lnkAuthor3.Text = block.items[0].userName;

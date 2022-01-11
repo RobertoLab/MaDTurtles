@@ -109,4 +109,15 @@
             <asp:HyperLink ID="lnkNext" Text="<%$ Resources:Common, Next %>" runat="server" Visible="False"></asp:HyperLink>
         </span>
     </div>
+    <div>
+        <asp:Label ID="lblFirstImageOk" runat="server"
+            ForeColor="Green" Style="position: relative"
+            Visible="False" meta:resourcekey="lblUploadOk"></asp:Label>
+        <asp:Label ID="lblSecondImageOk" runat="server"
+            ForeColor="Green" Style="position: relative"
+            Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
+        <asp:Label ID="lblThirdImageOk" runat="server"
+            ForeColor="Green" Style="position: relative"
+            Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
+    </div>
 </asp:Content>

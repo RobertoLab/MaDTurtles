@@ -270,20 +270,28 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
         public byte[] GetImage(long imageId)
         {
-            Image image = ImageDao.Find(imageId);
+            try
+            {
+                Image image = ImageDao.Find(imageId);
 
-            if (image.path == null)
+                if (image.path == null)
+                {
+                    return image.img;
+                }
+                else
+                {
+                    return GetImageFromFile(image.path);
+                }
+            } catch (Exception)
             {
-                return image.img;
-            } else
-            {
-                return GetImageFromFile(image.path);
+                return null;
             }
         }
 
         public byte[] GetThumbnail(long imageId)
         {
             byte[] imageAsBytes = GetImage(imageId);
+            if (imageAsBytes == null) return null;
             using (MemoryStream ms = new MemoryStream())
             using (System.Drawing.Image thumbnail = System.Drawing.Image.FromStream(new MemoryStream(imageAsBytes)).GetThumbnailImage(100, 100, null, new IntPtr()))
             {
