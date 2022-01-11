@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Es.Udc.DotNet.Photogram.Model.ImageService;
-using Es.Udc.DotNet.Photogram.Model.UserService;
 using Es.Udc.DotNet.Photogram.Model.InteractionService;
 using Es.Udc.DotNet.Photogram.Web.HTTP.Session;
 using Es.Udc.DotNet.ModelUtil.IoC;
