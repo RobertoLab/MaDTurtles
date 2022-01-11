@@ -50,8 +50,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// Ex:"landscape lake sunny"</param>
         /// <param name="category">the category to search only for</param>
         /// <returns>The list of images retrieved from DB.</returns>
-        List<Image> FindByKeywords(string keywords, string category, int startIndex, int count);
+        List<Image> FindByKeywords(string keywords, long categoryId, int startIndex, int count);
 
+        List<Image> FindByCategory(long categoryId, int startIndex, int count);
         /// <summary>
         /// Updates the tag fora an image.
         /// </summary>
@@ -59,7 +60,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// <param name="tags">The tags.</param>
         void UpdateTags(long imgId, List<Tag> tags);
 
-        List<Image> SearchByTag(string tag, int startIndex, int count);
+        List<Image> FindByTag(string tag, int startIndex, int count);
 
         // ------TODO-------
         // METODO PARA COGER TODAS LAS IMAGENES ETIQUETADAS POR AUNA ETIQUETA
