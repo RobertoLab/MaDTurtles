@@ -18,9 +18,13 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             long imgID = Convert.ToInt32(Request.Params.Get("imgID"));
-            UserSession userSession = SessionManager.GetUserSession(Context);
-            long userID = userSession.UserProfileId;
-
+            long userID = 0;
+            if (SessionManager.GetUserSession(Context) != null)
+            {
+                UserSession userSession = SessionManager.GetUserSession(Context);
+                userID = userSession.UserProfileId;
+            }
+            
             /* Get the Services */
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             IImageService imageService = iocManager.Resolve<IImageService>();
