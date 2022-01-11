@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             DbSet<Image> images = Context.Set<Image>();
 
             var result =
-                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes").Include("Comments")
                  where img.imgId == imgId
                  select img);
             
@@ -57,7 +57,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             return result;
         }
 
-        public List<Image> FindByKeywords(string keywordCriteria, string categoryCriteria
+        public List<Image> FindByKeywords(string keywordCriteria, long categoryId
             , int startIndex, int count)
         {
             DbSet<Image> images = Context.Set<Image>();
@@ -66,10 +66,10 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             List<string> keywords = keywordCriteria.Split(' ').ToList();
             
             var result =
-                 (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
+                 (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes").Include("Comments")
                   join cat in categories on img.categoryId equals cat.categoryId
-                 where cat.category == categoryCriteria
-                 orderby img.imgId
+                 where cat.categoryId == categoryId
+                  orderby img.imgId
                  select img).Skip(startIndex).Take(count);
 
             List<Image> foundImages = new List<Image>();
@@ -91,7 +91,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             List<string> keywords = criteria.Split(' ').ToList();
 
             var result =
-                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes").Include("Comments")
                  orderby img.imgId
                  select img).Skip(startIndex).Take(count).ToList<Image>();
 
@@ -116,17 +116,26 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             Update(image);
         }
 
-        public List<Image> SearchByTag(string tag, int startIndex, int count)
+        public List<Image> FindByTag(string tag, int startIndex, int count)
+        {
+            DbSet<Image> images = Context.Set<Image>();
+            DbSet<Tag> tags = Context.Set<Tag>();
+            
+
+            return null;
+        }
+
+        public List<Image> FindByCategory(long categoryId, int startIndex, int count)
         {
             DbSet<Image> images = Context.Set<Image>();
             DbSet<Category> categories = Context.Set<Category>();
-            
+
             var result =
-                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes")
-                join cat in categories on img.categoryId equals cat.categoryId
-                where cat.category == tag
-                orderby img.imgId
-                select img).Skip(startIndex).Take(count).ToList();
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes").Include("Comments")
+                 join cat in categories on img.categoryId equals cat.categoryId
+                 where cat.categoryId == categoryId
+                 orderby img.imgId
+                 select img).Skip(startIndex).Take(count).ToList();
 
             return result;
         }

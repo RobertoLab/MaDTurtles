@@ -22,6 +22,33 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         protected global::System.Web.UI.WebControls.Localize lclMenuExplanation;
         
         /// <summary>
+        /// lnkLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkLogin;
+        
+        /// <summary>
+        /// lnkLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkLogout;
+        
+        /// <summary>
+        /// lnkRegister control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkRegister;
+        
+        /// <summary>
         /// lnkHome control.
         /// </summary>
         /// <remarks>
@@ -371,15 +398,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload;
-        
-        /// <summary>
-        /// frmConfirmation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel frmConfirmation;
         
         /// <summary>
         /// lblUploadOk control.

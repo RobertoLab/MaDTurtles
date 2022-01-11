@@ -11,15 +11,27 @@
     <ul id="menuLinks">
 
         <li>
+            <asp:HyperLink ID="lnkLogin" runat="server" NavigateUrl="~/Pages/User/Authentication.aspx" meta:resourcekey="lnkLoginResource1">[lnkLogin]</asp:HyperLink>
+        </li>
+
+        <li>
+            <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/User/Logout.aspx" meta:resourcekey="lnkLogoutResource1">[lnkLogout]</asp:HyperLink>
+        </li>
+
+        <li>
+            <asp:HyperLink ID="lnkRegister" runat="server" NavigateUrl="~/Pages/User/Register.aspx" meta:resourcekey="lnkRegisterResource1">[lnkRegister]</asp:HyperLink>
+        </li>
+
+        <li>
             <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lnkHomeResource1">[lnkHome]</asp:HyperLink>
         </li>
 
         <li>
-            <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/SearchImg.aspx" meta:resourcekey="lnkSearch">[lnkSearch]</asp:HyperLink>
+            <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/Image/Search.aspx" meta:resourcekey="lnkSearch">[lnkSearch]</asp:HyperLink>
         </li>
 
         <li>
-            <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/UploadImg.aspx" meta:resourcekey="lnkUploadImg">[lnkUploadImg]</asp:HyperLink>
+            <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/Image/Upload.aspx" meta:resourcekey="lnkUploadImg">[lnkUploadImg]</asp:HyperLink>
         </li>
 
     </ul>
@@ -146,14 +158,12 @@
                 <asp:Button ID="btnUpload" runat="server" OnClick="BtnUploadClick" meta:resourcekey="btnUpload" />
             </div>
             <div class="frmResult">
-                <asp:Panel ID="frmConfirmation" Visible="False" Runat="server">
-                    <asp:Label id="lblUploadOk" Runat="server" 
-                        ForeColor="Green" Style="position: relative"
-                        Visible="False" meta:resourcekey="lblUploadOk"></asp:Label>
-                    <asp:Label id="lblUploadFailed" Runat="server" 
-                        ForeColor="Red" Style="position: relative"
-                        Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
-                </asp:Panel>
+                <asp:Label ID="lblUploadOk" runat="server"
+                    ForeColor="Green" Style="position: relative"
+                    Visible="False" meta:resourcekey="lblUploadOk"></asp:Label>
+                <asp:Label ID="lblUploadFailed" runat="server"
+                    ForeColor="Red" Style="position: relative"
+                    Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
             </div>
         </form>
     </div>

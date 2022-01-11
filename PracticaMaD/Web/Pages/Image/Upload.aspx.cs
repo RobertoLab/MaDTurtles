@@ -65,8 +65,8 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
         {
             if (Page.IsValid)
             {
-                try
-                {
+                //try
+                //{
                     lblUploadFailed.Visible = false;
                     lblUploadOk.Visible = false;
 
@@ -84,7 +84,17 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
 
                     Dictionary<string, float> exifs = ParseImageExif();
 
-                    ImageDto imageDto = new ImageDto(
+                Console.WriteLine(txtTitle.Text);
+                Console.WriteLine(txtDescription.Text);
+                Console.WriteLine(ddlCategory.SelectedValue);
+                Console.WriteLine(userSession.UserProfileId);
+                Console.WriteLine(txtTags.Text);
+                Console.WriteLine(exifs["aperture"]);
+                Console.WriteLine(exifs["exposure"]);
+                Console.WriteLine(exifs["iso"]);
+                Console.WriteLine(exifs["whiteBalance"]);
+
+                ImageDto imageDto = new ImageDto(
                         txtTitle.Text, txtDescription.Text,
                         int.Parse(ddlCategory.SelectedValue), imageAsBase64,
                         userSession.UserProfileId, txtTags.Text,
@@ -92,11 +102,12 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                         exifs["iso"], exifs["whiteBalance"]);
 
                     ActionsManager.UploadImage(imageDto);
-                }
-                catch (Exception)
-                {
+                //}
+                //catch (Exception exception)
+                //{
                     lblUploadFailed.Visible = true;
-                }
+                    //Console.WriteLine(exception.StackTrace);
+                //}
 
                 lblUploadOk.Visible = true;
             }

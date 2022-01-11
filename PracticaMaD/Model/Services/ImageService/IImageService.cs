@@ -45,6 +45,14 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         ImageInfo SearchImageEager(long imgId);
 
         /// <summary>
+        /// Searches the image details, these do not contain the image itself.
+        /// </summary>
+        /// <param name="imgId">The img identifier.</param>
+        /// <returns></returns>
+        [Transactional]
+        ImageBasicInfo SearchImageBasic(long imgId);
+
+        /// <summary>
         /// Search for an image, lazy fetch.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
@@ -61,7 +69,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="count">The number of elements to retrieve.</param>
         /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
-        Block<ImageInfo> SearchByKeywords(string keywords, int startIndex, int count);
+        Block<ImageBasicInfo> SearchByKeywords(string keywords, int startIndex, int count);
 
         /// <summary>
         /// Searches for images by keywords and category.
@@ -72,7 +80,10 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <param name="count">The number of elements to retrieve.</param>
         /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
-        Block<ImageInfo> SearchByKeywordsAndCategory(string keywords, string category, int startIndex, int count);
+        Block<ImageBasicInfo> SearchByKeywordsAndCategory(string keywords, long categoryId, int startIndex, int count);
+
+        [Transactional]
+        Block<ImageBasicInfo> SearchByCategory(long categoryId, int startIndex, int count);
 
         /// <summary>
         /// Changes the tagging of an image.
@@ -98,6 +109,11 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Transactional]
         List<CategoryInfo> SearchAllCategories();
 
+        [Transactional]
+        byte[] GetImage(long imageId);
+
+        [Transactional]
+        byte[] GetThumbnail(long imageId);
         // ------TODO-------
         // MODIFICAR LOS "STORE AS" PARA QUE SOLAMENTE HAYA 1 ACCESIBLE Y DESPUES
         // ELEGIR COMO SE GUARDA
