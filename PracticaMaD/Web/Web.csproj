@@ -118,16 +118,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Pages\Comment.aspx" />
     <Content Include="Pages\Errors\InternalError.aspx" />
     <Content Include="Pages\Image\Search.aspx" />
     <Content Include="Pages\Image\SearchResult.aspx" />
     <Content Include="Pages\Image\Upload.aspx" />
     <Content Include="Pages\MainPage.aspx" />
+    <Content Include="Pages\ShowComments.aspx" />
     <Content Include="Pages\User\Authentication.aspx" />
     <Content Include="Pages\User\ChangePassword.aspx" />
     <Content Include="Pages\User\Logout.aspx" />
     <Content Include="Pages\User\Register.aspx" />
     <Content Include="Pages\User\UpdateUserProfile.aspx" />
+    <Content Include="Pages\ImageDetail.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +164,13 @@
     <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
+    <Compile Include="Pages\Comment.aspx.cs">
+      <DependentUpon>Comment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comment.aspx.designer.cs">
+      <DependentUpon>Comment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Errors\InternalError.aspx.cs">
       <DependentUpon>InternalError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -196,6 +206,13 @@
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ShowComments.aspx.cs">
+      <DependentUpon>ShowComments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ShowComments.aspx.designer.cs">
+      <DependentUpon>ShowComments.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\User\Authentication.aspx.cs">
       <DependentUpon>Authentication.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -230,6 +247,13 @@
     </Compile>
     <Compile Include="Pages\User\UpdateUserProfile.aspx.designer.cs">
       <DependentUpon>UpdateUserProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ImageDetail.aspx.cs">
+      <DependentUpon>ImageDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ImageDetail.aspx.designer.cs">
+      <DependentUpon>ImageDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Photogram.Master.cs">
       <DependentUpon>Photogram.Master</DependentUpon>

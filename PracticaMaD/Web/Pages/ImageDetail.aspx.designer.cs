@@ -7,90 +7,81 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.Photogram.Web {
+namespace Es.Udc.DotNet.Photogram.Web.Pages {
     
     
-    public partial class Photogram {
+    public partial class ImageDetail {
         
         /// <summary>
-        /// Control lclHeader.
+        /// Control imgTitle.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclHeader;
+        protected global::System.Web.UI.WebControls.Label imgTitle;
         
         /// <summary>
-        /// Control ContentPlaceHolder_MenuExplanation.
+        /// Control imgAuthor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuExplanation;
+        protected global::System.Web.UI.WebControls.Label imgAuthor;
         
         /// <summary>
-        /// Control ContentPlaceHolder_MenuLinks.
+        /// Control Image1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuLinks;
+        protected global::System.Web.UI.WebControls.Image Image1;
         
         /// <summary>
-        /// Control lnkHome.
+        /// Control imgLikes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkHome;
+        protected global::System.Web.UI.WebControls.Label imgLikes;
         
         /// <summary>
-        /// Control lnkSearch.
+        /// Control btnComment.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkSearch;
+        protected global::System.Web.UI.WebControls.Button btnComment;
         
         /// <summary>
-        /// Control lnkUploadImg.
+        /// Control btnShowComments.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUploadImg;
+        protected global::System.Web.UI.WebControls.Button btnShowComments;
         
         /// <summary>
-        /// Control ContentPlaceHolder_TagCloud.
+        /// Control btnLike.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_TagCloud;
+        protected global::System.Web.UI.WebControls.Button btnLike;
         
         /// <summary>
-        /// Control ContentPlaceHolder_BodyContent.
+        /// Control btnUnlike.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_BodyContent;
-        
-        /// <summary>
-        /// Control lclFooter.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclFooter;
+        protected global::System.Web.UI.WebControls.Button btnUnlike;
     }
 }
