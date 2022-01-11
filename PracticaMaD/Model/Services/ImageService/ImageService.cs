@@ -310,6 +310,13 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             image = ImageDao.FindWithRelatedInfo(imgId);
             return ToImageBasicInfo(image);
         }
+
+        public Block<ImageBasicInfo> SearchByCategory(string category, int startIndex, int count)
+        {
+            long categoryId = CategoryDao.GetCategoryId(category);
+
+            return SearchByCategory(categoryId, startIndex, count);
+        }
         #endregion IImageService Members
     }
 }

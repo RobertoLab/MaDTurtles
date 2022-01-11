@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
+using Es.Udc.DotNet.Photogram.Model.InteractionService;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 
 namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
@@ -12,10 +13,16 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
     public static class ActionsManager
     {
         private static IImageService imageService;
+        private static IInteractionService interactionService;
 
         public static IImageService ImageService
         {
             set { imageService = value; }
+        }
+
+        public static IInteractionService InteractionService
+        {
+            set { interactionService = value; }
         }
 
         static ActionsManager()
@@ -24,6 +31,7 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
                 (IIoCManager)HttpContext.Current.Application["managerIoC"];
 
             imageService = iocManager.Resolve<IImageService>();
+            interactionService = iocManager.Resolve<IInteractionService>();
         }
 
         public static List<ListItem> ImageCategories()
@@ -116,11 +124,13 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
             return Shuffle(tagSizes);
         }
 
-        public static Block<ImageBasicInfo> SearchImageDetails(string tags, string category, int startIndex, int count)
+        public static Block<ImageBasicInfo> SearchImageBasic(string tags, string category, int startIndex, int count)
         {
             Block<ImageBasicInfo> block;
 
-            if (string.IsNullOrEmpty(category))
+            if (string.IsNullOrEmpty(tags))
+                block = imageService.SearchByCategory(category.ToLower(), startIndex, count);
+            else if (string.IsNullOrEmpty(category))
                 block = imageService.SearchByKeywords(tags, startIndex, count);
             else
                 block = imageService.SearchByKeywordsAndCategory(tags, long.Parse(category), startIndex, count);
@@ -131,6 +141,17 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
         public static byte[] GetThumbnail(long imgId)
         {
             return imageService.GetThumbnail(imgId);
+        }
+
+        public static void LikeImage(long userId, long imgId)
+        {
+            if (!interactionService.AlreadyLiked(userId, imgId))
+                interactionService.LikeImage(userId, imgId);
+        }
+
+        public static bool AlreadyLiked(long userId, long imgId)
+        {
+            return interactionService.AlreadyLiked(userId, imgId);
         }
     }
 }

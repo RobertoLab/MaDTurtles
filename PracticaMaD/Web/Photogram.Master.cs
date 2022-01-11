@@ -15,9 +15,9 @@ namespace Es.Udc.DotNet.Photogram.Web
         {
             if (!IsPostBack)
             {
-                string innerHtml = BuildTagCloudHtml(50);
+                BuildTagCloudAsp(50);
 
-                ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
+                //ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
             }
         }
 
@@ -40,15 +40,18 @@ namespace Es.Udc.DotNet.Photogram.Web
             List<Tuple<string, int>> tagSizes = ActionsManager.TagSizes(0, tagsToTake);
 
             int tagIndex = 1;
-            string innerHtml = "<ul>";
             foreach (Tuple<string, int> tagSize in tagSizes)
             {
                 HyperLink hyp = new HyperLink();
                 hyp.ID = tagIndex.ToString();
-                innerHtml += "<li style=\"font-size:" + tagSize.Item2.ToString() +
-                    "px\">" + tagSize.Item1 + "</li>";
+                hyp.NavigateUrl = "~/Pages/Image/SearchResult.aspx?tags="
+                    + "&category=" + tagSize.Item1
+                    + "&startIndex=0"
+                    + "&count=3";
+                hyp.Text = tagSize.Item1;
+                ContentPlaceHolder_TagCloud.Controls.Add(hyp);
+                tagIndex++;
             }
-            innerHtml += "</ul>";
         }
 
         //protected void BtnTagCloud1OnClick(object sender, EventArgs e)

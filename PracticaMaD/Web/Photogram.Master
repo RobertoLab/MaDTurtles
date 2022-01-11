@@ -36,11 +36,11 @@
                         </li>
 
                         <li>
-                            <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/SearchImg.aspx" meta:resourcekey="lnkSearch" >[lnkSearch]</asp:HyperLink>
+                            <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/Image/Search.aspx" meta:resourcekey="lnkSearch" >[lnkSearch]</asp:HyperLink>
                         </li>
 
                         <li>
-                            <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/UploadImg.aspx" meta:resourcekey="lnkUploadImg" >[lnkUploadImg]</asp:HyperLink>
+                            <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/Image/Upload.aspx" meta:resourcekey="lnkUploadImg" >[lnkUploadImg]</asp:HyperLink>
                         </li>
 
                     </ul>

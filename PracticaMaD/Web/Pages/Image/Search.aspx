@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Photogram.Master" AutoEventWireup="true"
-    CodeBehind="Search.aspx.cs" Inherits="Es.Udc.DotNet.Photogram.Web.Pages.Image.Search" 
+﻿<%@ Page Language="C#" MasterPageFile="~/Photogram.Master" AutoEventWireup="true" 
+    CodeFile="Search.aspx.cs" Inherits="Es.Udc.DotNet.Photogram.Web.Pages.Image.Search" 
     meta:resourcekey="Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder_MenuExplanation"

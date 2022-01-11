@@ -21,6 +21,18 @@ namespace Es.Udc.DotNet.Photogram.Model.CategoryDao
             return result;
         }
 
+        public long GetCategoryId(string category)
+        {
+            DbSet<Category> categories = Context.Set<Category>();
+
+            var result =
+                (from cat in categories
+                 where cat.category == category
+                 select cat.categoryId).Single();
+
+            return result;
+        }
+
         public List<Category> GetAllCategoriesByName()
         {
             DbSet<Category> categories = Context.Set<Category>();
