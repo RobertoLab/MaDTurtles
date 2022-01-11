@@ -41,8 +41,9 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         [Transactional]
         public long RegisterUser(string userName, string password, UserProfileDetails userDetails)
         {
-            User user = UserDao.FindByUserName(userName);
-            if (user == null)
+            User user = new User();
+
+            if (UserDao.FindByUserName(userName) == null)
             {
                 String encryptedPassword = PasswordEncrypter.Crypt(password);
 

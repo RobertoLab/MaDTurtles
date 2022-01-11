@@ -110,9 +110,10 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Session
             String loginName, String clearPassword,
             UserProfileDetails userProfileDetails)
         {
+
+            bool prueba = userService.UserExists(1);
             /* Register user. */
-            long usrId = userService.RegisterUser(loginName, clearPassword,
-                userProfileDetails);
+            long usrId = userService.RegisterUser(loginName, clearPassword, userProfileDetails);
 
             /* Insert necessary objects in the session. */
             UserSession userSession = new UserSession();
