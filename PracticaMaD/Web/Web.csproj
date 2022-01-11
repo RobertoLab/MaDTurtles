@@ -120,6 +120,8 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Comment.aspx" />
     <Content Include="Pages\Errors\InternalError.aspx" />
+    <Content Include="Pages\Image\Search.aspx" />
+    <Content Include="Pages\Image\SearchResult.aspx" />
     <Content Include="Pages\Image\Upload.aspx" />
     <Content Include="Pages\MainPage.aspx" />
     <Content Include="Pages\ShowComments.aspx" />
@@ -176,6 +178,20 @@
     </Compile>
     <Compile Include="Pages\Errors\InternalError.aspx.designer.cs">
       <DependentUpon>InternalError.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Image\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Image\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Image\SearchResult.aspx.cs">
+      <DependentUpon>SearchResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Image\SearchResult.aspx.designer.cs">
+      <DependentUpon>SearchResult.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Image\Upload.aspx.cs">
       <DependentUpon>Upload.aspx</DependentUpon>
@@ -346,6 +362,15 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Common.gl.designer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Image\App_LocalResources\Search.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Image\App_LocalResources\Search.aspx.gl.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Image\App_LocalResources\Search.aspx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
