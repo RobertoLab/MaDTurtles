@@ -96,6 +96,21 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
             }
         }
 
+        public bool AlreadyLiked(long userId, long imgId)
+        {
+            Image imageToLike = ImageDao.Find(imgId);
+            User user = UserDao.Find(userId);
+
+            ICollection<Image> imagesLiked = user.ImagesLiked;
+            if (imagesLiked.Contains(imageToLike))
+            {
+                return true;
+
+            } else
+            {
+                return false;
+            }
+        }
 
         [Transactional]
         public int GetImageLikes(long imgId)

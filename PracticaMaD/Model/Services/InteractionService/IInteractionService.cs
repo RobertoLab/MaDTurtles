@@ -67,6 +67,15 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
         void Unlike(long userId, long imgId);
 
         /// <summary>
+        /// Finds if an image was given a like by the user .
+        /// </summary>
+        /// <param name="imgId">Id of the image.</param>
+        /// <param name="userId">Id of the user.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        bool AlreadyLiked(long userId, long imgId);
+
+        /// <summary>
         /// Gets the number of likes on a specific image.
         /// </summary>
         /// <param name="imgId">Id of the image from which you want to get the number of likes.</param>

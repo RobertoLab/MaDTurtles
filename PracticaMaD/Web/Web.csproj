@@ -126,6 +126,7 @@
     <Content Include="Pages\User\Logout.aspx" />
     <Content Include="Pages\User\Register.aspx" />
     <Content Include="Pages\User\UpdateUserProfile.aspx" />
+    <Content Include="Pages\ImageDetail.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +215,13 @@
     </Compile>
     <Compile Include="Pages\User\UpdateUserProfile.aspx.designer.cs">
       <DependentUpon>UpdateUserProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ImageDetail.aspx.cs">
+      <DependentUpon>ImageDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ImageDetail.aspx.designer.cs">
+      <DependentUpon>ImageDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Photogram.Master.cs">
       <DependentUpon>Photogram.Master</DependentUpon>
