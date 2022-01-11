@@ -104,7 +104,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
                 try
                 {
                     UserProfileDetails userProfileDetailsVO =
-                        new UserProfileDetails(txtFirstName.Text, txtSurname.Text,
+                        new UserProfileDetails(txtLogin.Text ,txtFirstName.Text, txtSurname.Text,
                             txtEmail.Text, comboLanguage.SelectedValue,
                             comboCountry.SelectedValue);
 

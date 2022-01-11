@@ -24,8 +24,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
             lblUserName.Text = userProfile.firstName;
             lblUserLastName.Text = userProfile.lastName;
             lblUserEmail.Text = userProfile.email;
-
-            userProfile.GetImage(userProfile);
         }
     }
 }

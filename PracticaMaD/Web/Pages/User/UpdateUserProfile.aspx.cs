@@ -69,7 +69,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
             if (Page.IsValid)
             {
                 UserProfileDetails userProfileDetails =
-                    new UserProfileDetails(txtFirstName.Text, txtSurname.Text,
+                    new UserProfileDetails("noModify", txtFirstName.Text, txtSurname.Text,
                         txtEmail.Text, comboLanguage.SelectedValue,
                         comboCountry.SelectedValue);
 
