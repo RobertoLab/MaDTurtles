@@ -13,9 +13,9 @@
         <asp:Label ID="imgLikes" runat="server" Text="Label"></asp:Label>
     </p>
     <p>
-        <asp:Button ID="btnComment" runat="server" Text="Comment" />
-        <asp:Button ID="btnShowComments" runat="server" Text="Show Comments" />
-        <asp:Button ID="btnLike" runat="server" Text="Like" />
-        <asp:Button ID="btnUnlike" runat="server" Text="Unlike" />
+        <asp:Button ID="btnComment" runat="server" Text="Comment" OnClick="BtnCommentClick" />
+        <asp:Button ID="btnShowComments" runat="server" Text="Show Comments" OnClick="BtnShowCommentsClick" />
+        <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="BtnLikeClick" />
+        <asp:Button ID="btnUnlike" runat="server" Text="Unlike" OnClick="BtnUnlikeClick" />
     </p>
 </asp:Content>

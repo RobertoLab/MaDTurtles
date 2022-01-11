@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Pages\Comment.aspx" />
     <Content Include="Pages\Errors\InternalError.aspx" />
     <Content Include="Pages\Image\Upload.aspx" />
     <Content Include="Pages\MainPage.aspx" />
@@ -160,6 +161,13 @@
     <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
+    <Compile Include="Pages\Comment.aspx.cs">
+      <DependentUpon>Comment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comment.aspx.designer.cs">
+      <DependentUpon>Comment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Errors\InternalError.aspx.cs">
       <DependentUpon>InternalError.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
