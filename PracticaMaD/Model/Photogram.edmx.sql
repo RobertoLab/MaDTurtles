@@ -388,6 +388,36 @@ GO
 INSERT INTO [dbo].[Categories] VALUES(
 	"test2");
 GO
+
+INSERT INTO [dbo].[Images] VALUES(
+	"image-title", "image description ninio",  '2022-01-11 23:12:00.937', NULL, "1.jpeg", 1, 1
+);
+GO
+
+INSERT INTO [dbo].[Tags] VALUES(
+	"test_tag_100", 100
+);
+GO
+
+INSERT INTO [dbo].[Tags] VALUES(
+	"test_tag_80", 80
+);
+GO
+
+INSERT INTO [dbo].[Tags] VALUES(
+	"test_tag_60", 60
+);
+GO
+
+INSERT INTO [dbo].[Tags] VALUES(
+	"test_tag_40", 40
+);
+GO
+
+INSERT INTO [dbo].[Tags] VALUES(
+	"test_tag_20", 20
+);
+GO
 -- --------------------------------------------------
 -- Script has ended
 -- --------------------------------------------------
