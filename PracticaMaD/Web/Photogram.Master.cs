@@ -35,6 +35,21 @@ namespace Es.Udc.DotNet.Photogram.Web
 
             return innerHtml;
         }
+        private void BuildTagCloudAsp(int tagsToTake)
+        {
+            List<Tuple<string, int>> tagSizes = ActionsManager.TagSizes(0, tagsToTake);
+
+            int tagIndex = 1;
+            string innerHtml = "<ul>";
+            foreach (Tuple<string, int> tagSize in tagSizes)
+            {
+                HyperLink hyp = new HyperLink();
+                hyp.ID = tagIndex.ToString();
+                innerHtml += "<li style=\"font-size:" + tagSize.Item2.ToString() +
+                    "px\">" + tagSize.Item1 + "</li>";
+            }
+            innerHtml += "</ul>";
+        }
 
         //protected void BtnTagCloud1OnClick(object sender, EventArgs e)
         //{

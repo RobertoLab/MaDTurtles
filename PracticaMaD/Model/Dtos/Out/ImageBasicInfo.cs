@@ -24,7 +24,7 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
 
         public override bool Equals(object obj)
         {
-            var info = obj as ImageInfo;
+            var info = obj as ImageBasicInfo;
             return info != null &&
                    title == info.title &&
                    userId == info.userId &&

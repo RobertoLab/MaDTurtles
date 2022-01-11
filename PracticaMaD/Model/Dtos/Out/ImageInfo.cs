@@ -16,10 +16,12 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
         public List<Exif> metadata { get; set; }
         public List<string> tags { get; set; }
         public int likes { get; set; }
+        public bool hasComments { get; set; }
 
         public ImageInfo(string title, string description, DateTime uploadDate,
             int categoryId, string category, string imgBase64, long userId,
-            string userName, List<Exif> metadata, List<string> tags, int likes)
+            string userName, List<Exif> metadata, List<string> tags, int likes,
+            bool hasComments)
         {
             this.title = title;
             this.description = description;
@@ -32,6 +34,7 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
             this.metadata = metadata;
             this.tags = tags;
             this.likes = likes;
+            this.hasComments = hasComments;
         }
 
         public override bool Equals(object obj)
