@@ -17,7 +17,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
 
         }
 
-        protected void btnCommentClick(object sender, EventArgs e)
+        protected void BtnCommentClick(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
