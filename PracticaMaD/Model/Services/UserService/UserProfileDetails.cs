@@ -12,6 +12,8 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
     {
         #region Properties Region
 
+        public String userName { get; private set; }
+
         public String firstName { get; private set; }
 
         public String lastName { get; private set; }
@@ -28,14 +30,16 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         /// Initializes a new instance of the <see cref="UserProfileDetails"/>
         /// class.
         /// </summary>
+        /// <param name="userName">The user's user name.</param>
         /// <param name="firstName">The user's first name.</param>
         /// <param name="lastName">The user's last name.</param>
         /// <param name="email">The user's email.</param>
         /// <param name="language">The language.</param>
         /// <param name="country">The country.</param>
-        public UserProfileDetails(String firstName, String lastName,
+        public UserProfileDetails(String userName, String firstName, String lastName,
             String email, String language, String country)
         {
+            this.userName = userName;
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
@@ -52,6 +56,7 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
                   && (this.lastName == target.lastName)
                   && (this.email == target.email)
                   && (this.language == target.language)
+                  && (this.userName == target.userName)
                   && (this.country == target.country);
         }
 
@@ -76,7 +81,8 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
             String strUserProfileDetails;
 
             strUserProfileDetails =
-                "[ firstName = " + firstName + " | " +
+                "[ userName = " + userName + " | " +
+                "firstName = " + firstName + " | " +
                 "lastName = " + lastName + " | " +
                 "email = " + email + " | " +
                 "language = " + language + " | " +

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.UserService;
 using Es.Udc.DotNet.Photogram.Model.InteractionService;
@@ -27,11 +28,11 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             IInteractionService interactionService = iocManager.Resolve<IInteractionService>();
 
             /* Get the Image*/
-            Image image = imageService.SearchImage(imgID);
+            ImageInfo image = imageService.SearchImageEager(imgID);
 
             /* Get the userName of the uploader */
 
-            User user = userService.FindUserProfileDetails(image.userId);
+            UserProfileDetails user = userService.FindUserProfileDetails(image.userId);
 
             /* Get if the image was given a like*/
 
@@ -43,7 +44,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
 
             this.imgAuthor.Text = user.userName;
 
-            this.Image1.ImageUrl = image.path;
+            this.Image1.ImageUrl = image.imgBase64;
             this.Image1.Width = Unit.Pixel(500);
             this.Image1.Height = Unit.Pixel(500);
 

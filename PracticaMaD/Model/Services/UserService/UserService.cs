@@ -95,7 +95,7 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         {
             User user = UserDao.Find(userId);
 
-            UserProfileDetails userDetails = new UserProfileDetails(
+            UserProfileDetails userDetails = new UserProfileDetails(user.userName,
                 user.firstName, user.lastName1, user.email, user.language,
                 user.country);
 
