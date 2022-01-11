@@ -22,15 +22,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages {
         protected global::System.Web.UI.WebControls.Label lblNoComments;
         
         /// <summary>
-        /// Control form1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
         /// Control lnkUser1.
         /// </summary>
         /// <remarks>
@@ -49,15 +40,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages {
         protected global::System.Web.UI.WebControls.Label commentUser1;
         
         /// <summary>
-        /// Control form2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form2;
-        
-        /// <summary>
         /// Control lnkUser2.
         /// </summary>
         /// <remarks>
@@ -74,15 +56,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label commentUser2;
-        
-        /// <summary>
-        /// Control form3.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form3;
         
         /// <summary>
         /// Control lnkUser3.
