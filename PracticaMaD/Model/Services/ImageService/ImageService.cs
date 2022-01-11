@@ -12,7 +12,6 @@ using Es.Udc.DotNet.ModelUtil.Transactions;
 using static Es.Udc.DotNet.Photogram.Model.Dtos.ImageConversor;
 using static Es.Udc.DotNet.Photogram.Model.Dtos.TagConversor;
 using static Es.Udc.DotNet.Photogram.Model.Dtos.CategoryConversor;
-using System;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageService
 {
@@ -200,7 +199,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         }
 
         [Transactional]
-        public Block<ImageBasicInfo> SearchByKeywords(string keywords, int startIndex, int count)
+        public Block<ImageInfo> SearchByKeywords(string keywords, int startIndex, int count)
         {
             List<Image> imagesFound = new List<Image>();
             imagesFound = ImageDao.FindByKeywords(keywords, startIndex, count + 1);
@@ -208,34 +207,44 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
             if (existMoreImages) imagesFound.RemoveAt(count);
 
-            //List<string> imagesAsB64 = new List<string>();
-            //foreach (Image image in imagesFound)
-            //{
-            //    if (image.path == null)
-            //    {
-            //        imagesAsB64.Add(System.Convert.ToBase64String(image.img));
-            //    }
-            //    else
-            //    {
-            //        imagesAsB64.Add(System.Convert.ToBase64String(GetImageFromFile(image.path)));
-            //    }
-            //}
+            List<string> imagesAsB64 = new List<string>();
+            foreach (Image image in imagesFound)
+            {
+                if (image.path == null)
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(image.img));
+                }
+                else
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(GetImageFromFile(image.path)));
+                }
+            }
 
-            return new Block<ImageBasicInfo>(ToImageBasicInfos(imagesFound), existMoreImages);
+            return new Block<ImageInfo>(ToImageInfos(imagesFound, imagesAsB64), existMoreImages);
         }
 
         [Transactional]
-        public Block<ImageBasicInfo> SearchByKeywordsAndCategory(string keywords, long categoryId, int startIndex, int count)
+        public Block<ImageInfo> SearchByKeywordsAndCategory(string keywords, string category, int startIndex, int count)
         {
             List<Image> imagesFound = new List<Image>();
-            imagesFound = ImageDao.FindByKeywords(keywords, categoryId, startIndex, count + 1);
+            imagesFound = ImageDao.FindByKeywords(keywords, category, startIndex, count + 1);
             bool existMoreImages = (imagesFound.Count == count + 1);
 
             if (existMoreImages) imagesFound.RemoveAt(count);
 
             List<string> imagesAsB64 = new List<string>();
+            foreach(Image image in imagesFound)
+            {
+                if (image.path == null)
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(image.img));
+                } else
+                {
+                    imagesAsB64.Add(System.Convert.ToBase64String(GetImageFromFile(image.path)));
+                }
+            }
 
-            return new Block<ImageBasicInfo>(ToImageBasicInfos(imagesFound), existMoreImages);
+            return new Block<ImageInfo>(ToImageInfos(imagesFound, imagesAsB64), existMoreImages);
         }
 
         public void ModifyImageTags(long imgId ,string tagsCriteria)
@@ -266,49 +275,6 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             categories = ToCategoryInfos(storedCategories);
 
             return categories;
-        }
-
-        public byte[] GetImage(long imageId)
-        {
-            Image image = ImageDao.Find(imageId);
-
-            if (image.path == null)
-            {
-                return image.img;
-            } else
-            {
-                return GetImageFromFile(image.path);
-            }
-        }
-
-        public byte[] GetThumbnail(long imageId)
-        {
-            byte[] imageAsBytes = GetImage(imageId);
-            using (MemoryStream ms = new MemoryStream())
-            using (System.Drawing.Image thumbnail = System.Drawing.Image.FromStream(new MemoryStream(imageAsBytes)).GetThumbnailImage(100, 100, null, new IntPtr()))
-            {
-                thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                return ms.ToArray();
-            }
-        }
-
-        public Block<ImageBasicInfo> SearchByCategory(long categoryId, int startIndex, int count)
-        {
-            List<Image> imagesFound = new List<Image>();
-            imagesFound = ImageDao.FindByCategory(categoryId, startIndex, count + 1);
-            bool existMoreImages = (imagesFound.Count == count + 1);
-
-            if (existMoreImages) imagesFound.RemoveAt(count);
-
-            return new Block<ImageBasicInfo>(ToImageBasicInfos(imagesFound), existMoreImages);
-
-        }
-
-        public ImageBasicInfo SearchImageBasic(long imgId)
-        {
-            Image image = new Image();
-            image = ImageDao.FindWithRelatedInfo(imgId);
-            return ToImageBasicInfo(image);
         }
         #endregion IImageService Members
     }

@@ -199,52 +199,74 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService.Test
 
             Image image2 = imageService.StoreImage(imageDto2);
 
-            ImageBasicInfo image1Info = imageService.SearchImageBasic(image1.imgId);
-            ImageBasicInfo image2Info = imageService.SearchImageBasic(image2.imgId);
+            ImageInfo image1Info = imageService.SearchImageEager(image1.imgId);
+            ImageInfo image2Info = imageService.SearchImageEager(image2.imgId);
+
+            Assert.IsTrue(image1Info.tags.Count() == 2);
 
             imageService.ModifyImageTags(image1.imgId, "tested");
             ImageInfo imageInfoTagsTest = imageService.SearchImageEager(image1.imgId);
 
             Assert.IsTrue(imageInfoTagsTest.tags.Count() == 1);
 
-            List<ImageBasicInfo> listBlockSecond = new List<ImageBasicInfo>();
+            Assert.IsTrue(image1Info.metadata.Count == 4);
+
+            List<ImageInfo> listBlockSecond = new List<ImageInfo>();
             listBlockSecond.Add(image2Info);
-            Block<ImageBasicInfo> blockSearchBySecond = 
+            Block<ImageInfo> blockSearchBySecond = 
                 imageService.SearchByKeywords("second", 0, 1);
 
-            List<ImageBasicInfo> listBlockFirst = new List<ImageBasicInfo>();
+            List<ImageInfo> listBlockFirst = new List<ImageInfo>();
             listBlockFirst.Add(image1Info);
-            Block<ImageBasicInfo> blockSearchByFirst =
+            Block<ImageInfo> blockSearchByFirst =
                 imageService.SearchByKeywords("first", 0, 1);
 
-            List<ImageBasicInfo> listBlockFirstAndSecond = new List<ImageBasicInfo>();
+            List<ImageInfo> listBlockFirstAndSecond = new List<ImageInfo>();
             listBlockFirstAndSecond.Add(image1Info);
-            Block<ImageBasicInfo> blockSearchByFirstAndSecondAndExistMoreItems =
+            Block<ImageInfo> blockSearchByFirstAndSecondAndExistMoreItems =
                 imageService.SearchByKeywords("first sec", 0, 1);
 
             for (int i = 0; i < listBlockSecond.Count; i++)
             {
-                ImageBasicInfo imageInfoList = listBlockSecond.ElementAt(i);
-                ImageBasicInfo imageInfoBlockList = blockSearchBySecond.items.ElementAt(i);
+                ImageInfo imageInfoList = listBlockSecond.ElementAt(i);
+                ImageInfo imageInfoBlockList = blockSearchBySecond.items.ElementAt(i);
+                Assert.AreEqual(imageInfoList.category, imageInfoBlockList.category);
+                Assert.AreEqual(imageInfoList.categoryId, imageInfoBlockList.categoryId);
+                Assert.AreEqual(imageInfoList.description, imageInfoBlockList.description);
+                Assert.AreEqual(imageInfoList.imgBase64, imageInfoBlockList.imgBase64);
                 Assert.AreEqual(imageInfoList.title, imageInfoBlockList.title);
+                Assert.AreEqual(imageInfoList.uploadDate, imageInfoBlockList.uploadDate);
                 Assert.AreEqual(imageInfoList.userId, imageInfoBlockList.userId);
                 Assert.AreEqual(imageInfoList.userName, imageInfoBlockList.userName);
+                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
             }
             Assert.IsFalse(blockSearchBySecond.existMoreItems);
             for (int i = 0; i < listBlockFirst.Count; i++)
             {
-                ImageBasicInfo imageInfoList = listBlockFirst.ElementAt(i);
-                ImageBasicInfo imageInfoBlockList = blockSearchByFirst.items.ElementAt(i);
+                ImageInfo imageInfoList = listBlockFirst.ElementAt(i);
+                ImageInfo imageInfoBlockList = blockSearchByFirst.items.ElementAt(i);
+                Assert.AreEqual(imageInfoList.category, imageInfoBlockList.category);
+                Assert.AreEqual(imageInfoList.categoryId, imageInfoBlockList.categoryId);
+                Assert.AreEqual(imageInfoList.description, imageInfoBlockList.description);
+                Assert.AreEqual(imageInfoList.imgBase64, imageInfoBlockList.imgBase64);
+                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
                 Assert.AreEqual(imageInfoList.title, imageInfoBlockList.title);
+                Assert.AreEqual(imageInfoList.uploadDate, imageInfoBlockList.uploadDate);
                 Assert.AreEqual(imageInfoList.userId, imageInfoBlockList.userId);
                 Assert.AreEqual(imageInfoList.userName, imageInfoBlockList.userName);
             }
             Assert.IsFalse(blockSearchBySecond.existMoreItems);
             for (int i = 0; i < listBlockFirstAndSecond.Count; i++)
             {
-                ImageBasicInfo imageInfoList = listBlockFirstAndSecond.ElementAt(i);
-                ImageBasicInfo imageInfoBlockList = blockSearchByFirstAndSecondAndExistMoreItems.items.ElementAt(i);
+                ImageInfo imageInfoList = listBlockFirstAndSecond.ElementAt(i);
+                ImageInfo imageInfoBlockList = blockSearchByFirstAndSecondAndExistMoreItems.items.ElementAt(i);
+                Assert.AreEqual(imageInfoList.category, imageInfoBlockList.category);
+                Assert.AreEqual(imageInfoList.categoryId, imageInfoBlockList.categoryId);
+                Assert.AreEqual(imageInfoList.description, imageInfoBlockList.description);
+                Assert.AreEqual(imageInfoList.imgBase64, imageInfoBlockList.imgBase64);
+                CollectionAssert.AreEqual(imageInfoList.metadata, imageInfoBlockList.metadata);
                 Assert.AreEqual(imageInfoList.title, imageInfoBlockList.title);
+                Assert.AreEqual(imageInfoList.uploadDate, imageInfoBlockList.uploadDate);
                 Assert.AreEqual(imageInfoList.userId, imageInfoBlockList.userId);
                 Assert.AreEqual(imageInfoList.userName, imageInfoBlockList.userName);
             }

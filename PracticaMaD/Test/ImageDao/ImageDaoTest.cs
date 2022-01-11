@@ -162,9 +162,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             List<Image> imagesTes = imageDao.FindByKeywords("tes", 0, 10);
             List<Image> imagesBmx = imageDao.FindByKeywords("bmx", 0, 10);
             List<Image> imagesMx = imageDao.FindByKeywords("mx", 0, 10);
-            List<Image> imagesByNonExistentCat = imageDao.FindByKeywords("bmx", 999, 0, 10);
-            List<Image> imagesByTestCat = imageDao.FindByKeywords("bmx", 1, 0, 10);
-            List<Image> imagesByTest2Cat = imageDao.FindByKeywords("bmx", 2, 0, 10);
+            List<Image> imagesByNonExistentCat = imageDao.FindByKeywords("bmx", "nonExistent", 0, 10);
+            List<Image> imagesByTestCat = imageDao.FindByKeywords("bmx", "test", 0, 10);
+            List<Image> imagesByTest2Cat = imageDao.FindByKeywords("bmx", "test2", 0, 10);
 
 
             CollectionAssert.AreNotEqual(imagesFirst, imagesSecond);

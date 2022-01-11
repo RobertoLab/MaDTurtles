@@ -120,12 +120,6 @@
   <data name="mandatoryField" xml:space="preserve">
     <value>Mandatory Field</value>
   </data>
-  <data name="Next" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="Previous" xml:space="preserve">
-    <value>Previous</value>
-  </data>
   <data name="searchButton" xml:space="preserve">
     <value>Search</value>
   </data>

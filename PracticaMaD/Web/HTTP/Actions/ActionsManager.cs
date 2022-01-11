@@ -115,22 +115,5 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
             
             return Shuffle(tagSizes);
         }
-
-        public static Block<ImageDetails> SearchImageDetails(string tags, string category, int startIndex, int count)
-        {
-            Block<ImageDetails> block;
-
-            if (string.IsNullOrEmpty(category))
-                block = imageService.SearchByKeywords(tags, startIndex, count);
-            else
-                block = imageService.SearchByKeywordsAndCategory(tags, long.Parse(category), startIndex, count);
-
-            return block;
-        }
-
-        public static byte[] GetThumbnail(long imgId)
-        {
-            return imageService.GetThumbnail(imgId);
-        }
     }
 }

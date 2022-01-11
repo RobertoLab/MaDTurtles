@@ -126,7 +126,6 @@
     <Compile Include="Dtos\In\ImageDto.cs" />
     <Compile Include="Dtos\Out\CategoryInfo.cs" />
     <Compile Include="Dtos\Out\CommentInfo.cs" />
-    <Compile Include="Dtos\Out\ImageBasicInfo.cs" />
     <Compile Include="Dtos\Out\ImageInfo.cs" />
     <Compile Include="Dtos\Out\TagInfo.cs" />
     <Compile Include="Dtos\CategoryConversor.cs" />
