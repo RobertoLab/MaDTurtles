@@ -24,14 +24,14 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 }
             }
         }
-        
+
         protected void BtnSearchOnClick(object sender, EventArgs e)
         {
             string tags = txtTags.Text;
             string category = ddlCategory.SelectedValue;
             string tagsSeparated = tags.Replace(' ', '-');
 
-            Response.Redirect("~/Pages/Image/SearchResult.aspx?tags=" + tagsSeparated 
+            Response.Redirect("~/Pages/Image/SearchResult.aspx?tags=" + tagsSeparated
                 + "&category=" + category
                 + "&startIndex=0"
                 + "&count=3");

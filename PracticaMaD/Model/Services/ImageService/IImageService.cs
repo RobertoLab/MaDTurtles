@@ -85,6 +85,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Transactional]
         Block<ImageBasicInfo> SearchByCategory(long categoryId, int startIndex, int count);
 
+        [Transactional]
+        Block<ImageBasicInfo> SearchByCategory(string category, int startIndex, int count);
+
         /// <summary>
         /// Changes the tagging of an image.
         /// </summary>

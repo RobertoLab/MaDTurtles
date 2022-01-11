@@ -130,6 +130,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         protected global::System.Web.UI.WebControls.HyperLink lnkLike1;
         
         /// <summary>
+        /// lblLikes1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLikes1;
+        
+        /// <summary>
         /// imgImage2 control.
         /// </summary>
         /// <remarks>
@@ -184,6 +193,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         protected global::System.Web.UI.WebControls.HyperLink lnkLike2;
         
         /// <summary>
+        /// lblLikes2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLikes2;
+        
+        /// <summary>
         /// imgImage3 control.
         /// </summary>
         /// <remarks>
@@ -236,6 +254,15 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkLike3;
+        
+        /// <summary>
+        /// lblLikes3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLikes3;
         
         /// <summary>
         /// lnkPrevious control.

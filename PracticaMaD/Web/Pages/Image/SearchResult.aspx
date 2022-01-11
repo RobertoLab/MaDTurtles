@@ -54,6 +54,7 @@
                 </div>
                 <div class="imgCardLike">
                     <asp:HyperLink ID="lnkLike1" runat="server" meta:resourcekey="lnkNewCommentResource1" Visible="false">[lnkLike]</asp:HyperLink>
+                    <asp:Label ID="lblLikes1" runat="server" Visible="false"></asp:Label>
                 </div>
             </div>
         </div>
@@ -74,6 +75,7 @@
                 </div>
                 <div class="imgCardLike">
                     <asp:HyperLink ID="lnkLike2" runat="server" Visible="false" meta:resourcekey="lnkNewCommentResource1">[lnkLike]</asp:HyperLink>
+                    <asp:Label ID="lblLikes2" runat="server" Visible="false"></asp:Label>
                 </div>
             </div>
         </div>
@@ -94,6 +96,7 @@
                 </div>
                 <div class="imgCardLike">
                     <asp:HyperLink ID="lnkLike3" runat="server" Visible="false" meta:resourcekey="lnkNewCommentResource1">[lnkLike]</asp:HyperLink>
+                    <asp:Label ID="lblLikes3" runat="server" Visible="false"></asp:Label>
                 </div>
             </div>
         </div>

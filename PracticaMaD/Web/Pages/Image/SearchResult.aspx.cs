@@ -33,7 +33,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 string tags = tagsSeparated.Replace('-', ' ');
 
                 Block<ImageBasicInfo> block = 
-                    ActionsManager.SearchImageDetails(tags, category, startIndex, count);
+                    ActionsManager.SearchImageBasic(tags, category, startIndex, count);
 
                 if (block.items.Count == 1)
                 {
@@ -56,6 +56,9 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                     }
                     lnkNewComment1.Visible = true;
                     lnkNewComment1.NavigateUrl = String.Format("~/Pages/Image/PostComment.aspx?imgId=" + block.items[0].imageId);
+
+                    lblLikes1.Visible = true;
+                    lblLikes1.Text = block.items[0].likes.ToString();
                 }
                 if (block.items.Count == 2)
                 {
@@ -78,6 +81,9 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                     }
                     lnkNewComment2.Visible = true;
                     lnkNewComment2.NavigateUrl = String.Format("~/Pages/Image/PostComment.aspx?imgId=" + block.items[1].imageId);
+                    
+                    lblLikes2.Visible = true;
+                    lblLikes2.Text = block.items[1].likes.ToString();
                 }
                 if (block.items.Count == 3)
                 {
@@ -100,6 +106,9 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                     }
                     lnkNewComment3.Visible = true;
                     lnkNewComment3.NavigateUrl = String.Format("~/Pages/Image/PostComment.aspx?imgId=" + block.items[2].imageId);
+                    
+                    lblLikes3.Visible = true;
+                    lblLikes3.Text = block.items[2].likes.ToString();
                 }
 
                 if (startIndex > 0)
