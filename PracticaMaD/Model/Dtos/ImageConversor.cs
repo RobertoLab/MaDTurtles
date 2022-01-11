@@ -15,12 +15,36 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
             return tagsNames;
         }
 
+        public static ImageBasicInfo ToImageBasicInfo(Image image)
+        {
+            ImageBasicInfo imageBasicInfo = new ImageBasicInfo(image.imgId, image.title,
+                image.userId, image.User.userName,
+                image.UsersLikes.Count(), image.Comments.Count != 0);
+
+            return imageBasicInfo;
+        }
+
+        public static List<ImageBasicInfo> ToImageBasicInfos(List<Image> images)
+        {
+            List<ImageBasicInfo> imagesDetails = new List<ImageBasicInfo>();
+
+            for (int index = 0; index < images.Count; index++)
+            {
+                Image image = images.ElementAt(index);
+
+                imagesDetails.Add(ToImageBasicInfo(image));
+            }
+
+            return imagesDetails;
+        }
+
         public static ImageInfo ToImageInfo(Image image, string imageAsB64)
         { 
             ImageInfo imageInfo = new ImageInfo(image.title, image.description
                 , image.uploadDate , image.categoryId, image.Category.category
                 , imageAsB64, image.userId, image.User.userName, 
-                image.Exifs.ToList(), TagsToStrings(image.Tags), image.UsersLikes.Count());
+                image.Exifs.ToList(), TagsToStrings(image.Tags), image.UsersLikes.Count(),
+                image.Comments.Count != 0);
 
             return imageInfo;
         }
