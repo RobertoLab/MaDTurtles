@@ -2,7 +2,6 @@
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.UserService;
-using Es.Udc.DotNet.Photogram.Model.InteractionService;
 using Es.Udc.DotNet.Photogram.Web.HTTP.Session;
 using System;
 using System.Collections.Generic;
@@ -14,46 +13,29 @@ using Es.Udc.DotNet.Photogram.Model.ImageService;
 
 namespace Es.Udc.DotNet.Photogram.Web.Pages.User
 {
-    public partial class SeeUserProfile : SpecificCulturePage
+    public partial class MyProfile : SpecificCulturePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            long userId = Convert.ToInt32(Request.Params.Get("userId"));
-            long myId = 0;
-            int startIndex;
-
-            /* Get session ID */
+            long userId = 0;
             if (SessionManager.GetUserSession(Context) != null)
             {
                 UserSession userSession = SessionManager.GetUserSession(Context);
-                myId = userSession.UserProfileId;
-            }
-
-            /* Get Start Index */
-            try
-            {
-                startIndex = Int32.Parse(Request.Params.Get("startIndex"));
-            }
-            catch (ArgumentNullException)
-            {
-                startIndex = 0;
+                userId = userSession.UserProfileId;
             }
 
             /* Get the Services */
             IIoCManager iocManager = (IIoCManager)System.Web.HttpContext.Current.Application["managerIoC"];
             IUserService userService = iocManager.Resolve<IUserService>();
             IImageService imageService = iocManager.Resolve<IImageService>();
-            IInteractionService interactionService = iocManager.Resolve<IInteractionService>();
 
             UserProfileDetails userProfile = userService.FindUserProfileDetails(userId);
 
             lblUserName.Text = userProfile.firstName;
             lblUserLastName.Text = userProfile.lastName;
             lblUserEmail.Text = userProfile.email;
-            btnFollow.Visible = !interactionService.Follows(userId, myId);
 
-            Block<ImageBasicInfo> images = imageService.SearchByUserId(userId,startIndex,3);
+            Block<ImageBasicInfo> images = imageService.SearchByUserId(userId,0,3);
             if(images.items.Count > 0)
             {
                               
@@ -125,38 +107,5 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
             }
 
         }
-
-        protected void BtnFollowClick(object sender, EventArgs e)
-        {
-            if (Page.IsValid)
-            {
-
-                /* Get data. */
-                long userId = Convert.ToInt32(Request.Params.Get("userId"));
-                long myId=0;
-                if (SessionManager.GetUserSession(Context) != null)
-                {
-                    UserSession userSession = SessionManager.GetUserSession(Context);
-                    myId = userSession.UserProfileId;
-                }
-
-                /* Get the Service */
-                IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
-                IInteractionService interactionService = iocManager.Resolve<IInteractionService>();
-
-                /* Do action. */
-                if (myId != 0)
-                {
-                    interactionService.Follow(userId, myId);
-                    btnFollow.Visible = false;
-                }
-                else
-                {
-                    Response.Redirect(Response.ApplyAppPathModifier("~/Pages/User/Authentication.aspx"));
-                }
-            }
-
-        }
-
     }
 }

@@ -7,126 +7,117 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.Photogram.Web.Pages {
+namespace Es.Udc.DotNet.Photogram.Web.Pages.User {
     
     
-    public partial class ShowComments {
+    public partial class MyProfile {
         
         /// <summary>
-        /// Control form1.
+        /// Control lblUserName.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Label lblUserName;
         
         /// <summary>
-        /// Control lblNoComments.
+        /// Control lblUserLastName.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoComments;
+        protected global::System.Web.UI.WebControls.Label lblUserLastName;
         
         /// <summary>
-        /// Control lnkUser1.
+        /// Control lblUserEmail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUser1;
+        protected global::System.Web.UI.WebControls.Label lblUserEmail;
         
         /// <summary>
-        /// Control lblDate1.
+        /// Control profileBtnsForm.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDate1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm profileBtnsForm;
         
         /// <summary>
-        /// Control commentUser1.
+        /// Control btnFollowed.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label commentUser1;
+        protected global::System.Web.UI.WebControls.Button btnFollowed;
         
         /// <summary>
-        /// Control lnkUser2.
+        /// Control btnFollowers.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUser2;
+        protected global::System.Web.UI.WebControls.Button btnFollowers;
         
         /// <summary>
-        /// Control lblDate2.
+        /// Control img1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDate2;
+        protected global::System.Web.UI.WebControls.Image img1;
         
         /// <summary>
-        /// Control commentUser2.
+        /// Control btnImg1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label commentUser2;
+        protected global::System.Web.UI.WebControls.Button btnImg1;
         
         /// <summary>
-        /// Control lnkUser3.
+        /// Control img2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUser3;
+        protected global::System.Web.UI.WebControls.Image img2;
         
         /// <summary>
-        /// Control lblDate3.
+        /// Control btnImg2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDate3;
+        protected global::System.Web.UI.WebControls.Button btnImg2;
         
         /// <summary>
-        /// Control commentUser3.
+        /// Control img3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label commentUser3;
+        protected global::System.Web.UI.WebControls.Image img3;
         
         /// <summary>
-        /// Control lnkPrevious.
+        /// Control btnImg3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkPrevious;
-        
-        /// <summary>
-        /// Control lnkNext.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkNext;
+        protected global::System.Web.UI.WebControls.Button btnImg3;
     }
 }

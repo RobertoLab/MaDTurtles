@@ -123,5 +123,12 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         {
             return UserDao.Exists(userName);
         }
+
+        [Transactional]
+        public long FindUserId(string userName)
+        {
+            return UserDao.FindUserId(userName);
+
+        }
     }
 }
