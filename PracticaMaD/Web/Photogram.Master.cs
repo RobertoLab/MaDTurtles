@@ -13,12 +13,9 @@ namespace Es.Udc.DotNet.Photogram.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                BuildTagCloudAsp(50);
+            BuildTagCloudAsp(50);
 
-                //ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
-            }
+            //ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
         }
         
         private void BuildTagCloudAsp(int tagsToTake)
