@@ -13,7 +13,7 @@
         <asp:Label ID="imgLikes" runat="server" Text="Label"></asp:Label>
     </p>
     <br/>
-    <form id="imgBtnsForm" method="post" runat="server">
+    <form id="imgBtnsForm" runat="server">
         <asp:Button ID="btnComment" runat="server" Text="Comment" OnClick="BtnCommentClick" />
         <asp:Button ID="btnShowComments" runat="server" Text="Show Comments" OnClick="BtnShowCommentsClick" />
         <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="BtnLikeClick" />
