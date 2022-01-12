@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Es.Udc.DotNet.ModelUtil.Dao;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 {
@@ -9,10 +10,11 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
     {
 
         /// <summary>
-        /// Finds the image also with info about User, Exif, Category, Tags and Likes.
+        /// Finds the image also with data about User, Exif, Category, Tags and Likes.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
-        /// <returns>The image with extra information.</returns>
+        /// <returns cref="Image"><c></c>The image with extra information.</returns>
+        /// <exception cref="InstanceNotFoundException"></exception>
         Image FindWithRelatedInfo(long imgId);
 
         /// <summary>
@@ -65,17 +67,20 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 
         List<Image> FindByCategory(long categoryId, int startIndex, int count);
         /// <summary>
-        /// Updates the tag fora an image.
+        /// Updates the tags for an image.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
         /// <param name="tags">The tags.</param>
         void UpdateTags(long imgId, List<Tag> tags);
 
+        /// <summary>
+        /// Searches for images stored in the DB tagged by parameter.
+        /// Paginated.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>List of images.</returns>
         List<Image> FindByTag(Tag tag, int startIndex, int count);
-
-        // ------TODO-------
-        // METODO PARA COGER TODAS LAS IMAGENES ETIQUETADAS POR AUNA ETIQUETA
-        // METODO PARA SABER SI UNA IMAGEN TIENE COMENTARIOS
-        // METODO PARA SABER SI UNA IMAGEN TIENE COMENTARIOS
     }
 }

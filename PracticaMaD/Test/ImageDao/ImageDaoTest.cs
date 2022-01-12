@@ -4,6 +4,7 @@ using Ninject;
 using System.IO;
 using System.Collections.Generic;
 using System.Transactions;
+using Es.Udc.DotNet.Photogram.Model.TagDao;
 using Es.Udc.DotNet.Photogram.Model.CategoryDao;
 using Es.Udc.DotNet.Photogram.Model.UserDao;
 using Es.Udc.DotNet.Photogram.Test;
@@ -19,6 +20,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
         private static IUserDao userDao;
         private static IImageDao imageDao;
         private static ICategoryDao categoryDao;
+        private static ITagDao tagDao;
         private static long testUserId = 1;
         private static int testCatId = 1;
         public string ImagesPathKey = "ImagesPath";
@@ -56,6 +58,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             userDao = kernel.Get<IUserDao>();
             imageDao = kernel.Get<IImageDao>(); 
             categoryDao = kernel.Get<ICategoryDao>();
+            tagDao = kernel.Get<ITagDao>();
         }
         //
         // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
@@ -99,6 +102,20 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
             return user;
         }
 
+        private Image uploadImage(long userId, byte[] imageAsByte)
+        {
+            System.DateTime imgUploadDate = System.DateTime.Now;
+            Image image = new Image();
+            image.title = "bmx";
+            image.description = "first test image";
+            image.uploadDate = imgUploadDate;
+            image.categoryId = testCatId;
+            image.path = null;
+            image.userId = userId;
+            image.img = imageAsByte;
+            return image;
+        }
+
         private byte[] readStoredImage(string imageName)
         {
             var appSettings = ConfigurationManager.AppSettings;
@@ -115,10 +132,10 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
         #endregion
 
         /// <summary>
-        /// Test create images, find image by id, find images by keywords.
+        /// Find images by keywords.
         /// </summary>
         [TestMethod]
-        public void StoreImages()
+        public void Test_FindByKeywordsAndCategory()
         {
             var appSettings = ConfigurationManager.AppSettings;
             string imageTestPath = appSettings[ImagesTestPathKey];
@@ -178,6 +195,101 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao.Tests
 
             imageDao.Remove(image.imgId);
             imageDao.Remove(image2.imgId);
+        }
+
+        [TestMethod]
+        public void Test_FindByUser()
+        {
+            User user = signUpUser("UserTest");
+            Image image1 = uploadImage(user.userId, null);
+            Image image2 = uploadImage(user.userId, null);
+
+            imageDao.Create(image1);
+            imageDao.Create(image2);
+
+            List<Image> expectedUserImages = new List<Image>();
+            expectedUserImages.Add(image1);
+            expectedUserImages.Add(image2);
+
+            List<Image> realUserImages = imageDao.FindByUserId(user.userId, 0, 2);
+
+            CollectionAssert.AreEqual(expectedUserImages, realUserImages);
+        }
+
+        [TestMethod]
+        public void Test_FindByCategory()
+        {
+            User user = signUpUser("UserTest");
+            Image image1 = uploadImage(user.userId, null);
+            Image image2 = uploadImage(user.userId, null);
+
+            imageDao.Create(image1);
+            imageDao.Create(image2);
+
+            List<Image> expectedCategoryImages = new List<Image>();
+            expectedCategoryImages.Add(image1);
+            expectedCategoryImages.Add(image2);
+
+            List<Image> realCategoryImages = imageDao.FindByCategory(testCatId, 0, 2);
+
+            CollectionAssert.AreEqual(expectedCategoryImages, realCategoryImages);
+        }
+
+        [TestMethod]
+        public void Test_FindByTag()
+        {
+            User user = signUpUser("UserTest");
+            Image image1 = uploadImage(user.userId, null);
+
+            Tag newTag = new Tag();
+            newTag.imgCount = 0;
+            newTag.tag = "tagtest";
+            tagDao.Create(newTag);
+
+            List<Tag> imgTags = new List<Tag>();
+            imgTags.Add(newTag);
+            image1.Tags = imgTags;
+
+            imageDao.Create(image1);
+
+            List<Image> expectedTagImages = new List<Image>();
+            expectedTagImages.Add(image1);
+
+            List<Image> realTagImages = imageDao.FindByTag(newTag, 0, 2);
+
+            CollectionAssert.AreEqual(expectedTagImages, realTagImages);
+        }
+
+        [TestMethod]
+        public void Test_BelongsTo()
+        {
+            User user = signUpUser("UserTest");
+            Image image1 = uploadImage(user.userId, null);
+
+            imageDao.Create(image1);
+
+            Assert.IsTrue(imageDao.BelongsTo(image1.imgId, user.userId));
+        }
+        
+        [TestMethod]
+        public void Test_ModifyTags()
+        {
+            User user = signUpUser("UserTest");
+            Image image1 = uploadImage(user.userId, null);
+            
+            Tag newTag = new Tag();
+            newTag.imgCount = 0;
+            newTag.tag = "tagtest";
+            tagDao.Create(newTag);
+
+            imageDao.Create(image1);
+
+            List<Tag> updatedTags = new List<Tag>();
+            updatedTags.Add(newTag);
+
+            Assert.IsFalse(imageDao.FindByTag(newTag, 0, 2).Count == 1);
+            imageDao.UpdateTags(image1.imgId, updatedTags);
+            Assert.IsTrue(imageDao.FindByTag(newTag, 0, 2).Count == 1);
         }
     }
 }
