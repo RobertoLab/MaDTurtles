@@ -8,9 +8,9 @@
         <asp:Label ID="lblUserEmail" runat="server" Text="Label"></asp:Label>
     </p>
     <form id="profileBtnsForm" runat="server">
-        <asp:Button ID="btnFollowed" runat="server" Text="Button" />
+        <asp:Button ID="btnFollowed" runat="server" Text="Followed"  OnClick="BtnFollowedClick"/>
         <br />
-        <asp:Button ID="btnFollow" runat="server" Text="Button" />
+        <asp:Button ID="btnFollow" runat="server" Text="Button"  OnClick="BtnFollowClick"/>
         <br />
         <asp:Image ID="img1" runat="server" Height="150px" Width="300px"></asp:Image> 
         <asp:Button ID="btnImg1" runat="server" Text="Foto1" OnClick="BtnImg1Click" />

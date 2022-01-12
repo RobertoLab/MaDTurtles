@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using Ninject;
 using Es.Udc.DotNet.Photogram.Model.UserDao;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Model.UserService.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
@@ -107,6 +108,8 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         /// <param name="userName">Name of the user.</param>
         /// <returns>The id of the tuser.</returns>
         long FindUserId(string userName);
+
+        Block<UserInfo> FindFollowed(long userId, int startIndex, int count);
 
     }
 }

@@ -44,6 +44,16 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
         /// <param name="userName">Name of the user.</param>
         /// <returns>The id of the user.</returns>
         long FindUserId(string userName);
+
+        /// <summary>
+        /// Returns a list of users followed by the user specified as userId
+        /// If none is found returns an empty list.
+        /// </summary>
+        /// <param name="userId">Id of the user that follows</param>
+        /// <param name="startIndex">The point at which be start recovering users</param>
+        /// <param name="count">The number of users we recover</param>
+        /// <returns>The list of users followed retrieved from DB.</returns>
+        List<User> FindFollowed(long userId, int startIndex, int count);
     }
 }
 

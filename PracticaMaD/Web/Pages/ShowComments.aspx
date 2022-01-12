@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     <form id="form1" runat="server">
-        <asp:Label ID="lblNoComments" runat="server" Text="No hay comentarios"></asp:Label>
+        <asp:Label ID="lblNoComments" runat="server" Text="No hay comentarios" Visible="False"></asp:Label>
     <div id="divComments">
         <div CssClass="commentDiv">
             <asp:HyperLink ID="lnkUser1" runat="server"></asp:HyperLink>&nbsp;
