@@ -150,5 +150,18 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
 
             return result;
         }
+
+        public List<Image> FindByUserId(long userId, int startIndex, int count)
+        {
+            DbSet<Image> images = Context.Set<Image>();
+
+            var result =
+                (from img in images
+                 where img.userId == userId
+                 orderby img.uploadDate
+                 select img).Take(count).ToList();
+
+            return result;
+        }
     }
 }

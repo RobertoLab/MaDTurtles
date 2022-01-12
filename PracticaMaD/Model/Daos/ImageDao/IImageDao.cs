@@ -52,6 +52,17 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// <returns>The list of images retrieved from DB.</returns>
         List<Image> FindByKeywords(string keywords, long categoryId, int startIndex, int count);
 
+
+        /// <summary>
+        /// Returns a list of Images that belong to the specified userId
+        /// If none is found returns an empty list.
+        /// </summary>
+        /// <param name="userId">Id of the user that owns the images</param>
+        /// <param name="startIndex">The point at which be start recovering images</param>
+        /// <param name="count">The number of images we recover</param>
+        /// <returns>The list of images retrieved from DB.</returns>
+        List<Image> FindByUserId(long userId, int startIndex, int count);
+
         List<Image> FindByCategory(long categoryId, int startIndex, int count);
         /// <summary>
         /// Updates the tag fora an image.

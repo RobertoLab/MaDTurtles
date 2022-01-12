@@ -83,6 +83,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         Block<ImageBasicInfo> SearchByKeywordsAndCategory(string keywords, long categoryId, int startIndex, int count);
 
         [Transactional]
+        Block<ImageBasicInfo> SearchByUserId(long userId, int startIndex, int count);
+
+        [Transactional]
         Block<ImageBasicInfo> SearchByCategory(long categoryId, int startIndex, int count);
 
         [Transactional]

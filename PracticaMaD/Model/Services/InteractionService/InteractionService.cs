@@ -117,5 +117,19 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
         {
             return ImageDao.FindWithRelatedInfo(imgId).UsersLikes.Count;
         }
+
+        public bool Commented(long imgId)
+        {
+            Image image = ImageDao.Find(imgId);
+            if (image.Comments.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
     }
 }

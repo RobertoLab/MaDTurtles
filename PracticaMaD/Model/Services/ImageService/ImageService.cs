@@ -300,6 +300,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             }
         }
 
+        public Block<ImageBasicInfo> SearchByUserId(long userId, int startIndex, int count) {
+            List<Image> imagesFound = new List<Image>();
+            imagesFound = ImageDao.FindByUserId(userId, startIndex, count + 1);
+            bool existMoreImages = (imagesFound.Count == count + 1);
+            if (existMoreImages) imagesFound.RemoveAt(count);
+
+            return new Block<ImageBasicInfo>(ToImageBasicInfos(imagesFound), existMoreImages);
+        }
+
         public Block<ImageBasicInfo> SearchByCategory(long categoryId, int startIndex, int count)
         {
             List<Image> imagesFound = new List<Image>();

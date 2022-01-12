@@ -1,8 +1,15 @@
 ﻿using Es.Udc.DotNet.ModelUtil.IoC;
+using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.UserService;
 using Es.Udc.DotNet.Photogram.Web.HTTP.Session;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Es.Udc.DotNet.Photogram.Model.ImageService;
 
 namespace Es.Udc.DotNet.Photogram.Web.Pages.User
 {
@@ -10,9 +17,12 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            UserSession user = (UserSession)Context.Items["user"];
-
-            long userId = user.UserProfileId;
+            long userId = 0;
+            if (SessionManager.GetUserSession(Context) != null)
+            {
+                UserSession userSession = SessionManager.GetUserSession(Context);
+                userId = userSession.UserProfileId;
+            }
 
             /* Get the Services */
             IIoCManager iocManager = (IIoCManager)System.Web.HttpContext.Current.Application["managerIoC"];
@@ -24,6 +34,37 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
             lblUserName.Text = userProfile.firstName;
             lblUserLastName.Text = userProfile.lastName;
             lblUserEmail.Text = userProfile.email;
+
+            Block<ImageBasicInfo> images = imageService.SearchByUserId(userId,0,3);
+            if(images.items.Count > 0)
+            {
+                              
+                ImageInfo image = imageService.SearchImageEager(images.items.ElementAt(0).imageId);
+                this.img1.ImageUrl = "data:image;base64," + image.imgBase64;
+            }else
+            {
+                this.img1.Visible = false;
+            }
+            if (images.items.Count > 1)
+            {
+
+                ImageInfo image = imageService.SearchImageEager(images.items.ElementAt(1).imageId);
+                this.img2.ImageUrl = "data:image;base64," + image.imgBase64;
+            }
+            else
+            {
+                this.img2.Visible = false;
+            }
+            if (images.items.Count > 2)
+            {
+
+                ImageInfo image = imageService.SearchImageEager(images.items.ElementAt(2).imageId);
+                this.img3.ImageUrl = "data:image;base64," + image.imgBase64;
+            }
+            else
+            {
+                this.img3.Visible = false;
+            }
         }
     }
 }
