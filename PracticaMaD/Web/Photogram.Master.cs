@@ -25,6 +25,11 @@ namespace Es.Udc.DotNet.Photogram.Web
         {
             List<Tuple<string, int>> tagSizes = ActionsManager.TagSizes(0, tagsToTake);
 
+            Panel tagsPanel = new Panel();
+            tagsPanel.ID = "tagsPanel";
+            tagsPanel.CssClass = "w3-container";
+            tagsPanel.Style["text-align"] = "center";
+
             int tagIndex = 1;
             foreach (Tuple<string, int> tagSize in tagSizes)
             {
@@ -34,9 +39,11 @@ namespace Es.Udc.DotNet.Photogram.Web
                 hyp.NavigateUrl = url;
                 hyp.Text = tagSize.Item1 + " ";
                 hyp.Font.Size = tagSize.Item2;
-                ContentPlaceHolder_TagCloud.Controls.Add(hyp);
+                hyp.Style["text-decoration"] = "none";
+                tagsPanel.Controls.Add(hyp);
                 tagIndex++;
             }
+            ContentPlaceHolder_TagCloud.Controls.Add(tagsPanel);
         }
 
         //protected void BtnTagCloud1OnClick(object sender, EventArgs e)

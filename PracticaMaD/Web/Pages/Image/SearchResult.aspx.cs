@@ -47,10 +47,40 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
             }
 
             int imageIndex = 1;
+            Panel columnPanel = new Panel();
+            columnPanel.ID = "panelRow" + imageIndex.ToString();
+            columnPanel.CssClass = "w3-container";
+            columnPanel.Style["width"] = "40%";
+
             foreach (ImageBasicInfo imageInfo in block.items)
             {
+                Panel rowPanel = new Panel();
+                rowPanel.ID = "panel" + imageIndex.ToString();
+                rowPanel.CssClass = "w3-row w3-container w3-margin-bottom";
+                Panel panelImgCol = new Panel();
+                panelImgCol.ID = "panelImgCol" + imageIndex.ToString();
+                panelImgCol.CssClass = "w3-quarter w3-container w3-margin-bottom";
+                panelImgCol.Style["text-align"] = "right";
+                Panel panelContentCol = new Panel();
+                panelContentCol.ID = "panelContent" + imageIndex.ToString();
+                panelContentCol.CssClass = "w3-rest w3-container";
+                panelContentCol.Style["text-align"] = "left";
+                Panel panelContentTitleRow = new Panel();
+                panelContentTitleRow.ID = "panelContentTitleRow" + imageIndex.ToString();
+                panelContentTitleRow.CssClass = "w3-row";
+                panelContentTitleRow.Style["margin-bottom"] = "3px";
+                Panel panelContentLikeRow = new Panel();
+                panelContentLikeRow.ID = "panelContentLikeRow" + imageIndex.ToString();
+                panelContentLikeRow.CssClass = "w3-row";
+                panelContentLikeRow.Style["margin-bottom"] = "3px";
+                Panel panelContentCommentRow = new Panel();
+                panelContentCommentRow.ID = "panelContentCommentRow" + imageIndex.ToString();
+                panelContentCommentRow.CssClass = "w3-row";
+                panelContentCommentRow.Style["margin-bottom"] = "3px";
+
                 System.Web.UI.WebControls.Image imgImage = new System.Web.UI.WebControls.Image();
                 HyperLink lnkDetails = new HyperLink();
+                Label lblTitle = new Label();
                 HyperLink lnkAuthor = new HyperLink();
                 HyperLink lnkComments = new HyperLink();
                 Button btnNewComment = new Button();
@@ -64,16 +94,22 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 byte[] imageAsBytes1 = ActionsManager.GetThumbnail(imageInfo.imageId);
                 imgImage.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes1);
                 imgImage.AlternateText = imageInfo.imageId.ToString();
+                imgImage.CssClass = "w3-hover-opacity";
 
                 lnkDetails.ID = "lnkDetails" + imageIndex.ToString();
-                lnkDetails.Text = imageInfo.title;
                 lnkDetails.NavigateUrl = String.Format("~/Pages/ImageDetail.aspx?imgID=" + imageInfo.imageId);
                 lnkDetails.Style["margin-left"] = "3px";
+
+                lblTitle.ID = "lblTitle" + imageIndex.ToString();
+                lblTitle.Text = imageInfo.title + " by";
+                lblTitle.Style["margin-left"] = "3px";
+                lblTitle.Style["margin-top"] = "3px";
 
                 lnkAuthor.ID = "lnkAuthor" + imageIndex.ToString();
                 lnkAuthor.Text = imageInfo.userName;
                 lnkAuthor.NavigateUrl = String.Format("~/Pages/User/UserProfile.aspx?userId=" + imageInfo.userId);
                 lnkAuthor.Style["margin-left"] = "3px";
+                lnkAuthor.Style["font-style"] = "italic";
 
                 if (imageInfo.hasComments)
                 {
@@ -99,20 +135,34 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 btnLike.CommandArgument = imageInfo.imageId.ToString();
 
                 lblLikes.ID = "lblLikes" + imageIndex.ToString();
-                lblLikes.Text = "Likes: "imageInfo.likes.ToString();
+                lblLikes.Text = "Likes: " + imageInfo.likes.ToString();
                 lblLikes.Style["margin-left"] = "3px";
 
                 imageIndex++;
-                PlaceHolder_ImageCards.Controls.Add(imgImage);
-                PlaceHolder_ImageCards.Controls.Add(lnkDetails);
-                PlaceHolder_ImageCards.Controls.Add(lnkAuthor);
-                PlaceHolder_ImageCards.Controls.Add(lnkComments);
-                PlaceHolder_ImageCards.Controls.Add(btnNewComment);
-                PlaceHolder_ImageCards.Controls.Add(btnLike);
-                PlaceHolder_ImageCards.Controls.Add(lblLikes);
+                lnkDetails.Controls.Add(imgImage);
+                panelContentTitleRow.Controls.Add(lblTitle);
+                panelContentTitleRow.Controls.Add(lnkAuthor);
+                panelContentLikeRow.Controls.Add(btnLike);
+                panelContentLikeRow.Controls.Add(lblLikes);
+                panelContentCommentRow.Controls.Add(btnNewComment);
+                panelContentCommentRow.Controls.Add(lnkComments);
+                panelContentCol.Controls.Add(panelContentTitleRow);
+                panelContentCol.Controls.Add(panelContentLikeRow);
+                panelContentCol.Controls.Add(panelContentCommentRow);
+                panelImgCol.Controls.Add(lnkDetails);
+                rowPanel.Controls.Add(panelImgCol);
+                rowPanel.Controls.Add(panelContentCol);
+                columnPanel.Controls.Add(rowPanel);
+                //PlaceHolder_ImageCards.Controls.Add(imgImage);
+                //PlaceHolder_ImageCards.Controls.Add(lnkDetails);
+                //PlaceHolder_ImageCards.Controls.Add(lnkAuthor);
+                //PlaceHolder_ImageCards.Controls.Add(lnkComments);
+                //PlaceHolder_ImageCards.Controls.Add(btnNewComment);
+                //PlaceHolder_ImageCards.Controls.Add(btnLike);
+                //PlaceHolder_ImageCards.Controls.Add(lblLikes);
                 lblFirstImageOk.Visible = true;
             }
-
+            PlaceHolder_ImageCards.Controls.Add(columnPanel);
 
             if (startIndex > 0)
             {

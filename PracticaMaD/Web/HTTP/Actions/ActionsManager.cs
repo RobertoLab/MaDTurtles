@@ -116,10 +116,10 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
                 tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 1);
             } else if (numTags == 25)
             {
-                tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 2);
+                tagSizes = CalculateTagSizes(tagsInfo, 20, 2, 2);
             } else
             {
-                tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 0);
+                tagSizes = CalculateTagSizes(tagsInfo, 20, 3, 0);
             }
             
             return Shuffle(tagSizes);
@@ -128,6 +128,9 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
         public static Block<ImageBasicInfo> SearchImageBasic(string keywords, string category, int startIndex, int count)
         {
             Block<ImageBasicInfo> block;
+
+            if (string.IsNullOrEmpty(keywords) && string.IsNullOrEmpty(category))
+                return block = new Block<ImageBasicInfo>(new List<ImageBasicInfo>(), false);
 
             if (string.IsNullOrEmpty(keywords))
                 block = imageService.SearchByCategory(long.Parse(category), startIndex, count);
