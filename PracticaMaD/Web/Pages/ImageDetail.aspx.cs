@@ -9,6 +9,7 @@ using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.UserService;
 using Es.Udc.DotNet.Photogram.Model.InteractionService;
 using Es.Udc.DotNet.Photogram.Web.HTTP.Session;
+using Es.Udc.DotNet.Photogram.Web.HTTP.Actions;
 using Es.Udc.DotNet.ModelUtil.IoC;
 
 namespace Es.Udc.DotNet.Photogram.Web.Pages
@@ -58,6 +59,9 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             this.btnLike.Visible = true;
             this.btnUnlike.Visible = false;
 
+            if (SessionManager.IsUserAuthenticated(Context)
+                && ActionsManager.IsPropietary(userID, imgID))
+                btnDeleteImage.Enabled = true;
 
         }
 
@@ -129,6 +133,13 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
                 Response.Redirect(Response.ApplyAppPathModifier(url));
 
             }
+        }
+
+        protected void BtnDeleteImageOnClick(object sender, EventArgs e)
+        {
+            long imgId = Convert.ToInt32(Request.Params.Get("imgID"));
+            long userId = SessionManager.GetUserSession(Context).UserProfileId;
+            ActionsManager.DeleteImage(imgId, userId);
         }
     }
 }

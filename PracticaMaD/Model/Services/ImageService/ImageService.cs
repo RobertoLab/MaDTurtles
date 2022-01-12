@@ -346,6 +346,11 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
                 return ms.ToArray();
             }
         }
+
+        public bool IsPropietary(long userId, long imgId)
+        {
+            return ImageDao.BelongsTo(imgId, userId);
+        }
         #endregion IImageService Members
     }
 }

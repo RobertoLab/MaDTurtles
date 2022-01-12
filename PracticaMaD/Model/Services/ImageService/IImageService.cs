@@ -169,5 +169,15 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         byte[] GetThumbnail(long imageId);
+
+        /// <summary>
+        /// Determines whether the specified user identifier is propietary of the image.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="imgId">The img identifier.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified user identifier is propietary; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsPropietary(long userId, long imgId);
     }
 }
