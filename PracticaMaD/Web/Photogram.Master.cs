@@ -28,7 +28,6 @@ namespace Es.Udc.DotNet.Photogram.Web
             Panel tagsPanel = new Panel();
             tagsPanel.ID = "tagsPanel";
             tagsPanel.CssClass = "w3-container";
-            tagsPanel.Style["width"] = "25%";
             tagsPanel.Style["text-align"] = "center";
 
             int tagIndex = 1;

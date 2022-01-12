@@ -116,10 +116,10 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
                 tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 1);
             } else if (numTags == 25)
             {
-                tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 2);
+                tagSizes = CalculateTagSizes(tagsInfo, 20, 2, 2);
             } else
             {
-                tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 0);
+                tagSizes = CalculateTagSizes(tagsInfo, 20, 3, 0);
             }
             
             return Shuffle(tagSizes);

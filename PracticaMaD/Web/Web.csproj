@@ -112,6 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Comment.aspx" />
     <Content Include="Pages\Errors\InternalError.aspx" />
