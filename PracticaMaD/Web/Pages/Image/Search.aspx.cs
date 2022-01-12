@@ -18,6 +18,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
             {
                 List<ListItem> ddlCategoryItems = ActionsManager.ImageCategories();
 
+                ddlCategory.Items.Add(new ListItem("N/A", "N/A"));
                 foreach (ListItem categoryItem in ddlCategoryItems)
                 {
                     ddlCategory.Items.Add(categoryItem);
@@ -27,12 +28,19 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
 
         protected void BtnSearchOnClick(object sender, EventArgs e)
         {
-            string tags = txtTags.Text;
+            string keywords = txtKeywords.Text;
             string category = ddlCategory.SelectedValue;
-            string tagsSeparated = tags.Replace(' ', '-');
+            string keywordsSeparated = "";
+            if (!string.IsNullOrEmpty(keywords))
+            {
+                keywordsSeparated = keywords.Replace(System.Environment.NewLine, "|");
+                keywordsSeparated = keywords.Replace(' ', '|');
+            }
+            if (category == "N/A") category = "";
 
-            Response.Redirect("~/Pages/Image/SearchResult.aspx?tags=" + tagsSeparated
+            Response.Redirect("~/Pages/Image/SearchResult.aspx?keywords=" + keywordsSeparated
                 + "&category=" + category
+                + "&tag=N/A" 
                 + "&startIndex=0"
                 + "&count=3");
         }

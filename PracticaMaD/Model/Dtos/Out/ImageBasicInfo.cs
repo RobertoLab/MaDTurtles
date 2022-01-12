@@ -15,6 +15,7 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
         public ImageBasicInfo(long imageId, string title, long userId,
             string userName, int likes, bool hasComments)
         {
+            this.imageId = imageId;
             this.title = title;
             this.userId = userId;
             this.userName = userName;
@@ -26,6 +27,7 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
         {
             var info = obj as ImageBasicInfo;
             return info != null &&
+                   imageId == info.imageId &&
                    title == info.title &&
                    userId == info.userId &&
                    userName == info.userName &&

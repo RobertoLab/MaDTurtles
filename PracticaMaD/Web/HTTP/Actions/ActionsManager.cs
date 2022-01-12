@@ -72,7 +72,7 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
             int stepsLeft = stepsBeforeReduction ?? 1;
             foreach (TagInfo tagInfo in tagsInfo)
             {
-                if (tagsInfoIndex > 3)
+                if (tagsInfoIndex < 3)
                 {
                     tagSizes.Add(new Tuple<string, int>(tagInfo.tag, fontSize));
                     fontSize -= fontReduce;
@@ -80,6 +80,7 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
                 else
                 {
                     tagSizes.Add(new Tuple<string, int>(tagInfo.tag, fontSize));
+                    stepsLeft--;
                     if (stepsLeft == 0) fontSize -= 1;
                 }
                 tagsInfoIndex++;
@@ -112,29 +113,36 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
 
             if (numTags == 10)
             {
-                tagSizes = CalculateTagSizes(tagsInfo, 30, 2, 1);
+                tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 1);
             } else if (numTags == 25)
             {
-                tagSizes = CalculateTagSizes(tagsInfo, 30, 2, 2);
+                tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 2);
             } else
             {
-                tagSizes = CalculateTagSizes(tagsInfo, 30, 2, 4);
+                tagSizes = CalculateTagSizes(tagsInfo, 24, 2, 0);
             }
             
             return Shuffle(tagSizes);
         }
 
-        public static Block<ImageBasicInfo> SearchImageBasic(string tags, string category, int startIndex, int count)
+        public static Block<ImageBasicInfo> SearchImageBasic(string keywords, string category, int startIndex, int count)
         {
             Block<ImageBasicInfo> block;
 
-            if (string.IsNullOrEmpty(tags))
+            if (string.IsNullOrEmpty(keywords))
                 block = imageService.SearchByCategory(category.ToLower(), startIndex, count);
             else if (string.IsNullOrEmpty(category))
-                block = imageService.SearchByKeywords(tags, startIndex, count);
+                block = imageService.SearchByKeywords(keywords, startIndex, count);
             else
-                block = imageService.SearchByKeywordsAndCategory(tags, long.Parse(category), startIndex, count);
+                block = imageService.SearchByKeywordsAndCategory(keywords, long.Parse(category), startIndex, count);
 
+            return block;
+        }
+
+        public static Block<ImageBasicInfo> SearchImageBasic(string tag, int startIndex, int count)
+        {
+            Block<ImageBasicInfo> block = imageService.SearchByTag(tag, startIndex, count);
+            
             return block;
         }
 

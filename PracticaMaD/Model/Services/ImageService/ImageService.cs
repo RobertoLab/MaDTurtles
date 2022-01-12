@@ -325,6 +325,17 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
             return SearchByCategory(categoryId, startIndex, count);
         }
+
+        public Block<ImageBasicInfo> SearchByTag(string tag, int startIndex, int count)
+        {
+            Tag tagCriteria = TagDao.FindByName(tag);
+            List<Image> imagesFound = new List<Image>();
+            imagesFound = ImageDao.FindByTag(tagCriteria, startIndex, count + 1);
+            bool existMoreImages = (imagesFound.Count == count + 1);
+
+            if (existMoreImages) imagesFound.RemoveAt(count);
+            return new Block<ImageBasicInfo>(ToImageBasicInfos(imagesFound), existMoreImages);
+        }
         #endregion IImageService Members
     }
 }

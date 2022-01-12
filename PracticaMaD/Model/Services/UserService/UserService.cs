@@ -19,15 +19,15 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         public IUserDao UserDao { private get; set; }
 
         /// <exception cref="InstanceNotFoundException"/>
-            /// <exception cref="IncorrectPasswordException"/>
+        /// <exception cref="IncorrectPasswordException"/>
         [Transactional]
         public LoginResult Login(string userName, string password, bool passwordIsEncrypted)
         {
             User user = UserDao.FindByUserName(userName);
 
             String pass = user.password;
-
-            if (!pass.Equals(password))
+            
+            if (!pass.Equals(PasswordEncrypter.Crypt(password)))
             {
                 throw new IncorrectPasswordException(userName);
             }

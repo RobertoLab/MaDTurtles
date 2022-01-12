@@ -60,7 +60,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
         /// <param name="tags">The tags.</param>
         void UpdateTags(long imgId, List<Tag> tags);
 
-        List<Image> FindByTag(string tag, int startIndex, int count);
+        List<Image> FindByTag(Tag tag, int startIndex, int count);
 
         // ------TODO-------
         // METODO PARA COGER TODAS LAS IMAGENES ETIQUETADAS POR AUNA ETIQUETA

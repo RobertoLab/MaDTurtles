@@ -120,11 +120,11 @@
   <data name="lclImageCategory.Text" xml:space="preserve">
     <value>Categoría :</value>
   </data>
-  <data name="lclImageTags.Text" xml:space="preserve">
-    <value>Etiquetas :</value>
+  <data name="lclImageKeywords.Text" xml:space="preserve">
+    <value>Palabras clave :</value>
   </data>
-  <data name="lclImageTagsExplanation.Text" xml:space="preserve">
-    <value>Por favor, use el espacio ' ' como separador de etiquetas. Ej: "paisaje bosque naturaleza".</value>
+  <data name="lclImageKeywordsExplanation.Text" xml:space="preserve">
+    <value>Por favor, use el espacio ' ' como separador de palabras clave. Ej: "paisaje bosque naturaleza".</value>
   </data>
   <data name="lclMenuExplanation.Text" xml:space="preserve">
     <value />

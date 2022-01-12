@@ -20,21 +20,7 @@ namespace Es.Udc.DotNet.Photogram.Web
                 //ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
             }
         }
-
-        private string BuildTagCloudHtml(int tagsToTake)
-        {
-            List<Tuple<string, int>> tagSizes = ActionsManager.TagSizes(0, tagsToTake);
-
-            string innerHtml = "<ul>";
-            foreach (Tuple<string, int> tagSize in tagSizes)
-            {
-                innerHtml += "<li style=\"font-size:" + tagSize.Item2.ToString() +
-                    "px\">" + tagSize.Item1 + "</li>";
-            }
-            innerHtml += "</ul>";
-
-            return innerHtml;
-        }
+        
         private void BuildTagCloudAsp(int tagsToTake)
         {
             List<Tuple<string, int>> tagSizes = ActionsManager.TagSizes(0, tagsToTake);
@@ -42,13 +28,12 @@ namespace Es.Udc.DotNet.Photogram.Web
             int tagIndex = 1;
             foreach (Tuple<string, int> tagSize in tagSizes)
             {
+                string url = String.Format("~/Pages/Image/SearchResult.aspx?tags={0}&category={1}&tag={2}&startIndex={3}&count={4}", "", "", tagSize.Item1, 0, 3);
                 HyperLink hyp = new HyperLink();
                 hyp.ID = tagIndex.ToString();
-                hyp.NavigateUrl = "~/Pages/Image/SearchResult.aspx?tags="
-                    + "&category=" + tagSize.Item1
-                    + "&startIndex=0"
-                    + "&count=3";
-                hyp.Text = tagSize.Item1;
+                hyp.NavigateUrl = url;
+                hyp.Text = tagSize.Item1 + " ";
+                hyp.Font.Size = tagSize.Item2;
                 ContentPlaceHolder_TagCloud.Controls.Add(hyp);
                 tagIndex++;
             }

@@ -117,8 +117,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
         [Transactional]
         byte[] GetThumbnail(long imageId);
-        // ------TODO-------
-        // MODIFICAR LOS "STORE AS" PARA QUE SOLAMENTE HAYA 1 ACCESIBLE Y DESPUES
-        // ELEGIR COMO SE GUARDA
+
+        [Transactional]
+        Block<ImageBasicInfo> SearchByTag(string tag, int startIndex, int count);
     }
 }

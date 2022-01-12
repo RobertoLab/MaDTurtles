@@ -116,13 +116,24 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageDao
             Update(image);
         }
 
-        public List<Image> FindByTag(string tag, int startIndex, int count)
+        public List<Image> FindByTag(Tag tagCriteria, int startIndex, int count)
         {
             DbSet<Image> images = Context.Set<Image>();
             DbSet<Tag> tags = Context.Set<Tag>();
-            
 
-            return null;
+            var result =
+                (from img in images.Include("User").Include("Category").Include("Exifs").Include("Tags").Include("UsersLikes").Include("Comments")
+                 orderby img.imgId
+                 select img).Skip(startIndex).Take(count).ToList();
+
+            List<Image> foundImages = new List<Image>();
+
+            foreach (Image image in result)
+            {
+                if (image.Tags.Contains(tagCriteria)) foundImages.Add(image);
+            }
+
+            return foundImages;
         }
 
         public List<Image> FindByCategory(long categoryId, int startIndex, int count)

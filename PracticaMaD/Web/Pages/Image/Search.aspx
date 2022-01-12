@@ -55,17 +55,17 @@
         </div>
         <div class="field">
             <div class="label">
-                <asp:Localize ID="lclTags" runat="server" meta:resourcekey="lclImageTags" />
+                <asp:Localize ID="lclKeywords" runat="server" meta:resourcekey="lclImageKeywords" />
             </div>
             <span class="entry">
-                <asp:TextBox TextMode="Multiline" ID="txtTags" runat="server" Width="300px"
-                    Columns="16" meta:resourcekey="txtTagsResource1"></asp:TextBox>
-                <asp:RegularExpressionValidator ID="revTags" runat="server"
-                    ControlToValidate="txtTags"
+                <asp:TextBox TextMode="Multiline" ID="txtKeywords" runat="server" Width="300px"
+                    Columns="16" meta:resourcekey="txtKeywordsResource1"></asp:TextBox>
+                <asp:RegularExpressionValidator ID="revKeywords" runat="server"
+                    ControlToValidate="txtKeywords"
                     ValidationExpression="^[\w\s]+$"
-                    meta:resourcekey="revTagsError1"></asp:RegularExpressionValidator></span>
+                    meta:resourcekey="revKeywordsError1"></asp:RegularExpressionValidator></span>
             <div class="label">
-                <asp:Localize ID="lclTagsExplanation" runat="server" meta:resourcekey="lclImageTagsExplanation" />
+                <asp:Localize ID="lclKeywordsExplanation" runat="server" meta:resourcekey="lclImageKeywordsExplanation" />
             </div>
         </div>
         <div class="button">

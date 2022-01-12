@@ -36,71 +36,12 @@
 
     </ul>
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder_BodyContent"
+<asp:Content ID="contentBody" ContentPlaceHolderID="ContentPlaceHolder_BodyContent"
     runat="server">
-    <div id="imgCard1" class="row">
-        <div class="column">
-            <asp:Image ID="imgImage1" runat="server" AlternateText="1" Visible="false"></asp:Image>
-        </div>
-        <div class="column">
-            <div class="imgCardHeader">
-                <asp:HyperLink ID="lnkDetails1" runat="server" Visible="false" NavigateUrl="~/Pages/ImageDetails.aspx" meta:resourcekey="lnkDetailsResource1">[lnkDetails]</asp:HyperLink>
-                <asp:HyperLink ID="lnkAuthor1" runat="server" Visible="false" NavigateUrl="~/Pages/Profile.aspx" meta:resourcekey="lnkAuthorResource1">[lnkAuthor]</asp:HyperLink>
-            </div>
-            <div class="ImgCardBody">
-                <div class="imgCardComment">
-                    <asp:HyperLink ID="lnkComments1" runat="server" Visible="false" NavigateUrl="~/Pages/ShowComments.aspx" meta:resourcekey="lnkCommentsResource1">[lnkComments]</asp:HyperLink>
-                    <asp:HyperLink ID="lnkNewComment1" runat="server" Visible="false" NavigateUrl="~/Pages/NewComment.aspx" meta:resourcekey="lnkNewCommentResource1">[lnkNewComment]</asp:HyperLink>
-                </div>
-                <div class="imgCardLike">
-                    <asp:HyperLink ID="lnkLike1" runat="server" meta:resourcekey="lnkNewCommentResource1" Visible="false">[lnkLike]</asp:HyperLink>
-                    <asp:Label ID="lblLikes1" runat="server" Visible="false"></asp:Label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="imgCard2" class="row">
-        <div class="column">
-            <asp:Image ID="imgImage2" runat="server" AlternateText="1" Visible="false"></asp:Image>
-        </div>
-        <div class="column">
-            <div class="imgCardHeader">
-                <asp:HyperLink ID="lnkDetails2" runat="server" Visible="false" NavigateUrl="~/Pages/ImageDetails.aspx" meta:resourcekey="lnkDetailsResource1">[lnkDetails]</asp:HyperLink>
-                <asp:HyperLink ID="lnkAuthor2" runat="server" Visible="false" NavigateUrl="~/Pages/Profile.aspx" meta:resourcekey="lnkAuthorResource1">[lnkAuthor]</asp:HyperLink>
-            </div>
-            <div class="ImgCardBody">
-                <div class="imgCardComment">
-                    <asp:HyperLink ID="lnkComments2" runat="server" Visible="false" NavigateUrl="~/Pages/ShowComments.aspx" meta:resourcekey="lnkCommentsResource1">[lnkComments]</asp:HyperLink>
-                    <asp:HyperLink ID="lnkNewComment2" runat="server" Visible="false" NavigateUrl="~/Pages/NewComment.aspx" meta:resourcekey="lnkNewCommentResource1">[lnkNewComment]</asp:HyperLink>
-                </div>
-                <div class="imgCardLike">
-                    <asp:HyperLink ID="lnkLike2" runat="server" Visible="false" meta:resourcekey="lnkNewCommentResource1">[lnkLike]</asp:HyperLink>
-                    <asp:Label ID="lblLikes2" runat="server" Visible="false"></asp:Label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="imgCard3" class="row">
-        <div class="column">
-            <asp:Image ID="imgImage3" runat="server" AlternateText="1" Visible="false"></asp:Image>
-        </div>
-        <div class="column">
-            <div class="imgCardHeader">
-                <asp:HyperLink ID="lnkDetails3" runat="server" Visible="false" NavigateUrl="~/Pages/ImageDetails.aspx" meta:resourcekey="lnkDetailsResource1">[lnkDetails]</asp:HyperLink>
-                <asp:HyperLink ID="lnkAuthor3" runat="server" Visible="false" NavigateUrl="~/Pages/Profile.aspx" meta:resourcekey="lnkAuthorResource1">[lnkAuthor]</asp:HyperLink>
-            </div>
-            <div class="ImgCardBody">
-                <div class="imgCardComment">
-                    <asp:HyperLink ID="lnkComments3" runat="server" Visible="false" NavigateUrl="~/Pages/ShowComments.aspx" meta:resourcekey="lnkCommentsResource1">[lnkComments]</asp:HyperLink>
-                    <asp:HyperLink ID="lnkNewComment3" runat="server" Visible="false" NavigateUrl="~/Pages/NewComment.aspx" meta:resourcekey="lnkNewCommentResource1">[lnkNewComment]</asp:HyperLink>
-                </div>
-                <div class="imgCardLike">
-                    <asp:HyperLink ID="lnkLike3" runat="server" Visible="false" meta:resourcekey="lnkNewCommentResource1">[lnkLike]</asp:HyperLink>
-                    <asp:Label ID="lblLikes3" runat="server" Visible="false"></asp:Label>
-                </div>
-            </div>
-        </div>
-    </div>
+    <form runat="server">
+        <asp:PlaceHolder ID="PlaceHolder_ImageCards" runat="server">
+        </asp:PlaceHolder>
+    </form>
     <div class="previousNextLinks">
         <span class="previousLink">
             <asp:HyperLink ID="lnkPrevious" Text="<%$ Resources:Common, Previous %>" runat="server"
@@ -112,12 +53,12 @@
     <div>
         <asp:Label ID="lblFirstImageOk" runat="server"
             ForeColor="Green" Style="position: relative"
-            Visible="False" meta:resourcekey="lblUploadOk"></asp:Label>
+            Visible="False" Text="Ok1"></asp:Label>
         <asp:Label ID="lblSecondImageOk" runat="server"
             ForeColor="Green" Style="position: relative"
-            Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
+            Visible="False" Text="Ok2"></asp:Label>
         <asp:Label ID="lblThirdImageOk" runat="server"
             ForeColor="Green" Style="position: relative"
-            Visible="False" meta:resourcekey="lblUploadFailed"></asp:Label>
+            Visible="False" Text="Ok3"></asp:Label>
     </div>
 </asp:Content>

@@ -28,10 +28,8 @@ namespace Es.Udc.DotNet.Photogram.Model.Dtos
         {
             List<ImageBasicInfo> imagesDetails = new List<ImageBasicInfo>();
 
-            for (int index = 0; index < images.Count; index++)
+            foreach (Image image in images)
             {
-                Image image = images.ElementAt(index);
-
                 imagesDetails.Add(ToImageBasicInfo(image));
             }
 

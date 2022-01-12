@@ -28,109 +28,130 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                     count = 3;
                 }
 
-                string tagsSeparated = Request.QueryString["tags"];
-                string category = Request.QueryString["category"];
-                string tags = tagsSeparated.Replace('-', ' ');
-
-                Block<ImageBasicInfo> block = 
-                    ActionsManager.SearchImageBasic(tags, category, startIndex, count);
-
-                if (block.items.Count == 1)
+                string tag = Request.QueryString["tag"];
+                string keywordsSeparated = "";
+                string category = "";
+                Block<ImageBasicInfo> block;
+                if (tag=="N/A")
                 {
+                    keywordsSeparated = Request.QueryString["keywords"];
+                    category = Request.QueryString["category"];
+                    string keywords = "";
+                    if (!string.IsNullOrEmpty(keywordsSeparated))
+                        keywords = keywordsSeparated.Replace('|', ' ');
+                    block = ActionsManager.SearchImageBasic(keywords, category, startIndex, count);
+                } else
+                {
+                    block = ActionsManager.SearchImageBasic(tag, startIndex, count);
+                }
+                
+                int imageIndex = 1;
+                foreach (ImageBasicInfo imageInfo in block.items)
+                {
+                    System.Web.UI.WebControls.Image imgImage = new System.Web.UI.WebControls.Image();
+                    HyperLink lnkDetails = new HyperLink();
+                    HyperLink lnkAuthor = new HyperLink();
+                    HyperLink lnkComments = new HyperLink();
+                    HyperLink lnkNewComment = new HyperLink();
+                    Button btnLike = new Button();
+                    Label lblLikes = new Label();
+                    imgImage.ID = "imgImageId" + imageIndex.ToString();
+                    bool isAuthenticated = SessionManager.IsUserAuthenticated(Context);
+                    long userId = 0;
+                    if (isAuthenticated) userId = SessionManager.GetUserSession(Context).UserProfileId;
+
+                    byte[] imageAsBytes1 = ActionsManager.GetThumbnail(imageInfo.imageId);
+                    imgImage.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes1);
+                    imgImage.AlternateText = imageInfo.imageId.ToString();
+
+                    lnkDetails.ID = "lnkDetails" + imageIndex.ToString();
+                    lnkDetails.Text = imageInfo.title;
+                    lnkDetails.NavigateUrl = String.Format("~/Pages/ImageDetails.aspx?imgId=" + imageInfo.imageId);
+
+                    lnkDetails.ID = "lnkAuthor" + imageIndex.ToString();
+                    lnkDetails.Text = imageInfo.userName;
+                    lnkDetails.NavigateUrl = String.Format("~/Pages/User/UserProfile.aspx?userId=" + imageInfo.userId);
+
+                    if (imageInfo.hasComments)
+                    {
+                        lnkComments.ID = "lnkComments" + imageIndex.ToString();
+                        lnkComments.NavigateUrl = String.Format("~/Pages/Image/ShowComments.aspx?userId=" + imageInfo.userId);
+                    }
+                    else lnkComments.Visible = false;
+                    
+                    lnkNewComment.ID = "lnkNewComment" + imageIndex.ToString();
+                    lnkNewComment.NavigateUrl = String.Format("~/Pages/Comment.aspx?imgId=" + imageInfo.imageId);
+                    lnkNewComment.Text = "Post";
+
+                    btnLike.ID = "btnLike" + imageIndex.ToString();
+                    btnLike.Text = "Like";
+                    if (isAuthenticated && ActionsManager.AlreadyLiked(userId, imageInfo.imageId))
+                        btnLike.Enabled = false;
+
+                    btnLike.Command += BtnLikeOnClick;
+                    btnLike.CommandArgument = imageInfo.imageId.ToString();
+
+                    lblLikes.ID = "lblLikes" + imageIndex.ToString();
+                    lblLikes.Text = imageInfo.likes.ToString();
+
+                    if (!isAuthenticated)
+                    {
+                        lnkNewComment.NavigateUrl = "~/Pages/User/Register.aspx";
+                    }
+
+                    imageIndex++;
+                    PlaceHolder_ImageCards.Controls.Add(imgImage);
+                    PlaceHolder_ImageCards.Controls.Add(lnkDetails);
+                    PlaceHolder_ImageCards.Controls.Add(lnkAuthor);
+                    PlaceHolder_ImageCards.Controls.Add(lnkComments);
+                    PlaceHolder_ImageCards.Controls.Add(lnkNewComment);
+                    PlaceHolder_ImageCards.Controls.Add(btnLike);
+                    PlaceHolder_ImageCards.Controls.Add(lblLikes);
                     lblFirstImageOk.Visible = true;
-                    byte[] imageAsBytes1 = ActionsManager.GetThumbnail(block.items[0].imageId);
-                    imgImage1.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes1);
-                    imgImage1.Visible = true;
-
-                    lnkDetails1.Visible = true;
-                    lnkDetails1.Text = block.items[0].title;
-                    lnkDetails1.NavigateUrl = String.Format("~/Pages/Image/ImageDetails.aspx?imgId=" + block.items[0].imageId);
-
-                    lnkAuthor1.Visible = true;
-                    lnkAuthor1.Text = block.items[0].userName;
-                    lnkAuthor1.NavigateUrl = String.Format("~/Pages/User/UserProfile.aspx?userId=" + block.items[0].userId);
-
-                    if (block.items[0].hasComments)
-                    {
-                        lnkComments1.Visible = true;
-                        lnkComments1.NavigateUrl = String.Format("~/Pages/Image/ShowComments.aspx?userId=" + block.items[0].userId);
-                    }
-                    lnkNewComment1.Visible = true;
-                    lnkNewComment1.NavigateUrl = String.Format("~/Pages/Image/PostComment.aspx?imgId=" + block.items[0].imageId);
-
-                    lblLikes1.Visible = true;
-                    lblLikes1.Text = block.items[0].likes.ToString();
-                }
-                if (block.items.Count == 2)
-                {
                     lblSecondImageOk.Visible = true;
-                    byte[] imageAsBytes2 = ActionsManager.GetThumbnail(block.items[1].imageId);
-                    imgImage2.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes2);
-                    imgImage2.Visible = true;
-
-                    lnkDetails2.Visible = true;
-                    lnkDetails2.Text = block.items[0].title;
-                    lnkDetails2.NavigateUrl = String.Format("~/Pages/Image/ImageDetails.aspx?imgId=" + block.items[1].imageId);
-
-                    lnkAuthor2.Visible = true;
-                    lnkAuthor2.Text = block.items[0].userName;
-                    lnkAuthor2.NavigateUrl = String.Format("~/Pages/User/UserProfile.aspx?userId=" + block.items[1].userId);
-
-                    if (block.items[1].hasComments)
-                    {
-                        lnkComments2.Visible = true;
-                        lnkComments2.NavigateUrl = String.Format("~/Pages/Image/ShowComments.aspx?userId=" + block.items[1].userId);
-                    }
-                    lnkNewComment2.Visible = true;
-                    lnkNewComment2.NavigateUrl = String.Format("~/Pages/Image/PostComment.aspx?imgId=" + block.items[1].imageId);
-                    
-                    lblLikes2.Visible = true;
-                    lblLikes2.Text = block.items[1].likes.ToString();
                 }
-                if (block.items.Count == 3)
-                {
-                    lblThirdImageOk.Visible = true;
-                    byte[] imageAsBytes3 = ActionsManager.GetThumbnail(block.items[2].imageId);
 
-                    imgImage3.ImageUrl = "data:image;base64," + Convert.ToBase64String(imageAsBytes3);
-                    imgImage3.Visible = true;
-
-                    lnkDetails3.Text = block.items[0].title;
-                    lnkDetails3.NavigateUrl = String.Format("~/Pages/Image/ImageDetails.aspx?imgId=" + block.items[2].imageId);
-                    lnkDetails3.Visible = true;
-
-                    lnkAuthor3.Visible = true;
-                    lnkAuthor3.Text = block.items[0].userName;
-                    lnkAuthor3.NavigateUrl = String.Format("~/Pages/User/UserProfile.aspx?userId=" + block.items[2].userId);
-
-                    if (block.items[2].hasComments)
-                    {
-                        lnkComments3.Visible = true;
-                        lnkComments3.NavigateUrl = String.Format("~/Pages/Image/ShowComments.aspx?userId=" + block.items[2].userId);
-                    }
-                    lnkNewComment3.Visible = true;
-                    lnkNewComment3.NavigateUrl = String.Format("~/Pages/Image/PostComment.aspx?imgId=" + block.items[2].imageId);
-                    
-                    lblLikes3.Visible = true;
-                    lblLikes3.Text = block.items[2].likes.ToString();
-                }
+                lblThirdImageOk.Visible = true;
 
                 if (startIndex > 0)
                 {
                     String urlPrevious;
                     if (startIndex > 3)
                     {
-                        urlPrevious = "~/Pages/SearchResult.aspx?tags=" + tagsSeparated
-                            + "&category=" + category
-                            + "&startIndex=" + (startIndex - 3)
-                            + "&count=3";
+                        if (tag=="N/A")
+                        {
+                            urlPrevious = "~/Pages/Image/SearchResult.aspx?keywords=" + keywordsSeparated
+                                + "&category=" + category
+                                + "&tag=N/A"
+                                + "&startIndex=" + (startIndex - 3)
+                                + "&count=3";
+                        } else
+                        {
+                            urlPrevious = "~/Pages/Image/SearchResult.aspx?keywords="
+                                + "&category="
+                                + "&tag=" + tag
+                                + "&startIndex=" + (startIndex - 3)
+                                + "&count=3";
+                        }
                     }
                     else
                     {
-                        urlPrevious = "~/Pages/SearchResult.aspx?tags=" + tagsSeparated
-                            + "&category=" + category
-                            + "&startIndex=" + 0
-                            + "&count=3";
+                        if (tag == "N/A")
+                        {
+                            urlPrevious = "~/Pages/Image/SearchResult.aspx?keywords=" + keywordsSeparated
+                                + "&category=" + category
+                                + "&tag=N/A"
+                                + "&startIndex=" + 0
+                                + "&count=3";
+                        }
+                        else
+                        {
+                            urlPrevious = "~/Pages/Image/SearchResult.aspx?keywords="
+                                + "&category="
+                                + "&tag=" + tag
+                                + "&startIndex=" + 0
+                                + "&count=3";
+                        }
                     }
                     this.lnkPrevious.NavigateUrl =
                         Response.ApplyAppPathModifier(urlPrevious);
@@ -139,10 +160,23 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
 
                 if (block.existMoreItems)
                 {
-                    String urlNext = "~/Pages/SearchResult.aspx?tags=" + tagsSeparated
-                        + "&category=" + category
-                        + "&startIndex=" + (startIndex + 3)
-                        + "&count=3";
+                    String urlNext = "";
+                    if (tag == "N/A")
+                    {
+                        urlNext = "~/Pages/Image/SearchResult.aspx?keywords=" + keywordsSeparated
+                            + "&category=" + category
+                            + "&tag=N/A"
+                            + "&startIndex=" + (startIndex + 3)
+                            + "&count=3";
+                    }
+                    else
+                    {
+                        urlNext = "~/Pages/Image/SearchResult.aspx?keywords="
+                            + "&category="
+                            + "&tag=" + tag
+                            + "&startIndex=" + (startIndex + 3)
+                            + "&count=3";
+                    }
 
                     this.lnkNext.NavigateUrl =
                         Response.ApplyAppPathModifier(urlNext);
@@ -150,5 +184,20 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 }
             }
         }
+        
+        protected void BtnLikeOnClick(object sender, EventArgs e)
+        {
+            if (SessionManager.IsUserAuthenticated(Context))
+            {
+                Button btn = (Button)sender;
+                long userId = SessionManager.GetUserSession(Context).UserProfileId;
+                ActionsManager.LikeImage(userId, long.Parse(btn.CommandArgument.ToString()));
+            }
+            else
+            {
+                Response.Redirect("~/Pages/User/Register.aspx");
+            }
+        }
+        
     }
 }
