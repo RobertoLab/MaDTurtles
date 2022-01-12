@@ -130,7 +130,7 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
             Block<ImageBasicInfo> block;
 
             if (string.IsNullOrEmpty(keywords))
-                block = imageService.SearchByCategory(category.ToLower(), startIndex, count);
+                block = imageService.SearchByCategory(long.Parse(category), startIndex, count);
             else if (string.IsNullOrEmpty(category))
                 block = imageService.SearchByKeywords(keywords, startIndex, count);
             else
