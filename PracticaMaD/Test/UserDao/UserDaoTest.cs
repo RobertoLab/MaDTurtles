@@ -66,6 +66,22 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao.Tests
             }
         }
 
+        private User signUpUser(string userName)
+        {
+            User user = new User();
+            user.userName = userName;
+            user.password = "password";
+            user.firstName = "John";
+            user.lastName1 = "Smith";
+            user.lastName2 = "Smith";
+            user.email = "test@acme.com";
+            user.language = "en";
+            user.country = "US";
+
+            userDao.Create(user);
+            return user;
+        }
+
         public void DAO_UpdateTest()
         {
             try
@@ -165,6 +181,13 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao.Tests
             Assert.AreEqual(user2.userName, user.userName);
         }
 
+        [TestMethod()]
+        public void Test_Exists()
+        {
+            User user = signUpUser("UserTest");
+
+            Assert.IsTrue(userDao.Exists(user.userName));
+        }
     }
 }
 
