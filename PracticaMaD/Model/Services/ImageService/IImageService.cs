@@ -4,6 +4,7 @@ using Es.Udc.DotNet.Photogram.Model.ImageDao;
 using Es.Udc.DotNet.Photogram.Model.CategoryDao;
 using Es.Udc.DotNet.Photogram.Model.TagDao;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Photogram.Model.ImageService
@@ -19,8 +20,7 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Inject]
         ICategoryDao CategoryDao { set; }
 
-
-        // 
+        
         /// <summary>
         /// Stores the image.
         /// </summary>
@@ -32,7 +32,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// Deletes the image.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
-        /// <exception cref="InstanceNotFoundException">
+        /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="DeleteDeniedException"/>
         [Transactional]
         void DeleteImage(long imgId, long userId);
 
@@ -40,7 +41,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// Searches the image eager fetch, gets also User, Category and Exif info.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
-        /// <returns>The Image retrieved from the DB</returns>
+        /// <returns cref="ImageInfo">DTO of the Image retrieved from the DB
+        /// </returns>
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         ImageInfo SearchImageEager(long imgId);
 
@@ -48,7 +51,9 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// Searches the image details, these do not contain the image itself.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
-        /// <returns></returns>
+        /// <returns cref="ImageBasicInfo">DTO of the Image retrieved from the DB
+        /// </returns>
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         ImageBasicInfo SearchImageBasic(long imgId);
 
@@ -56,8 +61,8 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         /// Search for an image, lazy fetch.
         /// </summary>
         /// <param name="imgId">The img identifier.</param>
-        /// <exception cref="InstanceNotFoundException">
         /// <returns>The image retrieved from the DB.</returns>
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         Image SearchImage(long imgId);
 
@@ -82,14 +87,46 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Transactional]
         Block<ImageBasicInfo> SearchByKeywordsAndCategory(string keywords, long categoryId, int startIndex, int count);
 
+        /// <summary>
+        /// Searches for images uploaded by an user.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
         Block<ImageBasicInfo> SearchByUserId(long userId, int startIndex, int count);
 
+        /// <summary>
+        /// Searches for images stored by a category.
+        /// </summary>
+        /// <param name="categoryId">The category identifier.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
         Block<ImageBasicInfo> SearchByCategory(long categoryId, int startIndex, int count);
 
+        /// <summary>
+        /// A wrapper for <c>SearchByCategory</c> that allows to search
+        /// via the name of the category instead of the id.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>Block with list and if there exists more elemnets in DB</returns>
         [Transactional]
         Block<ImageBasicInfo> SearchByCategory(string category, int startIndex, int count);
+        
+        /// <summary>
+        /// Searches images stored by a tag.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>Block with list and if there exists more elemnets in DB</returns>
+        [Transactional]
+        Block<ImageBasicInfo> SearchByTag(string tag, int startIndex, int count);
 
         /// <summary>
         /// Changes the tagging of an image.
@@ -115,13 +152,22 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
         [Transactional]
         List<CategoryInfo> SearchAllCategories();
 
+        /// <summary>
+        /// Gets the image content as a byte array.
+        /// </summary>
+        /// <param name="imageId">The image identifier.</param>
+        /// <returns>The image content as byte array.</returns>
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         byte[] GetImage(long imageId);
 
+        /// <summary>
+        /// Gets a thumbnail for an image as a byte array.
+        /// </summary>
+        /// <param name="imageId">The image identifier.</param>
+        /// <returns>The thumbnail content as byte array.</returns>
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         byte[] GetThumbnail(long imageId);
-
-        [Transactional]
-        Block<ImageBasicInfo> SearchByTag(string tag, int startIndex, int count);
     }
 }
