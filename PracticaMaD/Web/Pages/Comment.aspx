@@ -19,4 +19,5 @@
                     <asp:Button ID="btnComment" runat="server" Text="Comment" OnClick="BtnCommentClick" />
                 </div>
         </form>
+        </div>
 </asp:Content>
