@@ -86,6 +86,20 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
 
             return userN;
         }
+
+        public List<User> FindFollowed(long userId, int startIndex, int count)
+        {
+            DbSet<User> users = Context.Set<User>();
+
+            var result =
+                (from u in users
+                 orderby u.userName
+                 select u.UserFollow).Skip(startIndex).Take(count).ToList();
+
+            List<User> foundUsers= new List<User>();
+
+            return foundUsers;
+        }
     }
    
 }

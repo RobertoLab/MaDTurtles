@@ -10,7 +10,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Es.Udc.DotNet.Photogram.Model.ImageService;
 
 namespace Es.Udc.DotNet.Photogram.Web.Pages.User
 {
@@ -154,6 +153,20 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
                 {
                     Response.Redirect(Response.ApplyAppPathModifier("~/Pages/User/Authentication.aspx"));
                 }
+            }
+
+        }
+
+        protected void BtnFollowedClick(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+
+                /* Get the data */
+                long userId = Convert.ToInt32(Request.Params.Get("userId"));
+
+                String url = String.Format("~/Pages/User/ShowFollowed.aspx?userId={0}", userId);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
             }
 
         }

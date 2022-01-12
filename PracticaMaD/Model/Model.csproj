@@ -130,7 +130,9 @@
     <Compile Include="Dtos\Out\ImageInfo.cs" />
     <Compile Include="Dtos\Out\TagInfo.cs" />
     <Compile Include="Dtos\CategoryConversor.cs" />
+    <Compile Include="Dtos\Out\UserInfo.cs" />
     <Compile Include="Dtos\TagConversor.cs" />
+    <Compile Include="Dtos\UserConversor.cs" />
     <Compile Include="Exif.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>

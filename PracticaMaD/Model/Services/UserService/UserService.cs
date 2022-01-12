@@ -9,6 +9,7 @@ using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.Photogram.Model.UserService.Exceptions;
 using Es.Udc.DotNet.Photogram.Model.UserService.Util;
+using static Es.Udc.DotNet.Photogram.Model.Dtos.UserConversor;
 
 namespace Es.Udc.DotNet.Photogram.Model.UserService
 {
@@ -129,6 +130,16 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         {
             return UserDao.FindUserId(userName);
 
+        }
+
+        public Block<UserInfo> FindFollowed(long userId, int startIndex, int count)
+        {
+            List<User> usersFollowed = new List<User>();
+            usersFollowed = UserDao.FindFollowed(userId, startIndex, count + 1);
+            bool existMoreImages = (usersFollowed.Count == count + 1);
+
+            if (existMoreImages) usersFollowed.RemoveAt(count);
+            return new Block<UserInfo>(ToUserInfos(usersFollowed), existMoreImages);
         }
     }
 }
