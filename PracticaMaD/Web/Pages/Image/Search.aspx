@@ -39,7 +39,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder_BodyContent"
     runat="server">
     
-    <form runat="server">
+    <form runat="server" style="width:25%;text-align:center">
         <div class="field">
             <div class="label">
                 <asp:Localize ID="lclCategory" runat="server" meta:resourcekey="lclImageCategory" />
@@ -58,7 +58,7 @@
                 <asp:Localize ID="lclKeywords" runat="server" meta:resourcekey="lclImageKeywords" />
             </div>
             <span class="entry">
-                <asp:TextBox TextMode="Multiline" ID="txtKeywords" runat="server" Width="300px"
+                <asp:TextBox ID="txtKeywords" runat="server" Width="300px"
                     Columns="16" meta:resourcekey="txtKeywordsResource1"></asp:TextBox>
                 <asp:RegularExpressionValidator ID="revKeywords" runat="server"
                     ControlToValidate="txtKeywords"

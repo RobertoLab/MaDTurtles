@@ -129,6 +129,9 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
         {
             Block<ImageBasicInfo> block;
 
+            if (string.IsNullOrEmpty(keywords) && string.IsNullOrEmpty(category))
+                return block = new Block<ImageBasicInfo>(new List<ImageBasicInfo>(), false);
+
             if (string.IsNullOrEmpty(keywords))
                 block = imageService.SearchByCategory(long.Parse(category), startIndex, count);
             else if (string.IsNullOrEmpty(category))
