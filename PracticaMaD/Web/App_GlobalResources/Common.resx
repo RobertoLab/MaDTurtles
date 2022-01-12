@@ -147,4 +147,10 @@
   <data name="lnkUploadImg" xml:space="preserve">
     <value>Upload</value>
   </data>
+  <data name="lnkChangePwd" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="lnkUpdateProfile" xml:space="preserve">
+    <value>Update Profile</value>
+  </data>
 </root>

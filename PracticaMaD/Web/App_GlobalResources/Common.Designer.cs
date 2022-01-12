@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        internal static string lnkChangePwd {
+            get {
+                return ResourceManager.GetString("lnkChangePwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string lnkHome {
@@ -102,6 +111,15 @@ namespace Resources {
         internal static string lnkSearch {
             get {
                 return ResourceManager.GetString("lnkSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Profile.
+        /// </summary>
+        internal static string lnkUpdateProfile {
+            get {
+                return ResourceManager.GetString("lnkUpdateProfile", resourceCulture);
             }
         }
         

@@ -147,4 +147,10 @@
   <data name="searchButton" xml:space="preserve">
     <value>Buscar</value>
   </data>
+  <data name="lnkChangePwd" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="lnkUpdateProfile" xml:space="preserve">
+    <value>Actualizar Perfil</value>
+  </data>
 </root>
