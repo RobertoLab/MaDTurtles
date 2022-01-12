@@ -117,34 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lnkHome" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="btnLike.Text" xml:space="preserve">
+    <value>Like</value>
   </data>
-  <data name="lnkLogin" xml:space="preserve">
-    <value>Autenticarse</value>
+  <data name="lblBy.Text" xml:space="preserve">
+    <value> by</value>
   </data>
-  <data name="lnkLogout" xml:space="preserve">
-    <value>Saír</value>
+  <data name="lblLikes.Text" xml:space="preserve">
+    <value>Likes :</value>
   </data>
-  <data name="lnkRegister" xml:space="preserve">
-    <value>Rexistrarse</value>
+  <data name="lnkComments.Text" xml:space="preserve">
+    <value>View Comments</value>
   </data>
-  <data name="lnkSearch" xml:space="preserve">
-    <value>Buscar</value>
+  <data name="lnkNewComment.Text" xml:space="preserve">
+    <value>Post</value>
   </data>
-  <data name="lnkUploadImg" xml:space="preserve">
-    <value>Subir Imaxe</value>
-  </data>
-  <data name="mandatoryField" xml:space="preserve">
-    <value>Campo obrigatorio</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>Seguinte</value>
-  </data>
-  <data name="Previous" xml:space="preserve">
-    <value>Anterior</value>
-  </data>
-  <data name="searchButton" xml:space="preserve">
-    <value>Buscar</value>
+  <data name="Page" xml:space="preserve">
+    <value>Photogram - Image Search Result</value>
   </data>
 </root>

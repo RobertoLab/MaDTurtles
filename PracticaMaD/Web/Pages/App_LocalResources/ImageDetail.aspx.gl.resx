@@ -117,34 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lnkHome" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="Aperture" xml:space="preserve">
+    <value>Apertura de diafragma</value>
   </data>
-  <data name="lnkLogin" xml:space="preserve">
-    <value>Autenticarse</value>
+  <data name="btnComment.Text" xml:space="preserve">
+    <value> Comentar </value>
   </data>
-  <data name="lnkLogout" xml:space="preserve">
-    <value>Saír</value>
+  <data name="btnDeleteImage.Text" xml:space="preserve">
+    <value> Borrar Imaxe </value>
   </data>
-  <data name="lnkRegister" xml:space="preserve">
-    <value>Rexistrarse</value>
+  <data name="btnLike.Text" xml:space="preserve">
+    <value> Marcar como "Me gusta" </value>
   </data>
-  <data name="lnkSearch" xml:space="preserve">
-    <value>Buscar</value>
+  <data name="btnModigyTags.Text" xml:space="preserve">
+    <value> Modificar </value>
   </data>
-  <data name="lnkUploadImg" xml:space="preserve">
-    <value>Subir Imaxe</value>
+  <data name="btnShowComment.Text" xml:space="preserve">
+    <value> Ver comentarios </value>
   </data>
-  <data name="mandatoryField" xml:space="preserve">
-    <value>Campo obrigatorio</value>
+  <data name="btnUnlike.Text" xml:space="preserve">
+    <value> Marcar como "No me gusta" </value>
   </data>
-  <data name="Next" xml:space="preserve">
-    <value>Seguinte</value>
+  <data name="chkAddTagsResource.Text" xml:space="preserve">
+    <value>Se está marcado, as etiquetas vellas mantendranse, en caso contrario serán reemplazadas polas novas.</value>
   </data>
-  <data name="Previous" xml:space="preserve">
-    <value>Anterior</value>
+  <data name="Exposure" xml:space="preserve">
+    <value>Exposición</value>
   </data>
-  <data name="searchButton" xml:space="preserve">
-    <value>Buscar</value>
+  <data name="ISO" xml:space="preserve">
+    <value>ISO</value>
+  </data>
+  <data name="lblCategoryInt" xml:space="preserve">
+    <value>Categoría :</value>
+  </data>
+  <data name="lblDescriptionInt" xml:space="preserve">
+    <value>Descripción : </value>
+  </data>
+  <data name="lblMetadataHeader" xml:space="preserve">
+    <value>---------- Metadatos da imaxe ----------</value>
+  </data>
+  <data name="lblTagsInt" xml:space="preserve">
+    <value>Etiquetas :</value>
+  </data>
+  <data name="lclImageTags.Text" xml:space="preserve">
+    <value>Etiquetas da imaxe :</value>
+  </data>
+  <data name="lclImageTagsExplanation.Text" xml:space="preserve">
+    <value>Por favor, use o espacio ' ' como separador entre etiquetas. Ex: "paisaxe bosque natureza".</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Photogram - Detalles da imaxe</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Descoñecido</value>
+  </data>
+  <data name="WhiteBalance" xml:space="preserve">
+    <value>Balance de Brancos</value>
   </data>
 </root>

@@ -11,27 +11,27 @@
     <ul id="menuLinks">
 
         <li>
-            <asp:HyperLink ID="lnkLogin" runat="server" NavigateUrl="~/Pages/User/Authentication.aspx" meta:resourcekey="lnkLoginResource1">[lnkLogin]</asp:HyperLink>
+            <asp:HyperLink ID="lnkLogin" runat="server" NavigateUrl="~/Pages/User/Authentication.aspx" Text="<%$ Resources: Common, lnkLogin %>">[lnkLogin]</asp:HyperLink>
         </li>
 
         <li>
-            <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/User/Logout.aspx" meta:resourcekey="lnkLogoutResource1">[lnkLogout]</asp:HyperLink>
+            <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/User/Logout.aspx" Text="<%$ Resources: Common, lnkLogout %>">[lnkLogout]</asp:HyperLink>
         </li>
 
         <li>
-            <asp:HyperLink ID="lnkRegister" runat="server" NavigateUrl="~/Pages/User/Register.aspx" meta:resourcekey="lnkRegisterResource1">[lnkRegister]</asp:HyperLink>
+            <asp:HyperLink ID="lnkRegister" runat="server" NavigateUrl="~/Pages/User/Register.aspx" Text="<%$ Resources: Common, lnkRegister %>">>[lnkRegister]</asp:HyperLink>
         </li>
 
         <li>
-            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lnkHomeResource1">[lnkHome]</asp:HyperLink>
+            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/MainPage.aspx" Text="<%$ Resources: Common, lnkHome %>">>[lnkHome]</asp:HyperLink>
         </li>
 
         <li>
-            <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/Image/Search.aspx" meta:resourcekey="lnkSearch">[lnkSearch]</asp:HyperLink>
+            <asp:HyperLink ID="lnkSearch" runat="server" NavigateUrl="~/Pages/Image/Search.aspx" Text="<%$ Resources: Common, lnkSearch %>">>[lnkSearch]</asp:HyperLink>
         </li>
 
         <li>
-            <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/Image/Upload.aspx" meta:resourcekey="lnkUploadImg">[lnkUploadImg]</asp:HyperLink>
+            <asp:HyperLink ID="lnkUploadImg" runat="server" NavigateUrl="~/Pages/Image/Upload.aspx" Text="<%$ Resources: Common, lnkUploadImg %>">>[lnkUploadImg]</asp:HyperLink>
         </li>
 
     </ul>
@@ -49,16 +49,5 @@
         </span><span class="nextLink">
             <asp:HyperLink ID="lnkNext" Text="<%$ Resources:Common, Next %>" runat="server" Visible="False"></asp:HyperLink>
         </span>
-    </div>
-    <div>
-        <asp:Label ID="lblFirstImageOk" runat="server"
-            ForeColor="Green" Style="position: relative"
-            Visible="False" Text="Ok1"></asp:Label>
-        <asp:Label ID="lblSecondImageOk" runat="server"
-            ForeColor="Green" Style="position: relative"
-            Visible="False" Text="Ok2"></asp:Label>
-        <asp:Label ID="lblThirdImageOk" runat="server"
-            ForeColor="Green" Style="position: relative"
-            Visible="False" Text="Ok3"></asp:Label>
     </div>
 </asp:Content>

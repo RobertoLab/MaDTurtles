@@ -47,8 +47,10 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             /* Update the info */
 
             this.imgTitle.Text = image.title;
+            this.imgTitle.Style["font-style"] = "bold";
 
             this.imgAuthor.Text = user.userName;
+            this.imgAuthor.Style["font-style"] = "italic";
 
             this.Image1.ImageUrl = "data:image;base64," + image.imgBase64;
             this.Image1.Width = Unit.Pixel(500);
@@ -68,6 +70,9 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
                 // Config update tags button
                 chkAddTags.Enabled = true;
                 chkAddTags.Visible = true;
+                txtTags.Visible = true;
+                lclTags.Visible = true;
+                lclTagsExplanation.Visible = true;
                 lclChkAddTagsExplanation.Visible = true;
                 btnModifyTags.Enabled = true;
                 btnModifyTags.Visible = true;
@@ -94,20 +99,35 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             panelTagsRow.ID = "panelTagsRow";
             panelTagsRow.CssClass = "w3-row";
 
+            Label lblDescriptionInt = new Label();
+            lblDescriptionInt.ID = "lblDescriptionInt";
+            lblDescriptionInt.Text = GetLocalResourceObject("lblDescriptionInt").ToString();
+            lblDescriptionInt.Style["font-style"] = "italic";
             Label lblDescription = new Label();
             lblDescription.ID = "lblDescription";
-            lblDescription.Text = "Desc: " + image.description;
+            lblDescription.Text = image.description;
 
+            Label lblCategoryInt = new Label();
+            lblCategoryInt.ID = "lblCategoryInt";
+            lblCategoryInt.Text = GetLocalResourceObject("lblCategoryInt").ToString() + " ";
+            lblCategoryInt.Style["font-style"] = "italic";
             Label lblCategory = new Label();
             lblCategory.ID = "lblCategory";
-            lblCategory.Text = "Cat: " + image.category;
+            lblCategory.Text = image.category;
 
+            Label lblTagsInt = new Label();
+            lblTagsInt.ID = "lblTagsInt";
+            lblTagsInt.Text = GetLocalResourceObject("lblTagsInt").ToString() + " ";
+            lblTagsInt.Style["font-style"] = "italic";
             Label lblTags = new Label();
             lblTags.ID = "lblTags";
-            lblTags.Text = "Tags: " + String.Join(" ", image.tags);
+            lblTags.Text = "[" + String.Join("] [", image.tags) + "]";
 
+            panelDescriptionRow.Controls.Add(lblDescriptionInt);
             panelDescriptionRow.Controls.Add(lblDescription);
+            panelCategoryRow.Controls.Add(lblCategoryInt);
             panelCategoryRow.Controls.Add(lblCategory);
+            panelTagsRow.Controls.Add(lblTagsInt);
             panelTagsRow.Controls.Add(lblTags);
 
             panelDetailsColumn.Controls.Add(panelDescriptionRow);
@@ -122,9 +142,11 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
 
                 Label lblMetadataHeader = new Label();
                 lblMetadataHeader.ID = "lblMetadataHeader";
-                lblMetadataHeader.Text = "Metadata: ";
-                panelDetailsColumn.Controls.Add(lblMetadataHeader);
+                lblMetadataHeader.Text = 
+                    GetLocalResourceObject("lblMetadataHeader").ToString() + "\t";
+                lblMetadataHeader.Style["font-weight"] = "bold";
 
+                panelDetailsColumn.Controls.Add(lblMetadataHeader);
                 panelMetadataRow.Controls.Add(lblMetadataHeader);
 
                 int metadataIndex = 1;
@@ -136,7 +158,10 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
 
                     Label lblMetadata = new Label();
                     lblMetadata.ID = "lblMetadata" + metadataIndex.ToString();
-                    lblMetadata.Text = metadata.infoType + " : " + metadata.value;
+                    lblMetadata.Text = 
+                        GetLocalResourceObject(ParseMetadataName(metadata.infoType)).ToString()
+                        + " : " + metadata.value;
+                    lblMetadataHeader.Style["font-style"] = "italic";
 
                     panelMetadataContentRow.Controls.Add(lblMetadata);
                     panelMetadataRow.Controls.Add(panelMetadataContentRow);
@@ -147,6 +172,17 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             PlaceHolder_ImageDetails.Controls.Add(panelDetailsColumn);
         }
 
+        private string ParseMetadataName(string metadataType)
+        {
+            switch (metadataType)
+            {
+                case "f": return "Aperture";
+                case "iso": return "ISO";
+                case "t": return "Exposure";
+                case "wb": return "WhiteBalance";
+                default: return "Unknown";
+            }
+        }
         protected void BtnLikeClick(object sender, EventArgs e)
         {
             if (Page.IsValid)

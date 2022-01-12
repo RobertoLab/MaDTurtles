@@ -117,34 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lnkHome" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="Page" xml:space="preserve">
+    <value>Photogram - Image Details</value>
   </data>
-  <data name="lnkLogin" xml:space="preserve">
-    <value>Autenticarse</value>
+  <data name="Aperture" xml:space="preserve">
+    <value>Aperture</value>
   </data>
-  <data name="lnkLogout" xml:space="preserve">
-    <value>Saír</value>
+  <data name="btnComment.Text" xml:space="preserve">
+    <value> Comment </value>
   </data>
-  <data name="lnkRegister" xml:space="preserve">
-    <value>Rexistrarse</value>
+  <data name="btnDeleteImage.Text" xml:space="preserve">
+    <value> Delete Image </value>
   </data>
-  <data name="lnkSearch" xml:space="preserve">
-    <value>Buscar</value>
+  <data name="btnLike.Text" xml:space="preserve">
+    <value> Like </value>
   </data>
-  <data name="lnkUploadImg" xml:space="preserve">
-    <value>Subir Imaxe</value>
+  <data name="btnModigyTags.Text" xml:space="preserve">
+    <value> Change </value>
   </data>
-  <data name="mandatoryField" xml:space="preserve">
-    <value>Campo obrigatorio</value>
+  <data name="btnShowComment.Text" xml:space="preserve">
+    <value> View comments </value>
   </data>
-  <data name="Next" xml:space="preserve">
-    <value>Seguinte</value>
+  <data name="btnUnlike.Text" xml:space="preserve">
+    <value> Unlike </value>
   </data>
-  <data name="Previous" xml:space="preserve">
-    <value>Anterior</value>
+  <data name="chkAddTagsResource.Text" xml:space="preserve">
+    <value>If checked the old tags will preserve, otherwise they will be deleted.</value>
   </data>
-  <data name="searchButton" xml:space="preserve">
-    <value>Buscar</value>
+  <data name="Exposure" xml:space="preserve">
+    <value>Exposure</value>
+  </data>
+  <data name="ISO" xml:space="preserve">
+    <value>ISO</value>
+  </data>
+  <data name="lblCategoryInt" xml:space="preserve">
+    <value>Category :</value>
+  </data>
+  <data name="lblDescriptionInt" xml:space="preserve">
+    <value>Description : </value>
+  </data>
+  <data name="lblMetadataHeader" xml:space="preserve">
+    <value>---------- Image Metadata ----------</value>
+  </data>
+  <data name="lblTagsInt" xml:space="preserve">
+    <value>Tags :</value>
+  </data>
+  <data name="lclImageTags.Text" xml:space="preserve">
+    <value>Image tags :</value>
+  </data>
+  <data name="lclImageTagsExplanation.Text" xml:space="preserve">
+    <value>Please use space ' ' as separator between tags. Ex: "landscape forest nature"</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="WhiteBalance" xml:space="preserve">
+    <value>White Balance</value>
   </data>
 </root>
