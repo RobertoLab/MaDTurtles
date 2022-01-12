@@ -41,30 +41,71 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
                               
                 ImageInfo image = imageService.SearchImageEager(images.items.ElementAt(0).imageId);
                 this.img1.ImageUrl = "data:image;base64," + image.imgBase64;
-            }else
+                this.btnImg1.PostBackUrl = String.Format("~/Pages/ImageDetail.aspx?imgID={0}", images.items.ElementAt(0).imageId);
+            }
+            else
             {
                 this.img1.Visible = false;
+                this.btnImg1.Visible = false;
             }
             if (images.items.Count > 1)
             {
 
                 ImageInfo image = imageService.SearchImageEager(images.items.ElementAt(1).imageId);
                 this.img2.ImageUrl = "data:image;base64," + image.imgBase64;
+                this.btnImg2.PostBackUrl = String.Format("~/Pages/ImageDetail.aspx?imgID={0}", images.items.ElementAt(1).imageId);
             }
             else
             {
                 this.img2.Visible = false;
+                this.btnImg2.Visible = false;
             }
             if (images.items.Count > 2)
             {
 
                 ImageInfo image = imageService.SearchImageEager(images.items.ElementAt(2).imageId);
                 this.img3.ImageUrl = "data:image;base64," + image.imgBase64;
+                this.btnImg3.PostBackUrl = String.Format("~/Pages/ImageDetail.aspx?imgID={0}", images.items.ElementAt(2).imageId);
             }
             else
             {
                 this.img3.Visible = false;
+                this.btnImg3.Visible = false;
             }
+        }
+
+        protected void BtnImg1Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+
+                /* Get the data */
+                String url = this.btnImg1.PostBackUrl;
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+        }
+        protected void BtnImg2Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+
+                /* Get the data */
+                String url = this.btnImg2.PostBackUrl;
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+        }
+        protected void BtnImg3Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+
+                /* Get the data */
+                String url = this.btnImg3.PostBackUrl;
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
         }
     }
 }
