@@ -23,6 +23,8 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
             lblUploadOk.Visible = false;
             lblUploadFailed.Visible = false;
 
+            if (!SessionManager.IsUserAuthenticated(Context))
+                btnUpload.Enabled = false;
             if (!IsPostBack)
             {
                 List<ListItem> ddlCategoryItems = ActionsManager.ImageCategories();
@@ -92,14 +94,14 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                         exifs["iso"], exifs["whiteBalance"]);
 
                     ActionsManager.UploadImage(imageDto);
-                }
-                catch (Exception)
-                {
-                    lblUploadFailed.Visible = true;
-                }
-
-                lblUploadOk.Visible = true;
+                    lblUploadOk.Visible = true;
             }
+                catch (Exception)
+            {
+                lblUploadFailed.Visible = true;
+                lblUploadOk.Visible = false;
+            }
+        }
         }
     }
 }

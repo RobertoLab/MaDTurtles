@@ -58,11 +58,93 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
 
             this.btnLike.Visible = true;
             this.btnUnlike.Visible = false;
-
+            
             if (SessionManager.IsUserAuthenticated(Context)
                 && ActionsManager.IsPropietary(userID, imgID))
+            {
+                // Config delete button
                 btnDeleteImage.Enabled = true;
+                btnDeleteImage.Visible = true;
+                // Config update tags button
+                chkAddTags.Enabled = true;
+                chkAddTags.Visible = true;
+                lclChkAddTagsExplanation.Visible = true;
+                btnModifyTags.Enabled = true;
+                btnModifyTags.Visible = true;
+                List<string> tagsList = image.tags;
+                string tags = String.Join(" ", tagsList);
+                btnModifyTags.CommandArgument = tags;
+            }
 
+            BuildImageDetails(image);
+        }
+
+        private void BuildImageDetails(ImageInfo image)
+        {
+            Panel panelDetailsColumn = new Panel();
+            panelDetailsColumn.ID = "panelDetailsColumn";
+            panelDetailsColumn.CssClass = "w3-col";
+            Panel panelDescriptionRow = new Panel();
+            panelDescriptionRow.ID = "panelDescriptionRow";
+            panelDescriptionRow.CssClass = "w3-row";
+            Panel panelCategoryRow = new Panel();
+            panelCategoryRow.ID = "panelCategoryRow";
+            panelCategoryRow.CssClass = "w3-row";
+            Panel panelTagsRow = new Panel();
+            panelTagsRow.ID = "panelTagsRow";
+            panelTagsRow.CssClass = "w3-row";
+
+            Label lblDescription = new Label();
+            lblDescription.ID = "lblDescription";
+            lblDescription.Text = "Desc: " + image.description;
+
+            Label lblCategory = new Label();
+            lblCategory.ID = "lblCategory";
+            lblCategory.Text = "Cat: " + image.category;
+
+            Label lblTags = new Label();
+            lblTags.ID = "lblTags";
+            lblTags.Text = "Tags: " + String.Join(" ", image.tags);
+
+            panelDescriptionRow.Controls.Add(lblDescription);
+            panelCategoryRow.Controls.Add(lblCategory);
+            panelTagsRow.Controls.Add(lblTags);
+
+            panelDetailsColumn.Controls.Add(panelDescriptionRow);
+            panelDetailsColumn.Controls.Add(panelCategoryRow);
+            panelDetailsColumn.Controls.Add(panelTagsRow);
+
+            if (image.metadata.Count >0)
+            {
+                Panel panelMetadataRow = new Panel();
+                panelMetadataRow.ID = "panelMetadataRow";
+                panelMetadataRow.CssClass = "w3-row";
+
+                Label lblMetadataHeader = new Label();
+                lblMetadataHeader.ID = "lblMetadataHeader";
+                lblMetadataHeader.Text = "Metadata: ";
+                panelDetailsColumn.Controls.Add(lblMetadataHeader);
+
+                panelMetadataRow.Controls.Add(lblMetadataHeader);
+
+                int metadataIndex = 1;
+                foreach (Model.Exif metadata in image.metadata)
+                {
+                    Panel panelMetadataContentRow = new Panel();
+                    panelMetadataContentRow.ID = "panelMetadataContentRow" + metadataIndex.ToString();
+                    panelMetadataContentRow.CssClass = "w3-row";
+
+                    Label lblMetadata = new Label();
+                    lblMetadata.ID = "lblMetadata" + metadataIndex.ToString();
+                    lblMetadata.Text = metadata.infoType + " : " + metadata.value;
+
+                    panelMetadataContentRow.Controls.Add(lblMetadata);
+                    panelMetadataRow.Controls.Add(panelMetadataContentRow);
+                    metadataIndex++;
+                }
+                panelDetailsColumn.Controls.Add(panelMetadataRow);
+            }
+            PlaceHolder_ImageDetails.Controls.Add(panelDetailsColumn);
         }
 
         protected void BtnLikeClick(object sender, EventArgs e)
@@ -166,6 +248,25 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             long imgId = Convert.ToInt32(Request.Params.Get("imgID"));
             long userId = SessionManager.GetUserSession(Context).UserProfileId;
             ActionsManager.DeleteImage(imgId, userId);
+            Response.Redirect("~/Pages/MainPage.aspx");
+        }
+
+        protected void BtnModifyTagsOnClick(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string oldTags = btn.CommandArgument.ToString();
+            string newTags = txtTags.Text;
+            long imgId = Convert.ToInt32(Request.Params.Get("imgID"));
+            long userId = SessionManager.GetUserSession(Context).UserProfileId;
+            string finalTags = "";
+            if (chkAddTags.Checked)
+            {
+                finalTags = oldTags + " " + newTags;
+            } else
+            {
+                finalTags = newTags;
+            }
+            ActionsManager.UpdateImageTags(imgId, finalTags);
         }
     }
 }

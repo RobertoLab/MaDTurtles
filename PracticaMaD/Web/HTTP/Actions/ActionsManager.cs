@@ -174,5 +174,10 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
         {
             imageService.DeleteImage(imgId, userId);
         }
+
+        public static void UpdateImageTags(long imgId, string newTags)
+        {
+            imageService.ModifyImageTags(imgId, newTags);
+        }
     }
 }
