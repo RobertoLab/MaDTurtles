@@ -1,10 +1,60 @@
-﻿/* Body. */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Header*/
+#header {
+    background-color: #698474;
+    color: black;
+	color: black;
+	height: 20vh;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: center;
+    font-size: 5 vh;
+    
+}
+
+
+/* Body. */
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    margin: 10px 20px;
-    background-color: #dddde0;
+    font-size: 16px;
+    background-color: #889E81;
+}
+
+
+/* Sidebar. */
+
+#sidebar {
+    float: left;
+    background-color:#BAC7A7;
+    width: 20%;
+    padding-bottom:100%;
+    text-align: center;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding-top: 10px;
+    /* Hack for correct indentation (the following three lines). */
+    margin-left: 0;
+    padding-left: 1em;
+    text-indent: -1em;
+
+}
+
+#sidebar li {
+        padding: 0 0 3px 5px;
+}
+
+#content {
+    padding-top: 20px;
+    float: right;
+    text-align: center;
+    width: 80%;
 }
 
 /* Links. */
@@ -12,8 +62,41 @@ body {
 a {
     font-weight: bold;
     text-decoration: none;
+    color: black;
+}
+#form div{
+    padding: 5px;
 }
 
-    a:hover {
-        text-decoration: underline;
-    }
+form {
+    width: 100%;
+}
+
+div.field {
+    clear: both;
+    padding-top: 1em;
+    width: 100%;
+}
+.entry{
+    align-content: center;
+}
+
+div.button {
+    clear: both;
+    padding-top: 3em;
+    text-align: center;
+    width: 100%;
+}
+
+footer {
+    background-color: #698474;
+    color: black;
+	color: black;
+	height: 10vh;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: center;
+    font-size: 5 vh;
+    
+}
+
