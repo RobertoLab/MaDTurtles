@@ -49,14 +49,19 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             }
 
             /* Display the usernames and comments */
+            if (comments.items.Count > 0) {
+                this.lnkUser1.Text = comments.items.ElementAt(0).userName;
+                this.commentUser1.Text = comments.items.ElementAt(0).comment;
+            }
+            if (comments.items.Count > 1) {
+                this.lnkUser2.Text = comments.items.ElementAt(1).userName;
+                this.commentUser2.Text = comments.items.ElementAt(1).comment;
 
-            this.lnkUser1.Text = comments.items.ElementAt(0).userName;
-            this.lnkUser2.Text = comments.items.ElementAt(1).userName;
-            this.lnkUser3.Text = comments.items.ElementAt(2).userName;
-
-            this.commentUser1.Text = comments.items.ElementAt(0).comment;
-            this.commentUser2.Text = comments.items.ElementAt(1).comment;
+            }
+            if (comments.items.Count > 2){ 
+            this.lnkUser3.Text = comments.items.ElementAt(2).userName;            
             this.commentUser3.Text = comments.items.ElementAt(2).comment;
+            }
 
 
             /* "Previous" link */

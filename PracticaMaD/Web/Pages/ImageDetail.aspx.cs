@@ -39,16 +39,17 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             UserProfileDetails user = userService.FindUserProfileDetails(image.userId);
 
             /* Get if the image was given a like*/
-
-            bool liked = interactionService.AlreadyLiked(userID, imgID);
-
+            if (userID != 0)
+            {
+                bool liked = interactionService.AlreadyLiked(userID, imgID);
+            }
             /* Update the info */
 
             this.imgTitle.Text = image.title;
 
             this.imgAuthor.Text = user.userName;
 
-            this.Image1.ImageUrl = image.imgBase64;
+            this.Image1.ImageUrl = "data:image;base64," + image.imgBase64;
             this.Image1.Width = Unit.Pixel(500);
             this.Image1.Height = Unit.Pixel(500);
 

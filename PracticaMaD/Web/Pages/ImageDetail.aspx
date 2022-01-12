@@ -12,10 +12,11 @@
     <p>
         <asp:Label ID="imgLikes" runat="server" Text="Label"></asp:Label>
     </p>
-    <p>
+    <br/>
+    <form id="imgBtnsForm" method="post" runat="server">
         <asp:Button ID="btnComment" runat="server" Text="Comment" OnClick="BtnCommentClick" />
         <asp:Button ID="btnShowComments" runat="server" Text="Show Comments" OnClick="BtnShowCommentsClick" />
         <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="BtnLikeClick" />
         <asp:Button ID="btnUnlike" runat="server" Text="Unlike" OnClick="BtnUnlikeClick" />
-    </p>
+    </form>
 </asp:Content>
