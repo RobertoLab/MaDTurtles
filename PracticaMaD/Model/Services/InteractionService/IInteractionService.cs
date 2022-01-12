@@ -95,5 +95,25 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
         /// When the image by the id is not found.</exception>
         [Transactional]
         int GetImageLikes(long imgId);
+
+        /// <summary>
+        /// Finds if an user was followed by the user .
+        /// </summary>
+        /// <param name="followedId">Id of the user that is being followed.</param>
+        /// <param name="followerId">Id of the user that may be following.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        bool Follows(long followedId, long followerId);
+
+        /// <summary>
+        /// Makes a user follow another user .
+        /// </summary>
+        /// <param name="followedId">Id of the user that is being followed.</param>
+        /// <param name="followerId">Id of the user that will follow.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        void Follow(long followedId, long followerId);
+
+
     }
 }

@@ -100,5 +100,13 @@ namespace Es.Udc.DotNet.Photogram.Model.UserService
         /// <param name="userName">Name of the user.</param>
         /// <returns>True if the user exists, false otherwise.</returns>
         bool UserExists(string userName);
+
+        /// <summary>
+        /// Returns the id of a user given its userName.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>The id of the tuser.</returns>
+        long FindUserId(string userName);
+
     }
 }

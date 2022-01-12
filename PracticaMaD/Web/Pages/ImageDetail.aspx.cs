@@ -70,21 +70,31 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             if (Page.IsValid)
             {
                 /* Get data. */
-                UserSession userSession = SessionManager.GetUserSession(Context);
-                long userID = userSession.UserProfileId;
+                long userID = 0;
+                if (SessionManager.GetUserSession(Context) != null)
+                {
+                    UserSession userSession = SessionManager.GetUserSession(Context);
+                    userID = userSession.UserProfileId;
+                }
                 long imgID = Convert.ToInt32(Request.Params.Get("imgID"));
 
                 /* Get the Service */
                 IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
                 IInteractionService interactionService = iocManager.Resolve<IInteractionService>();
-                /* Do action. */
+                if (userID != 0)
+                {
+                    /* Do action. */
+                    interactionService.LikeImage(userID, imgID);
 
-                interactionService.LikeImage(userID, imgID);
-
-                /* Change d isplay */
-
-                this.btnLike.Visible = false;
-                this.btnUnlike.Visible = true;
+                    /* Change display */
+                    this.btnLike.Visible = false;
+                    this.btnUnlike.Visible = true;
+                }
+                else
+                {
+                    String url = String.Format("~/Pages/User/Authentication.aspx");
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
 
             }
         }
@@ -117,9 +127,25 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
         {
             if (Page.IsValid)
             {
+                long userId = 0;
+                if (SessionManager.GetUserSession(Context) != null)
+                {
+                    UserSession userSession = SessionManager.GetUserSession(Context);
+                    userId = userSession.UserProfileId;
+                }
                 long imgID = Convert.ToInt32(Request.Params.Get("imgID"));
-                String url = String.Format("./Comment.aspx?imgID={0}", imgID);
-                Response.Redirect(Response.ApplyAppPathModifier(url));
+                if (userId != 0)
+                {
+                    String url = String.Format("./Comment.aspx?imgID={0}", imgID);
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
+                else
+                {
+                    String url = String.Format("~/Pages/User/Authentication.aspx");
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
+                
+
 
             }
         }

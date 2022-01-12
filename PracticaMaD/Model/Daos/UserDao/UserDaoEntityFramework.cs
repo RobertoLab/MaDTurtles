@@ -53,6 +53,14 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
             Update(user);
         }
 
+        public void UpdateUserFollow(User user)
+        {
+            DbSet<User> users = Context.Set<User>();
+
+            Update(user);
+        }
+
+
         public bool Exists(string userName)
         {
             DbSet<User> users = Context.Set<User>();
@@ -63,6 +71,20 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
                  select u);
 
             return result.Any();
+        }
+
+        public long FindUserId(string userName)
+        {
+            DbSet<User> users = Context.Set<User>();
+
+            var result =
+                (from u in users
+                 where u.userName == userName
+                 select u.userId);
+
+            long userN = result.FirstOrDefault();
+
+            return userN;
         }
     }
    
