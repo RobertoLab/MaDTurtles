@@ -23,6 +23,12 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
                 UserSession userSession = SessionManager.GetUserSession(Context);
                 userId = userSession.UserProfileId;
             }
+            else
+            {
+
+                String url = ("~/Pages/MainPage.aspx");
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
 
             /* Get the Services */
             IIoCManager iocManager = (IIoCManager)System.Web.HttpContext.Current.Application["managerIoC"];
