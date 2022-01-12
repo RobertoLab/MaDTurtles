@@ -129,4 +129,22 @@
   <data name="searchButton" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="lnkHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="lnkLogin" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="lnkLogout" xml:space="preserve">
+    <value>Log Out</value>
+  </data>
+  <data name="lnkRegister" xml:space="preserve">
+    <value>Sing Up</value>
+  </data>
+  <data name="lnkSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="lnkUploadImg" xml:space="preserve">
+    <value>Upload</value>
+  </data>
 </root>

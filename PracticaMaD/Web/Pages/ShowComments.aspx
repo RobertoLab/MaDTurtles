@@ -18,7 +18,7 @@
         </div>
         <div CssClass="commentDiv">
             <asp:HyperLink ID="lnkUser3" runat="server"></asp:HyperLink> &nbsp;
-            <asp:Label ID="lblDate3" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="lblDate3" runat="server"></asp:Label>
             </br>
             <asp:Label ID="commentUser3" runat="server" Text=""></asp:Label>
         </div>

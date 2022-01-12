@@ -61,6 +61,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string lnkHome {
+            get {
+                return ResourceManager.GetString("lnkHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log In.
+        /// </summary>
+        internal static string lnkLogin {
+            get {
+                return ResourceManager.GetString("lnkLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Out.
+        /// </summary>
+        internal static string lnkLogout {
+            get {
+                return ResourceManager.GetString("lnkLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sing Up.
+        /// </summary>
+        internal static string lnkRegister {
+            get {
+                return ResourceManager.GetString("lnkRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string lnkSearch {
+            get {
+                return ResourceManager.GetString("lnkSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        internal static string lnkUploadImg {
+            get {
+                return ResourceManager.GetString("lnkUploadImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mandatory Field.
         /// </summary>
         internal static string mandatoryField {

@@ -101,32 +101,5 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkNext;
-        
-        /// <summary>
-        /// lblFirstImageOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFirstImageOk;
-        
-        /// <summary>
-        /// lblSecondImageOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSecondImageOk;
-        
-        /// <summary>
-        /// lblThirdImageOk control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblThirdImageOk;
     }
 }

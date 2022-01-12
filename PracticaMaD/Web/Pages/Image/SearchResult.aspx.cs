@@ -57,22 +57,27 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 Panel rowPanel = new Panel();
                 rowPanel.ID = "panel" + imageIndex.ToString();
                 rowPanel.CssClass = "w3-row w3-container w3-margin-bottom";
+
                 Panel panelImgCol = new Panel();
                 panelImgCol.ID = "panelImgCol" + imageIndex.ToString();
                 panelImgCol.CssClass = "w3-quarter w3-container w3-margin-bottom";
                 panelImgCol.Style["text-align"] = "right";
+
                 Panel panelContentCol = new Panel();
                 panelContentCol.ID = "panelContent" + imageIndex.ToString();
                 panelContentCol.CssClass = "w3-rest w3-container";
                 panelContentCol.Style["text-align"] = "left";
+
                 Panel panelContentTitleRow = new Panel();
                 panelContentTitleRow.ID = "panelContentTitleRow" + imageIndex.ToString();
                 panelContentTitleRow.CssClass = "w3-row";
                 panelContentTitleRow.Style["margin-bottom"] = "3px";
+
                 Panel panelContentLikeRow = new Panel();
                 panelContentLikeRow.ID = "panelContentLikeRow" + imageIndex.ToString();
                 panelContentLikeRow.CssClass = "w3-row";
                 panelContentLikeRow.Style["margin-bottom"] = "3px";
+
                 Panel panelContentCommentRow = new Panel();
                 panelContentCommentRow.ID = "panelContentCommentRow" + imageIndex.ToString();
                 panelContentCommentRow.CssClass = "w3-row";
@@ -81,6 +86,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 System.Web.UI.WebControls.Image imgImage = new System.Web.UI.WebControls.Image();
                 HyperLink lnkDetails = new HyperLink();
                 Label lblTitle = new Label();
+                Label lblBy = new Label();
                 HyperLink lnkAuthor = new HyperLink();
                 HyperLink lnkComments = new HyperLink();
                 Button btnNewComment = new Button();
@@ -101,9 +107,13 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 lnkDetails.Style["margin-left"] = "3px";
 
                 lblTitle.ID = "lblTitle" + imageIndex.ToString();
-                lblTitle.Text = imageInfo.title + " by";
+                lblTitle.Text = imageInfo.title;
                 lblTitle.Style["margin-left"] = "3px";
                 lblTitle.Style["margin-top"] = "3px";
+
+                lblBy.ID = "lblBy" + imageIndex.ToString();
+                lblBy.Text = GetLocalResourceObject("lblBy.Text").ToString();
+                lblBy.Style["margin-top"] = "3px";
 
                 lnkAuthor.ID = "lnkAuthor" + imageIndex.ToString();
                 lnkAuthor.Text = imageInfo.userName;
@@ -116,17 +126,18 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                     lnkComments.ID = "lnkComments" + imageIndex.ToString();
                     lnkComments.NavigateUrl = String.Format("~/Pages/Image/ShowComments.aspx?userId=" + imageInfo.userId);
                     lnkComments.Style["margin-left"] = "3px";
+                    lnkComments.Text = GetLocalResourceObject("lnkComments.Text").ToString();
                 }
                 else lnkComments.Visible = false;
 
                 btnNewComment.ID = "btnNewComment" + imageIndex.ToString();
                 btnNewComment.CommandArgument = imageInfo.imageId.ToString();
                 btnNewComment.Click += new EventHandler(BtnNewCommentOnClick);
-                btnNewComment.Text = "Post";
+                btnNewComment.Text = GetLocalResourceObject("lnkNewComment.Text").ToString();
                 btnNewComment.Style["margin-left"] = "3px";
 
                 btnLike.ID = "btnLike" + imageIndex.ToString();
-                btnLike.Text = "Like";
+                btnLike.Text = GetLocalResourceObject("btnLike.Text").ToString();
                 btnLike.Style["margin-left"] = "3px";
                 if (isAuthenticated && ActionsManager.AlreadyLiked(userId, imageInfo.imageId))
                     btnLike.Enabled = false;
@@ -135,12 +146,13 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 btnLike.CommandArgument = imageInfo.imageId.ToString();
 
                 lblLikes.ID = "lblLikes" + imageIndex.ToString();
-                lblLikes.Text = "Likes: " + imageInfo.likes.ToString();
+                lblLikes.Text = GetLocalResourceObject("lblLikes.Text").ToString() +" "+ imageInfo.likes.ToString();
                 lblLikes.Style["margin-left"] = "3px";
 
                 imageIndex++;
                 lnkDetails.Controls.Add(imgImage);
                 panelContentTitleRow.Controls.Add(lblTitle);
+                panelContentTitleRow.Controls.Add(lblBy);
                 panelContentTitleRow.Controls.Add(lnkAuthor);
                 panelContentLikeRow.Controls.Add(btnLike);
                 panelContentLikeRow.Controls.Add(lblLikes);
@@ -153,14 +165,6 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
                 rowPanel.Controls.Add(panelImgCol);
                 rowPanel.Controls.Add(panelContentCol);
                 columnPanel.Controls.Add(rowPanel);
-                //PlaceHolder_ImageCards.Controls.Add(imgImage);
-                //PlaceHolder_ImageCards.Controls.Add(lnkDetails);
-                //PlaceHolder_ImageCards.Controls.Add(lnkAuthor);
-                //PlaceHolder_ImageCards.Controls.Add(lnkComments);
-                //PlaceHolder_ImageCards.Controls.Add(btnNewComment);
-                //PlaceHolder_ImageCards.Controls.Add(btnLike);
-                //PlaceHolder_ImageCards.Controls.Add(lblLikes);
-                lblFirstImageOk.Visible = true;
             }
             PlaceHolder_ImageCards.Controls.Add(columnPanel);
 
@@ -238,10 +242,8 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
 
         protected void BtnLikeOnClick(object sender, EventArgs e)
         {
-            lblSecondImageOk.Visible = true;
             if (SessionManager.IsUserAuthenticated(Context))
             {
-                lblThirdImageOk.Visible = true;
                 Button btn = (Button)sender;
                 long userId = SessionManager.GetUserSession(Context).UserProfileId;
                 ActionsManager.LikeImage(userId, long.Parse(btn.CommandArgument.ToString()));
@@ -254,10 +256,8 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
 
         protected void BtnNewCommentOnClick(object sender, EventArgs e)
         {
-            lblSecondImageOk.Visible = true;
             if (SessionManager.IsUserAuthenticated(Context))
             {
-                lblThirdImageOk.Visible = true;
                 Button btn = (Button)sender;
                 Response.Redirect("~/Pages/Comment.aspx?imgID=" + btn.CommandArgument.ToString());
             } else
