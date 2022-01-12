@@ -14,6 +14,23 @@ namespace Es.Udc.DotNet.Photogram.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             BuildTagCloudAsp(50);
+            
+            if (SessionManager.GetUserSession(Context) != null)
+            {
+
+                this.lnkLogin.Visible = false;
+                this.lnkRegister.Visible = false;
+            }
+            else
+            {
+                this.lnkUpdateProfile.Visible = false;
+                this.lnkChangePwd.Visible = false;
+                this.lnkLogin.Visible = true;
+                this.lnkRegister.Visible = true;
+                this.lnkLogout.Visible = false;
+                this.lnkUploadImg.Visible = false;
+            }
+
 
             //ContentPlaceHolder_TagCloud.Controls.Add(new Literal() { Text = innerHtml });
         }

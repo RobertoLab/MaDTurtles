@@ -2,13 +2,6 @@
     CodeBehind="Register.aspx.cs" Inherits="Es.Udc.DotNet.Photogram.Web.Pages.User.Register"
     meta:resourcekey="Page" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder_MenuExplanation"
-    runat="server">
-    -
-    <asp:Localize ID="lclMenuExplanation" runat="server" meta:resourcekey="lclMenuExplanation" />
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder_MenuLinks" runat="server">
-</asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder_BodyContent"
     runat="server">
     <div id="form">

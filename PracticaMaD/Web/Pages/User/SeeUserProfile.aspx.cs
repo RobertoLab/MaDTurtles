@@ -50,7 +50,13 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.User
             lblUserName.Text = userProfile.firstName;
             lblUserLastName.Text = userProfile.lastName;
             lblUserEmail.Text = userProfile.email;
-            btnFollow.Visible = !interactionService.Follows(userId, myId);
+            if (myId != 0)
+            {
+                btnFollow.Visible = !interactionService.Follows(userId, myId);
+            }else
+            {
+                btnFollow.Visible = false;
+            }
 
             Block<ImageBasicInfo> images = imageService.SearchByUserId(userId,startIndex,3);
             if(images.items.Count > 0)
