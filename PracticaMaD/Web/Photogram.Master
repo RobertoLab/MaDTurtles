@@ -38,7 +38,7 @@
                     <ul id="menuLinks">
 
                         <li>
-                            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lnkHomeResource1" >[lnkHome]</asp:HyperLink>
+                            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Pages/User/MyProfile.aspx" meta:resourcekey="lnkHomeResource1" >[lnkHome]</asp:HyperLink>
                         </li>
 
                         <li>
