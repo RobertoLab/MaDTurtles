@@ -9,6 +9,7 @@ using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.UserService;
 using Es.Udc.DotNet.Photogram.Model.InteractionService;
 using Es.Udc.DotNet.Photogram.Web.HTTP.Session;
+using Es.Udc.DotNet.Photogram.Web.HTTP.Actions;
 using Es.Udc.DotNet.ModelUtil.IoC;
 
 namespace Es.Udc.DotNet.Photogram.Web.Pages
@@ -58,6 +59,9 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             this.btnLike.Visible = true;
             this.btnUnlike.Visible = false;
 
+            if (SessionManager.IsUserAuthenticated(Context)
+                && ActionsManager.IsPropietary(userID, imgID))
+                btnDeleteImage.Enabled = true;
 
         }
 
@@ -66,21 +70,31 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             if (Page.IsValid)
             {
                 /* Get data. */
-                UserSession userSession = SessionManager.GetUserSession(Context);
-                long userID = userSession.UserProfileId;
+                long userID = 0;
+                if (SessionManager.GetUserSession(Context) != null)
+                {
+                    UserSession userSession = SessionManager.GetUserSession(Context);
+                    userID = userSession.UserProfileId;
+                }
                 long imgID = Convert.ToInt32(Request.Params.Get("imgID"));
 
                 /* Get the Service */
                 IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
                 IInteractionService interactionService = iocManager.Resolve<IInteractionService>();
-                /* Do action. */
+                if (userID != 0)
+                {
+                    /* Do action. */
+                    interactionService.LikeImage(userID, imgID);
 
-                interactionService.LikeImage(userID, imgID);
-
-                /* Change d isplay */
-
-                this.btnLike.Visible = false;
-                this.btnUnlike.Visible = true;
+                    /* Change display */
+                    this.btnLike.Visible = false;
+                    this.btnUnlike.Visible = true;
+                }
+                else
+                {
+                    String url = String.Format("~/Pages/User/Authentication.aspx");
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
 
             }
         }
@@ -113,9 +127,25 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
         {
             if (Page.IsValid)
             {
+                long userId = 0;
+                if (SessionManager.GetUserSession(Context) != null)
+                {
+                    UserSession userSession = SessionManager.GetUserSession(Context);
+                    userId = userSession.UserProfileId;
+                }
                 long imgID = Convert.ToInt32(Request.Params.Get("imgID"));
-                String url = String.Format("./Comment.aspx?imgID={0}", imgID);
-                Response.Redirect(Response.ApplyAppPathModifier(url));
+                if (userId != 0)
+                {
+                    String url = String.Format("./Comment.aspx?imgID={0}", imgID);
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
+                else
+                {
+                    String url = String.Format("~/Pages/User/Authentication.aspx");
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
+                
+
 
             }
         }
@@ -129,6 +159,13 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
                 Response.Redirect(Response.ApplyAppPathModifier(url));
 
             }
+        }
+
+        protected void BtnDeleteImageOnClick(object sender, EventArgs e)
+        {
+            long imgId = Convert.ToInt32(Request.Params.Get("imgID"));
+            long userId = SessionManager.GetUserSession(Context).UserProfileId;
+            ActionsManager.DeleteImage(imgId, userId);
         }
     }
 }

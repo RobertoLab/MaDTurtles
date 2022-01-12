@@ -268,38 +268,6 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
             return categories;
         }
 
-        public byte[] GetImage(long imageId)
-        {
-            try
-            {
-                Image image = ImageDao.Find(imageId);
-
-                if (image.path == null)
-                {
-                    return image.img;
-                }
-                else
-                {
-                    return GetImageFromFile(image.path);
-                }
-            } catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        public byte[] GetThumbnail(long imageId)
-        {
-            byte[] imageAsBytes = GetImage(imageId);
-            if (imageAsBytes == null) return null;
-            using (MemoryStream ms = new MemoryStream())
-            using (System.Drawing.Image thumbnail = System.Drawing.Image.FromStream(new MemoryStream(imageAsBytes)).GetThumbnailImage(100, 100, null, new IntPtr()))
-            {
-                thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                return ms.ToArray();
-            }
-        }
-
         public Block<ImageBasicInfo> SearchByUserId(long userId, int startIndex, int count) {
             List<Image> imagesFound = new List<Image>();
             imagesFound = ImageDao.FindByUserId(userId, startIndex, count + 1);
@@ -344,6 +312,44 @@ namespace Es.Udc.DotNet.Photogram.Model.ImageService
 
             if (existMoreImages) imagesFound.RemoveAt(count);
             return new Block<ImageBasicInfo>(ToImageBasicInfos(imagesFound), existMoreImages);
+        }
+        
+        public byte[] GetImage(long imageId)
+        {
+            try
+            {
+                Image image = ImageDao.Find(imageId);
+
+                if (image.path == null)
+                {
+                    return image.img;
+                }
+                else
+                {
+                    return GetImageFromFile(image.path);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public byte[] GetThumbnail(long imageId)
+        {
+            byte[] imageAsBytes = GetImage(imageId);
+            if (imageAsBytes == null) return null;
+            using (MemoryStream ms = new MemoryStream())
+            using (System.Drawing.Image thumbnail = System.Drawing.Image.FromStream(new MemoryStream(imageAsBytes)).GetThumbnailImage(100, 100, null, new IntPtr()))
+            {
+                thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                return ms.ToArray();
+            }
+        }
+
+        public bool IsPropietary(long userId, long imgId)
+        {
+            return ImageDao.BelongsTo(imgId, userId);
         }
         #endregion IImageService Members
     }

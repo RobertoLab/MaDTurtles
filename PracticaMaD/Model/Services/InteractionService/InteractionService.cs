@@ -96,6 +96,7 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
             }
         }
 
+        [Transactional]
         public bool AlreadyLiked(long userId, long imgId)
         {
             Image imageToLike = ImageDao.Find(imgId);
@@ -106,7 +107,8 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
             {
                 return true;
 
-            } else
+            }
+            else
             {
                 return false;
             }
@@ -117,7 +119,7 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
         {
             return ImageDao.FindWithRelatedInfo(imgId).UsersLikes.Count;
         }
-
+        [Transactional]
         public bool Commented(long imgId)
         {
             Image image = ImageDao.Find(imgId);
@@ -130,6 +132,36 @@ namespace Es.Udc.DotNet.Photogram.Model.InteractionService
                 return true;
             }
 
+        }
+
+        [Transactional]
+        public bool Follows(long followedId, long followerId)
+        {
+            User followed = UserDao.Find(followedId);
+            User follower = UserDao.Find(followerId);
+            ICollection<User> usersFollowed = follower.UserFollow;
+            if (usersFollowed.Contains(followed))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [Transactional]
+        public void Follow(long followedId, long followerId)
+        {
+            User followed = UserDao.Find(followedId);
+            User follower = UserDao.Find(followerId);
+            ICollection<User> usersFollowed = follower.UserFollow;
+            if (!usersFollowed.Contains(followed))
+            {
+                usersFollowed.Add(followed);
+                follower.UserFollow = usersFollowed;
+                UserDao.UpdateUserFollow(follower);
+            }
         }
     }
 }

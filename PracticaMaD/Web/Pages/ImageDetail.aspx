@@ -18,5 +18,6 @@
         <asp:Button ID="btnShowComments" runat="server" Text="Show Comments" OnClick="BtnShowCommentsClick" />
         <asp:Button ID="btnLike" runat="server" Text="Like" OnClick="BtnLikeClick" />
         <asp:Button ID="btnUnlike" runat="server" Text="Unlike" OnClick="BtnUnlikeClick" />
+        <asp:Button ID="btnDeleteImage" runat="server" Text="Delete" Enabled="false" OnClick="BtnDeleteImageOnClick" />
     </form>
 </asp:Content>

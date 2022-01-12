@@ -25,12 +25,25 @@ namespace Es.Udc.DotNet.Photogram.Model.UserDao
         /// <param name="user">The user.</param>
         void UpdateImagesLiked(User user);
 
+
+        /// <summary>
+        /// Updates the users followed by the user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        void UpdateUserFollow(User user);
         /// <summary>
         /// User exists by given username.
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <returns>True if it exists, false otherwise.</returns>
         bool Exists(string userName);
+
+        /// <summary>
+        /// Finds the id of a user given its userName.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>The id of the user.</returns>
+        long FindUserId(string userName);
     }
 }
 

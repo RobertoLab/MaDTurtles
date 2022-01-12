@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Photogram.Master" AutoEventWireup="true" CodeBehind="SeeUserProfile.aspx.cs" Inherits="Es.Udc.DotNet.Photogram.Web.Pages.User.SeeUserProfile" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Photogram.Master" AutoEventWireup="true" CodeBehind="MyProfile.aspx.cs" Inherits="Es.Udc.DotNet.Photogram.Web.Pages.User.MyProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     <p>
         <asp:Label ID="lblUserName" runat="server" Text="Label"></asp:Label>
@@ -8,9 +8,8 @@
         <asp:Label ID="lblUserEmail" runat="server" Text="Label"></asp:Label>
     </p>
     <form id="profileBtnsForm" runat="server">
-        <asp:Button ID="btnFollowed" runat="server" Text="Button" />
-        <br />
-        <asp:Button ID="btnFollow" runat="server" Text="Button" />
+        <asp:Button ID="btnFollowed" runat="server" Text="Button" /> &nbsp;
+        <asp:Button ID="btnFollowers" runat="server" Text="Button" />
         <br />
         <asp:Image ID="img1" runat="server" Height="150px" Width="300px"></asp:Image> 
         <asp:Button ID="btnImg1" runat="server" Text="Foto1" OnClick="BtnImg1Click" />

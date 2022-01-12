@@ -164,5 +164,15 @@ namespace Es.Udc.DotNet.Photogram.Web.HTTP.Actions
         {
             return interactionService.AlreadyLiked(userId, imgId);
         }
+
+        public static bool IsPropietary(long userId, long imgId)
+        {
+            return imageService.IsPropietary(userId, imgId);
+        }
+
+        public static void DeleteImage(long imgId, long userId)
+        {
+            imageService.DeleteImage(imgId, userId);
+        }
     }
 }

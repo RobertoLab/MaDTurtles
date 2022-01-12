@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Es.Udc.DotNet.Photogram.Model.ImageService;
 using Es.Udc.DotNet.Photogram.Model.Dtos;
 using Es.Udc.DotNet.Photogram.Model.InteractionService;
+using Es.Udc.DotNet.Photogram.Model.UserService;
 using Es.Udc.DotNet.Photogram.Web.HTTP.Session;
 using Es.Udc.DotNet.ModelUtil.IoC;
 
@@ -37,7 +38,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             /* Get the Service */
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             IInteractionService interactionService = iocManager.Resolve<IInteractionService>();
-
+            IUserService userService = iocManager.Resolve<IUserService>();
             /* Get the Comments */
 
             Block<CommentInfo> comments = interactionService.GetImageComments(imgID, startIndex, 3);
@@ -51,16 +52,22 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages
             /* Display the usernames and comments */
             if (comments.items.Count > 0) {
                 this.lnkUser1.Text = comments.items.ElementAt(0).userName;
+                this.lblDate1.Text= comments.items.ElementAt(0).uploadDate;
+                this.lnkUser1.NavigateUrl = String.Format("~/Pages/User/SeeUserProfile.aspx?userId={0}", userService.FindUserId(comments.items.ElementAt(0).userName));
                 this.commentUser1.Text = comments.items.ElementAt(0).comment;
             }
             if (comments.items.Count > 1) {
                 this.lnkUser2.Text = comments.items.ElementAt(1).userName;
+                this.lblDate2.Text = comments.items.ElementAt(1).uploadDate;
+                this.lnkUser2.NavigateUrl = String.Format("~/Pages/User/SeeUserProfile.aspx?userId={0}", userService.FindUserId(comments.items.ElementAt(1).userName));
                 this.commentUser2.Text = comments.items.ElementAt(1).comment;
 
             }
             if (comments.items.Count > 2){ 
-            this.lnkUser3.Text = comments.items.ElementAt(2).userName;            
-            this.commentUser3.Text = comments.items.ElementAt(2).comment;
+                this.lnkUser3.Text = comments.items.ElementAt(2).userName;
+                this.lblDate3.Text = comments.items.ElementAt(2).uploadDate;
+                this.lnkUser3.NavigateUrl = String.Format("~/Pages/User/SeeUserProfile.aspx?userId={0}", userService.FindUserId(comments.items.ElementAt(2).userName));
+                this.commentUser3.Text = comments.items.ElementAt(2).comment;
             }
 
 

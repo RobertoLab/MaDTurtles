@@ -137,7 +137,6 @@
     <Compile Include="Image.cs">
       <DependentUpon>Photogram.tt</DependentUpon>
     </Compile>
-    <Compile Include="Daos\ImageDao\CategoryNotFoundException.cs" />
     <Compile Include="Services\ImageService\DeleteDeniedException.cs" />
     <Compile Include="Daos\ImageDao\ImageDaoEntityFramework.cs" />
     <Compile Include="Daos\ImageDao\IImageDao.cs" />
