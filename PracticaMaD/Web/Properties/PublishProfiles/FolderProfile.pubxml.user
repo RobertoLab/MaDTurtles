@@ -10,13 +10,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_GlobalResources/Common.es.resx">
-      <publishTime>01/12/2022 02:06:43</publishTime>
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="App_GlobalResources/Common.gl.resx">
-      <publishTime>01/12/2022 02:06:43</publishTime>
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="App_GlobalResources/Common.resx">
-      <publishTime>01/12/2022 02:06:43</publishTime>
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="bin/Castle.Core.dll">
       <publishTime>01/11/2022 04:17:45</publishTime>
@@ -205,10 +205,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/09/2022 15:10:42</publishTime>
     </File>
     <File Include="bin/Web.dll">
-      <publishTime>01/12/2022 22:41:58</publishTime>
+      <publishTime>01/12/2022 23:58:30</publishTime>
     </File>
     <File Include="bin/Web.pdb">
-      <publishTime>01/12/2022 22:41:58</publishTime>
+      <publishTime>01/12/2022 23:58:30</publishTime>
     </File>
     <File Include="bin/WebActivatorEx.dll">
       <publishTime>11/07/2021 22:13:29</publishTime>
@@ -218,6 +218,15 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     </File>
     <File Include="Global.asax">
       <publishTime>01/11/2022 04:17:45</publishTime>
+    </File>
+    <File Include="Pages/App_LocalResources/ImageDetail.aspx.es.resx">
+      <publishTime>01/12/2022 23:44:38</publishTime>
+    </File>
+    <File Include="Pages/App_LocalResources/ImageDetail.aspx.gl.resx">
+      <publishTime>01/12/2022 23:44:38</publishTime>
+    </File>
+    <File Include="Pages/App_LocalResources/ImageDetail.aspx.resx">
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="Pages/App_LocalResources/MainPage.aspx.es.resx">
       <publishTime>01/11/2022 04:17:45</publishTime>
@@ -250,7 +259,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/12/2022 03:20:34</publishTime>
     </File>
     <File Include="Pages/Image/App_LocalResources/Search.aspx.resx">
-      <publishTime>01/12/2022 03:20:34</publishTime>
+      <publishTime>01/12/2022 23:44:38</publishTime>
+    </File>
+    <File Include="Pages/Image/App_LocalResources/SearchResult.aspx.es.resx">
+      <publishTime>01/12/2022 23:44:38</publishTime>
+    </File>
+    <File Include="Pages/Image/App_LocalResources/SearchResult.aspx.gl.resx">
+      <publishTime>01/12/2022 23:44:38</publishTime>
+    </File>
+    <File Include="Pages/Image/App_LocalResources/SearchResult.aspx.resx">
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="Pages/Image/App_LocalResources/Upload.aspx.es.resx">
       <publishTime>01/11/2022 04:17:45</publishTime>
@@ -262,22 +280,22 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/11/2022 04:17:45</publishTime>
     </File>
     <File Include="Pages/Image/Search.aspx">
-      <publishTime>01/12/2022 17:25:16</publishTime>
+      <publishTime>01/12/2022 23:19:39</publishTime>
     </File>
     <File Include="Pages/Image/SearchResult.aspx">
-      <publishTime>01/12/2022 03:20:34</publishTime>
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="Pages/Image/Upload.aspx">
       <publishTime>01/12/2022 02:06:43</publishTime>
     </File>
     <File Include="Pages/ImageDetail.aspx">
-      <publishTime>01/12/2022 21:41:16</publishTime>
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="Pages/MainPage.aspx">
       <publishTime>01/09/2022 16:18:00</publishTime>
     </File>
     <File Include="Pages/ShowComments.aspx">
-      <publishTime>01/12/2022 21:01:34</publishTime>
+      <publishTime>01/12/2022 23:44:38</publishTime>
     </File>
     <File Include="Pages/User/App_LocalResources/Authentication.aspx.es.resx">
       <publishTime>01/09/2022 16:18:00</publishTime>
@@ -316,10 +334,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/11/2022 04:17:45</publishTime>
     </File>
     <File Include="Pages/User/Authentication.aspx">
-      <publishTime>01/09/2022 16:18:00</publishTime>
+      <publishTime>01/12/2022 23:35:47</publishTime>
     </File>
     <File Include="Pages/User/ChangePassword.aspx">
-      <publishTime>01/09/2022 16:18:00</publishTime>
+      <publishTime>01/12/2022 23:43:40</publishTime>
     </File>
     <File Include="Pages/User/Logout.aspx">
       <publishTime>01/11/2022 04:17:45</publishTime>
@@ -328,7 +346,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/12/2022 17:34:31</publishTime>
     </File>
     <File Include="Pages/User/Register.aspx">
-      <publishTime>01/11/2022 04:17:45</publishTime>
+      <publishTime>01/12/2022 23:38:45</publishTime>
     </File>
     <File Include="Pages/User/SeeUserProfile.aspx">
       <publishTime>01/12/2022 21:16:34</publishTime>
@@ -337,10 +355,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/12/2022 21:01:34</publishTime>
     </File>
     <File Include="Pages/User/UpdateUserProfile.aspx">
-      <publishTime>01/09/2022 16:18:00</publishTime>
+      <publishTime>01/12/2022 23:43:32</publishTime>
     </File>
     <File Include="Photogram.Master">
-      <publishTime>01/12/2022 21:40:40</publishTime>
+      <publishTime>01/12/2022 23:44:23</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>01/12/2022 22:30:39</publishTime>
