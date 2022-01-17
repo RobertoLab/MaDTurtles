@@ -58,15 +58,15 @@
                         </li>
 
                         <li>
-                            <asp:HyperLink ID="lnkChangePwd" runat="server" NavigateUrl="~/Pages/User/Logout.aspx" Text="<%$ Resources: Common, lnkChangePwd %>"></asp:HyperLink>
+                            <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/User/Logout.aspx" Text="<%$ Resources: Common, lnkLogout %>"></asp:HyperLink>
                         </li>
 
                         <li>
-                            <asp:HyperLink ID="lnkUpdateProfile" runat="server" NavigateUrl="~/Pages/User/ChangePassword.aspx" Text="<%$ Resources: Common, lnkUpdateProfile %>"></asp:HyperLink>
+                            <asp:HyperLink ID="lnkChangePwd" runat="server" NavigateUrl="~/Pages/User/ChangePassword.aspx" Text="<%$ Resources: Common, lnkChangePwd %>"></asp:HyperLink>
                         </li>
 
                         <li>
-                            <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/User/UpdateUserProfile.aspx" Text="<%$ Resources: Common, lnkLogout %>"></asp:HyperLink>
+                            <asp:HyperLink ID="lnkUpdateProfile" runat="server" NavigateUrl="~/Pages/User/UpdateUserProfile.aspx" Text="<%$ Resources: Common, lnkUpdateProfile %>"></asp:HyperLink>
                         </li>
 
                     </ul>

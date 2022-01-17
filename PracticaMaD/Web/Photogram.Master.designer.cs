@@ -85,6 +85,15 @@ namespace Es.Udc.DotNet.Photogram.Web {
         protected global::System.Web.UI.WebControls.HyperLink lnkUploadImg;
         
         /// <summary>
+        /// lnkLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkLogout;
+        
+        /// <summary>
         /// lnkChangePwd control.
         /// </summary>
         /// <remarks>
@@ -101,15 +110,6 @@ namespace Es.Udc.DotNet.Photogram.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkUpdateProfile;
-        
-        /// <summary>
-        /// lnkLogout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLogout;
         
         /// <summary>
         /// ContentPlaceHolder_TagCloud control.
