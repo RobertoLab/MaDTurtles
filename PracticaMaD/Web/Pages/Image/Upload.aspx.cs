@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.Photogram.Web.Pages.Image
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            lnkUploadImg.Enabled = false;
+           
             lblCategoryError.Visible = false;
             lblDescriptionError.Visible = false;
             lblTitleError.Visible = false;
